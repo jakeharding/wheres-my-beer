@@ -1,3 +1,3 @@
 # CSCI4970 - Capstone project
 
-## Beer recommendation application
+## Django backend for Where's my beer? beer recommendation application
