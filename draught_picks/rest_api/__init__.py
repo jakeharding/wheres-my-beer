@@ -10,8 +10,8 @@ Author(s) of this file:
 Constructs the urls for the REST API.
 """
 
-from django.conf.urls import url, include
+from django.urls import re_path, include
 
 urlpatterns = [
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    re_path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
 ]

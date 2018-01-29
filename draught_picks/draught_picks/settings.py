@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+REST_API_VERSION = 'dev'
 
 # Application definition
 
