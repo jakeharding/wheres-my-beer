@@ -1,0 +1,7 @@
+.idea/
+.DS_Store
+*.iml
+__pycache__/
+.coverage
+local_settings.py
+*.log
