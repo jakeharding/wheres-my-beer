@@ -20,9 +20,9 @@ DATABASES = {
     }
 }
 
-#CHANNEL_LAYERS = {
-#    "default": {
-#        "BACKEND": "asgiref.inmemory.ChannelLayer",
-#        "ROUTING": "draught_picks.events.routing.channel_routing",
-#    },
-#}
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "asgiref.inmemory.ChannelLayer",
+#         "ROUTING": "draught_picks.events.routing.channel_routing",
+#     },
+# }
