@@ -29,6 +29,8 @@ ALLOWED_HOSTS = []
 
 REST_API_VERSION = 'dev'
 
+AUTH_USER_MODEL = 'users.DraughtPicksUser'
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'users',
+    'rest_api',
 ]
 
 MIDDLEWARE = [
