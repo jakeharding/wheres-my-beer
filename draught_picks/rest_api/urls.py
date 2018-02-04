@@ -12,7 +12,15 @@ Constructs the urls for the REST API.
 
 from django.urls import re_path, include
 from rest_framework.authtoken import views
+from rest_framework.routers import DefaultRouter
+
+from users.views import UserViewSet
+
+router = DefaultRouter(trailing_slash=False)
+
+router.register('users', UserViewSet)
 
 urlpatterns = [
-    re_path(r'^login', views.obtain_auth_token)
+    re_path(r'^login', views.obtain_auth_token),
+    re_path(r'', include(router.urls)),
 ]
