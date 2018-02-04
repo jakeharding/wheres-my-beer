@@ -10,6 +10,15 @@ Local settings are for environment specific settings like database config, debug
 This is a minimal example to help setup development when using more than the default database settings.
 """
 
+# Add a secret key
+SECRET_KEY = 'some key here'
+
+# Allow the client access to REST API
+CORS_ORIGIN_WHITELIST = (
+    'client hostname'
+)
+
+# Define the database connection
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgres',

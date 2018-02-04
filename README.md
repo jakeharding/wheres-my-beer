@@ -2,6 +2,11 @@
 
 ## Draught picks - A beer profiling and recommendation application
 
+Dev Branch Status:
+[![Coverage Status](https://coveralls.io/repos/github/jakeharding/draught-picks-backend/badge.svg?branch=dev)](https://coveralls.io/github/jakeharding/draught-picks-backend?branch=master)
+
+[![Build Status](https://travis-ci.org/jakeharding/draught-picks-backend.svg?branch=dev)](https://travis-ci.org/jakeharding/draught-picks-backend)
+
 Please see the [contributing](https://github.com/jakeharding/draught-picks-backend/master/CONTRIBUTING.md) document for contribution guidelines.
 
 ## Backend
