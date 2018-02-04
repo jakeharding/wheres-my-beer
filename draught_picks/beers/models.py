@@ -23,6 +23,7 @@ class Beer(m.Model):
     ibu = m.PositiveSmallIntegerField(blank=True, null=True)
     api_id = m.CharField(max_length=255, help_text="Unique id of the api the beer was pulled from")
     name_of_api = m.CharField(max_length=255, help_text="Name of the api used to get data.")
+    created_at = m.DateTimeField(auto_now_add=True, help_text="Date and time the beer was added to this database")
 
 
 class BeerRating(m.Model):
@@ -31,4 +32,11 @@ class BeerRating(m.Model):
     beer = m.ForeignKey(Beer, on_delete=m.PROTECT)
     rating = m.PositiveSmallIntegerField()
     description = m.TextField(blank=True, null=True)
+    created_at = m.DateTimeField(auto_now_add=True)
 
+
+class RecentBeer(m.Model):
+    uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+    user = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.PROTECT)
+    beer = m.ForeignKey(Beer, on_delete=m.PROTECT)
+    created_at = m.DateTimeField(auto_now_add=True)
