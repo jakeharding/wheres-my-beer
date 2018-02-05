@@ -1,0 +1,25 @@
+[
+{
+    "model": "users.draughtpicksuser",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$100000$FH1eZkEylawX$S10LdYLoXI4c4wX5KAlOe1YuYzJcxnqVXOx8Jk6RbCA=",
+        "last_login": "2018-02-04T01:10:46.747Z",
+        "is_superuser": true,
+        "username": "admin",
+        "first_name": "",
+        "last_name": "",
+        "email": "a@admin.com",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2018-02-04T01:10:24.755Z",
+        "uuid": "994d741b-8848-4103-b6b1-07c956d6263d",
+        "date_of_birth": "1997-05-05",
+        "weight": null,
+        "groups": [],
+        "user_permissions": [],
+        "favorite_beers": [],
+        "recent_beers": []
+    }
+}
+]

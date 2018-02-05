@@ -1,0 +1,10 @@
+language: python
+python:
+  - "3.6"
+script:
+  - "pip install -r requirements.txt"
+  - "pip install python-coveralls"
+services:
+  - "postgresql"
+after_success:
+  - "coveralls"
