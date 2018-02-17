@@ -11,17 +11,25 @@ Define how a grammar and it's productions rules behave.
 """
 
 import re
-from collections import OrderedDict
+from collections import OrderedDict, Set
+
+
+class TreeNode(object):
+    children = []
+    name = ''
+
+    def __init__(self, name, children=[]):
+        self.name = name
+        self.children = children
 
 
 class ProductionRule(object):
     """
     Class to model a production rule in the grammar.
     Right hand side could possibly have non terminal, terminals, or combination of both.
-
     """
-    sym_regex = re.compile(r'^<(?P<symbol>\w+)>$')
-    left_hand = ''  # Left hand side of the grammar. Will match the key of Grammar.grammar
+    sym_regex = re.compile(r'^(?P<symbol><\w+>)$')
+    left_hand = ''  # Left hand side of the grammar. Will match a key in Grammar.grammar
 
     # 2D lists are used to map the non terminals to terminal in the same case of a right hand rule.
     # For instance, rh = ['<non_term0> <non_term0.1>', '<non_term0> term1', '<non_term1> term2 term3'] would map to
@@ -33,6 +41,7 @@ class ProductionRule(object):
 
     def __init__(self, lh, rh):
         # Reset the lists to empty or they will be held statically in memory
+        # 2D lists. each member list is a case in the RH production of a grammar rule
         self.terminals = []
         self.non_terminals = []
         self.left_hand = lh
@@ -44,7 +53,6 @@ class ProductionRule(object):
             for (i, n) in enumerate(rh_case):
                 has_non_term = False  # Flag to tell if a term symbol is associated with a non term
                 m = self.sym_regex.match(n)
-                # curr_index = len(this_case_non_terms)
                 if m:
                     "We have a symbol to use on the left hand side of the grammar"
                     # this_case_terms[i] = None
@@ -60,24 +68,22 @@ class ProductionRule(object):
                         term_index -= 1
                     this_case_terms[term_index] = n
 
-                    # Get the existing property on the grammar or an empty set if it doesn't exist
-                    g_rules = getattr(Grammar, n, set())
-
                     # Set property on Grammar class of non term the set containing this rule
                     # We access the production rule for a non term when parsing a description by
                     # getattr(Grammar, non_term). Will return None if it doesn't exist
                     # Python set.add method has O(1) time complexity
                     # according to https://www.ics.uci.edu/~pattis/ICS-33/lectures/complexitypython.txt
-                    setattr(Grammar, n, g_rules.add(self))
+                    setattr(Grammar, n, self)
 
             self.terminals.append(this_case_terms)
             self.non_terminals.append(this_case_non_terms)
             # print(self.rule_regex.findall(i))
             # for r in self.rule_regex.findall(i):
             #     print(r)
-        print(self.terminals)
-        print(self.non_terminals)
-        print('\n')
+        # print(self.left_hand)
+        # print(self.terminals)
+        # print(self.non_terminals)
+        # print('\n')
 
 
 class Grammar(object):
@@ -87,32 +93,144 @@ class Grammar(object):
     # Avoid right hand production or case containing more than one terminal: '<term1> nonterm1 nonterm2'
     # Create another production rule instead.
     grammar = OrderedDict({
-        'beer': ['<type_list>'],
-        'type_list': ['<type> <sep> <type_list>', '<epsilon>'],
-        'type': ['<adj_ale>', '<lager>'],
-        'adj_ale': ['<ales>', '<stouts>'],
-        'ales': ['<adj_list> ale', '<adj_list> ales', ],
-        'stouts': ['<adj_list> stout', '<adj_list> stouts'],
-        'lager': ['<adj_list> lager', '<adj_list> lagers'],
-        'adj_list': ['<adj> <sep> <adj_list>', '<epsilon>'],
-        'adj': ['<color>', '<origin>'],
-        'color': ['pale', 'brown'],
-        'origin': ['india', 'american'],
-        'sep': ['-', ',', 'and', '<epsilon>'],
-        'epsilon': [''],
+        '<beer>': ['<type_list>'],
+        '<type_list>': ['<type> <sep> <type_list>'],
+        '<type>': ['<adj_ale>', '<lager>'],
+        '<adj_ale>': ['<ales>', '<stouts>'],
+        '<ales>': ['<adj_list> ale', '<adj_list> ales', ],
+        '<stouts>': ['<adj_list> stout', '<adj_list> stouts'],
+        '<lager>': ['<adj_list> lager', '<adj_list> lagers'],
+        '<adj_list>': ['<adj> <adj_list>'],
+        '<adj>': ['<color>', '<origin>'],
+        '<color>': ['pale', 'brown'],
+        '<origin>': ['india', 'american'],
+        '<sep>': ['-', ',', 'and'],
+        # '<epsilon>': [''],
     })
 
-    @staticmethod
-    def build():
+    @classmethod
+    def build(cls):
         rules = []
         for lh, rh in Grammar.grammar.items():
+            # node = TreeNode(lh)
+            # for r in rh:
+            #     for s in r.split():
+            #         sym_node = TreeNode(s)
+            #         node.children.append(sym_node)
+            # print_tree(node, '')
+
             rules.append(ProductionRule(lh, rh))
         setattr(Grammar, 'rules', rules)
-
-        f = getattr(Grammar, 'beer_type_list')
-        if f:
-            f()
+        # cls.root_node = TreeNode()
 
     @staticmethod
     def beer_type_list(value):
+        """
+        An example of method to handle semantics. Name of method is significant so we can use getattr.
+        :param value: Value to define a meaning to.
+        :return:
+        """
         print("semantics go here", value)
+
+
+class DescriptionParser(object):
+    """
+    Builds the parse tree for a description.
+    """
+    description = ''
+
+    def parse(self):
+
+        stack = []
+        remaining = self.tokens
+
+        while len(remaining) > 0:
+            self.shift(stack, remaining)
+            while self.reduce(stack):
+                pass
+        print(stack)
+
+    def shift(self, stack, remaining):
+        stack.append(remaining[0])
+        remaining.remove(remaining[0])
+
+    def case_matches_stack(self, case, stack):
+
+        for m in stack:
+            if isinstance(m, str) and m in case:
+                # If we have a string it is a terminal and if it is in the rule we have a match
+                return case, 1
+        # We make it here a tree is present in the stack. Map the strings to a list of strings to match a rule.
+        # This could a combo of terminals and non terminals
+        combo = list(map(lambda n: n.name if isinstance(n, TreeNode) else n, stack))
+        return (case, len(combo)) if combo == case else (None, None)
+
+    def reduce(self, stack):
+        for lh, rh in Grammar.grammar.items():
+            for case in rh:
+                case_as_list = case.split()
+                is_match, match_length = self.case_matches_stack(case_as_list, stack[-len(case_as_list):])
+                if is_match:
+                    trees = list(map(lambda c: TreeNode(c) if isinstance(c, str) else c, case_as_list))
+                    stack[-match_length:] = [TreeNode(lh, trees)]
+                    return case
+        return None
+
+    def __init__(self, description):
+        self.description = description
+        self.tokens = description.split()
+
+        # Create initial nodes
+
+        # self.root_node = TreeNode(ProductionRule('beer', ['type_list']), 'beer')
+        #
+
+        # root_node = TreeNode('<beer>')
+        #
+        # stack = []
+        # for token_index, token in enumerate(self.tokens):
+        #     rule = getattr(Grammar, token, None)
+        #     if rule:
+        #
+        #         # We found a terminal symbol
+        #         t_node = TreeNode('"%s"' % token)  # Don't add to children until we have it's non terminal epsilon sibling
+        #         # print(root_node.children)
+        #         # Find index of terminal in rule
+        #         # print(rule.left_hand)
+        #         terminal_parent = TreeNode(rule.left_hand)
+        #         for p_rule in Grammar.rules:
+        #             for p in p_rule.non_terminals:
+        #                 if rule.left_hand in p:
+        #                     terminal_parent.children.append(TreeNode(p))
+        #         stack.append(p)
+        #         # parent.children.append(t_node)
+        #         # root_node.children.append(terminal_parent)
+        #
+        #         # Find any non term nodes to the left of this term that would go to epsilon
+        #         for i, term in enumerate(rule.terminals):
+        #             if token in term:
+        #                 rh_index = i
+        #                 break
+        #         if rule.non_terminals[rh_index]:
+        #             for nt in rule.non_terminals[rh_index]:
+        #                 if nt:
+        #                     # We have found a non terminal
+        #                     nt_node = TreeNode(nt)
+        #                     nt_node.children.append(TreeNode('<epsilon>'))
+        #                     terminal_parent.children.append(nt_node)
+        #                     terminal_parent.children.append(t_node)
+        #                     break
+                # root_node.children.append(t_node)
+        # print(root_node.children)
+
+                # case = Grammar.grammar[rule.left_hand][rh_index]
+                # print(case)
+        # print_tree(root_node, '')
+
+
+def print_tree(node, margin='--'):
+    print('%s%s' % (margin, node.name))
+    margin += '|--'
+    # print(node.children[0].children)
+    for child in node.children:
+        print_tree(child, margin)
