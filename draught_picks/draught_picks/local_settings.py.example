@@ -21,7 +21,7 @@ CORS_ORIGIN_WHITELIST = (
 # Define the database connection
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgres',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'NAME',
         'USER': 'USER',
         'PASSWORD': 'PASSWORD',
