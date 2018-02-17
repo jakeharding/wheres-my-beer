@@ -3,7 +3,8 @@ python:
   - "3.6"
 script:
   - "pip install -r requirements.txt"
-  - "pip install python-coveralls"
+  - "pip install python-coveralls coverage"
+  - "coverage run --source=draught_picks manage.py test"
 services:
   - "postgresql"
 after_success:
