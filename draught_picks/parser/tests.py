@@ -146,7 +146,7 @@ from .Grammar import ProductionRule, Grammar, DescriptionParser, TreeNode, print
 class TestParser(TestCase):
 
     def setUp(self):
-        Grammar.build()
+        # Grammar.build()
         self.parser = DescriptionParser("I like lagers and stouts")
 
     def test_shift(self):
@@ -188,12 +188,12 @@ class TestParser(TestCase):
         # Assert
         self.assertTrue(result is case, "%s %s" % (result, case))
 
-    def test_reduce(self):
-        # Arrange
-        stack = ["lagers", "stouts"]
-
-        # Act
-        result = self.parser.reduce(stack)
+    # def test_reduce(self):
+    #     # Arrange
+    #     stack = ["lagers", "stouts"]
+    #
+    #     # Act
+    #     result = self.parser.reduce(stack)
 
         # Assert
         # print(result[0].name, result[0].children)

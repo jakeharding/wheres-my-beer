@@ -10,8 +10,8 @@ Author(s) of this file:
 Define how a grammar and it's productions rules behave.
 """
 
-import re
-from collections import OrderedDict, Set
+import re, string
+from collections import OrderedDict
 
 
 class TreeNode(object):
@@ -94,33 +94,38 @@ class Grammar(object):
     # Create another production rule instead.
     grammar = OrderedDict({
         '<beer>': ['<type_list>'],
-        '<type_list>': ['<type> <sep> <type_list>'],
-        '<type>': ['<adj_ale>', '<lager>'],
-        '<adj_ale>': ['<ales>', '<stouts>'],
-        '<ales>': ['<adj_list> ale', '<adj_list> ales', ],
-        '<stouts>': ['<adj_list> stout', '<adj_list> stouts'],
-        '<lager>': ['<adj_list> lager', '<adj_list> lagers'],
-        '<adj_list>': ['<adj> <adj_list>'],
+        '<type_list>': ['<type> <type_list>', '<type> <type>'],
+        '<type>': ['<ales>', '<lager>', '<adj_list> <type>'],
+        # '<adj_ale>': ['<ales>', '<stouts>'],
+        # '<ales>': ['<adj_list> ale', '<adj_list> ales', ],
+        '<ales>': ['<ales>', '<stouts>'],
+        '<stouts>': ['stout', 'stouts'],
+        '<lager>': ['lager', 'lagers'],
+        '<adj_list>': ['<adj> <adj_list>', '<epsilon>'],
         '<adj>': ['<color>', '<origin>'],
         '<color>': ['pale', 'brown'],
         '<origin>': ['india', 'american'],
         '<sep>': ['-', ',', 'and'],
-        # '<epsilon>': [''],
+        '<epsilon>': [''],
     })
 
-    @classmethod
-    def build(cls):
-        rules = []
-        for lh, rh in Grammar.grammar.items():
-            # node = TreeNode(lh)
-            # for r in rh:
-            #     for s in r.split():
-            #         sym_node = TreeNode(s)
-            #         node.children.append(sym_node)
-            # print_tree(node, '')
+    terminal_symbols = ['', 'lager', 'lagers', 'ale', 'ales', 'stout', 'stouts', 'pale', 'brown', 'india', 'american'
 
-            rules.append(ProductionRule(lh, rh))
-        setattr(Grammar, 'rules', rules)
+    ]
+
+    # @staticmethod
+    # def build():
+    #     rules = []
+    #     for lh, rh in Grammar.grammar.items():
+    #         # node = TreeNode(lh)
+    #         # for r in rh:
+    #         #     for s in r.split():
+    #         #         sym_node = TreeNode(s)
+    #         #         node.children.append(sym_node)
+    #         # print_tree(node, '')
+    #
+    #         rules.append(ProductionRule(lh, rh))
+        # setattr(Grammar, 'rules', rules)
         # cls.root_node = TreeNode()
 
     @staticmethod
@@ -148,10 +153,23 @@ class DescriptionParser(object):
             self.shift(stack, remaining)
             while self.reduce(stack):
                 pass
+
+        # while len(stack) > 1:
+        #     stack = self.reduce(stack)
+
+        for e in stack:
+            if isinstance(e, TreeNode):
+                print_tree(e, '')
+                print('\n')
         print(stack)
 
     def shift(self, stack, remaining):
-        stack.append(remaining[0])
+        if len(remaining) > 0 and remaining[0] not in Grammar.terminal_symbols:
+            # Remove any string not in our terminal symbols for now. We may do something with them later.
+            remaining.remove(remaining[0])
+            remaining.insert(0, '')  # add an epsilon
+
+        stack.append(remaining[0].strip(string.punctuation))
         remaining.remove(remaining[0])
 
     def case_matches_stack(self, case, stack):
@@ -168,11 +186,14 @@ class DescriptionParser(object):
     def reduce(self, stack):
         for lh, rh in Grammar.grammar.items():
             for case in rh:
-                case_as_list = case.split()
+                case_as_list = [case]
+                if lh != '<epsilon>':
+                    case_as_list = case.split()
                 is_match, match_length = self.case_matches_stack(case_as_list, stack[-len(case_as_list):])
-                if is_match:
-                    trees = list(map(lambda c: TreeNode(c) if isinstance(c, str) else c, case_as_list))
+                while is_match:
+                    trees = list(map(lambda c: TreeNode(c) if isinstance(c, str) else c, stack[-match_length:]))
                     stack[-match_length:] = [TreeNode(lh, trees)]
+                    is_match = self.reduce(stack)
                     return case
         return None
 
