@@ -147,7 +147,7 @@ class TestParser(TestCase):
 
     def setUp(self):
         # Grammar.build()
-        self.parser = DescriptionParser("I like lagers and stouts")
+        self.parser = DescriptionParser("I like india pale ales, brown lagers and stouts")
 
     def test_shift(self):
 

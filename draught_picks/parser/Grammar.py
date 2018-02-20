@@ -98,14 +98,14 @@ class Grammar(object):
         '<type>': ['<ales>', '<lager>', '<adj_list> <type>'],
         # '<adj_ale>': ['<ales>', '<stouts>'],
         # '<ales>': ['<adj_list> ale', '<adj_list> ales', ],
-        '<ales>': ['<ales>', '<stouts>'],
+        '<ales>': ['<stouts>', 'ale', 'ales'],
         '<stouts>': ['stout', 'stouts'],
         '<lager>': ['lager', 'lagers'],
-        '<adj_list>': ['<adj> <adj_list>', '<epsilon>'],
-        '<adj>': ['<color>', '<origin>'],
+        '<adj_list>': ['<adj> <adj_list>', '<adj>'],
+        '<adj>': ['<color>', '<origin>', '<epsilon>'],
         '<color>': ['pale', 'brown'],
         '<origin>': ['india', 'american'],
-        '<sep>': ['-', ',', 'and'],
+        # '<sep>': ['-', ',', 'and'],
         '<epsilon>': [''],
     })
 
@@ -151,11 +151,16 @@ class DescriptionParser(object):
 
         while len(remaining) > 0:
             self.shift(stack, remaining)
-            while self.reduce(stack):
+            while self.reduce(stack, len(remaining)):
                 pass
 
         # while len(stack) > 1:
-        #     stack = self.reduce(stack)
+        # print(self.reduce(stack))
+
+        # for i, e in enumerate(stack):
+        #     new_stack = self.reduce([e])
+        #     if new_stack:
+        #         stack[i] = new_stack
 
         for e in stack:
             if isinstance(e, TreeNode):
@@ -169,7 +174,7 @@ class DescriptionParser(object):
             remaining.remove(remaining[0])
             remaining.insert(0, '')  # add an epsilon
 
-        stack.append(remaining[0].strip(string.punctuation))
+        stack.append(remaining[0])
         remaining.remove(remaining[0])
 
     def case_matches_stack(self, case, stack):
@@ -183,23 +188,26 @@ class DescriptionParser(object):
         combo = list(map(lambda n: n.name if isinstance(n, TreeNode) else n, stack))
         return (case, len(combo)) if combo == case else (None, None)
 
-    def reduce(self, stack):
+    def reduce(self, stack, len_rem):
         for lh, rh in Grammar.grammar.items():
             for case in rh:
                 case_as_list = [case]
                 if lh != '<epsilon>':
                     case_as_list = case.split()
                 is_match, match_length = self.case_matches_stack(case_as_list, stack[-len(case_as_list):])
-                while is_match:
+                if is_match:
+                    if (lh == '<type_list>' and len_rem is not 0) or (lh == '<beer>' and len(stack) is not 1):
+                        # Don't reduce to type list or beer until all is parsed and stack is at one
+                        continue
                     trees = list(map(lambda c: TreeNode(c) if isinstance(c, str) else c, stack[-match_length:]))
                     stack[-match_length:] = [TreeNode(lh, trees)]
-                    is_match = self.reduce(stack)
-                    return case
+                    # is_match = self.reduce(stack)
+                    return stack
         return None
 
     def __init__(self, description):
         self.description = description
-        self.tokens = description.split()
+        self.tokens = list(map(lambda x: x.strip(string.punctuation), description.split()))
 
         # Create initial nodes
 
