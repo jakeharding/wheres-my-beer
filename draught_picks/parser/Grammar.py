@@ -94,12 +94,13 @@ class DescriptionParser(object):
             while self.reduce(stack, len(remaining)):
                 pass
 
-        # Prints the tree for debug purposes
-        for e in stack:
-            if isinstance(e, TreeNode):
-                print_tree(e, '')
-                print('\n')
+        # Example of printing the tree
+        # for e in stack:
+        #     if isinstance(e, TreeNode):
+        #         print_tree(e, '')
+        #         print('\n')
 
+        # Example of render the tree to a pdf
         # root = stack[0]
         # dot = Digraph()
         # dot.node('0', root.name)
