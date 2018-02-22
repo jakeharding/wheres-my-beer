@@ -100,12 +100,12 @@ class DescriptionParser(object):
                 print_tree(e, '')
                 print('\n')
 
-        root = stack[0]
-        dot = Digraph()
-        dot.node('0', root.name)
-        render_tree(root, dot, 1)
+        # root = stack[0]
+        # dot = Digraph()
+        # dot.node('0', root.name)
+        # render_tree(root, dot, 1)
         # print(dot.source)
-        dot.render('tree.gv')
+        # dot.render('tree.gv')
 
     def shift(self, stack, remaining):
         if len(remaining) > 0 and not is_terminal(remaining[0]):
