@@ -105,7 +105,7 @@ class DescriptionParser(object):
         dot.node('0', root.name)
         render_tree(root, dot, 1)
         # print(dot.source)
-        dot.render('tree.gv', view=True)
+        dot.render('tree.gv')
 
     def shift(self, stack, remaining):
         if len(remaining) > 0 and not is_terminal(remaining[0]):
