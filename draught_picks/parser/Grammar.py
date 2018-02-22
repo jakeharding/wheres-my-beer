@@ -13,6 +13,8 @@ Define how a grammar and it's productions rules behave.
 import string
 from collections import OrderedDict
 
+from graphviz import Digraph
+
 
 class TreeNode(object):
     children = []
@@ -98,8 +100,15 @@ class DescriptionParser(object):
                 print_tree(e, '')
                 print('\n')
 
+        root = stack[0]
+        dot = Digraph()
+        dot.node('0', root.name)
+        render_tree(root, dot, 1)
+        # print(dot.source)
+        dot.render('tree.gv', view=True)
+
     def shift(self, stack, remaining):
-        if len(remaining) > 0 and remaining[0] not in Grammar.terminal_symbols:
+        if len(remaining) > 0 and not is_terminal(remaining[0]):
             # Remove any string not in our terminal symbols for now. We may do something with them later.
             remaining.remove(remaining[0])
             remaining.insert(0, '')  # add an epsilon
@@ -131,7 +140,6 @@ class DescriptionParser(object):
                         continue
                     trees = list(map(lambda c: TreeNode(c) if isinstance(c, str) else c, stack[-match_length:]))
                     stack[-match_length:] = [TreeNode(lh, trees)]
-                    # is_match = self.reduce(stack)
                     return stack
         return None
 
@@ -141,3 +149,15 @@ def print_tree(node, margin='--'):
     margin += '|--'
     for child in node.children:
         print_tree(child, margin)
+
+
+def is_terminal(node_name):
+    return node_name in Grammar.terminal_symbols
+
+
+def render_tree(node, dot, uid):
+    for i, c in enumerate(node.children):
+        uid_str = str(uid) * (i + 1)
+        dot.node(uid_str, c.name if not is_terminal(c.name) else '"%s"' % c.name)
+        dot.edge("%d" % (uid - 1), uid_str)
+        render_tree(c, dot, int(uid_str) + 1)
