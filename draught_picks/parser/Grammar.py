@@ -100,7 +100,7 @@ class DescriptionParser(object):
         #         print_tree(e, '')
         #         print('\n')
 
-        # Example of render the tree to a pdf
+        # Example of rendering the tree to a pdf
         # root = stack[0]
         # dot = Digraph()
         # dot.node('0', root.name)
@@ -123,7 +123,7 @@ class DescriptionParser(object):
             if isinstance(m, str) and m in case:
                 # If we have a string it is a terminal and if it is in the rule we have a match
                 return case, 1
-        # We make it here a tree is present in the stack. Map the strings to a list of strings to match a rule.
+        # We make it here, a tree is present in the stack. Map the strings to a list of strings to match a rule.
         # This could be a combo of terminals and non terminals
         combo = list(map(lambda n: n.name if isinstance(n, TreeNode) else n, stack))
         return (case, len(combo)) if combo == case else (None, None)

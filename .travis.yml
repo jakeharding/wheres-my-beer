@@ -4,7 +4,7 @@ python:
 script:
   - "pip install -r requirements.txt"
   - "pip install python-coveralls coverage"
-  - "cd draught_picks/ && coverage run --source=beers,draught_picks,rest_api,users --omit=manage.py,draught_picks/wsgi.py manage.py test"
+  - "cd draught_picks/ && coverage run --source=beers,draught_picks,rest_api,users,parsers --omit=manage.py,draught_picks/wsgi.py manage.py test"
 services:
   - "postgresql"
 after_success:
