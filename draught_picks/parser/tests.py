@@ -27,6 +27,12 @@ class TestParser(TestCase):
         self.assertEqual(stack, [''])
         self.assertEqual(self.parser.tokens, ['like', 'india', 'pale', 'ales', 'brown', 'lagers', 'and', 'dark', 'stouts'])
 
+    def test_init(self):
+        a_parser = DescriptionParser("American-style lagers and ales")
+
+        self.assertEqual(a_parser.description, "american style lagers and ales")
+        self.assertEqual(a_parser.tokens, ["american", "style", "lagers", "and", "ales"])
+
     def test_case_matches_stack_with_strings_only(self):
         # Arrange
         stack = ['lager']
@@ -62,16 +68,18 @@ class TestParser(TestCase):
         self.assertTrue(result is case, "%s %s" % (result, case))
         self.assertEqual(match, 2)
 
-    # def test_reduce(self):
-    #     # Arrange
-    #     stack = ["lagers", "stouts"]
-    #
-    #     # Act
-    #     result = self.parser.reduce(stack)
+    def test_reduce(self):
+        # Arrange
+        stack = ["lagers"]
 
-        # Assert
-        # print(result[0].name, result[0].children)
-        # print_tree(result[0])
+        # Act
+        self.parser.reduce(stack, 1)
+
+        # Assert it should parse the right most symbol to a tree
+        self.assertTrue(isinstance(stack[0], TreeNode) and stack[0].name == "<lager>", stack[0].name)
+        stack.append("stouts")
+        self.parser.reduce(stack, 0)
+        self.assertTrue(isinstance(stack[1], TreeNode) and stack[1].name == "<stouts>", stack[1].name)
 
     def test_parse(self):
         self.parser.parse()

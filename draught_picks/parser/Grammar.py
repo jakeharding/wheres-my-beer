@@ -137,7 +137,7 @@ class DescriptionParser(object):
                 is_match, match_length = self.case_matches_stack(case_as_list, stack[-len(case_as_list):])
                 if is_match:
                     if (lh == '<type_list>' and len_rem is not 0) or (lh == '<beer>' and len(stack) is not 1):
-                        # Don't reduce to type list or beer until all is parsed and stack is at one
+                        # Don't reduce to type_list until all is parsed or until <beer> rule and stack is at one.
                         continue
                     trees = list(map(lambda c: TreeNode(c) if isinstance(c, str) else c, stack[-match_length:]))
                     stack[-match_length:] = [TreeNode(lh, trees)]
