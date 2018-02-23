@@ -10,7 +10,7 @@ Author(s) of this file:
 Define how a grammar and it's productions rules behave.
 """
 
-import string
+import string, uuid
 from collections import OrderedDict
 
 from graphviz import Digraph
@@ -30,31 +30,39 @@ class Grammar(object):
     Holds the grammar for parsing the description.
     """
 
-    # Order of these will matter to out semantics.
+    # Order of these will matter to the semantics.
     # Colors will be listed from lighter -> darker
-    dark_colors = ['red', 'amber', 'brown', 'dark', 'black']
-    light_colors = ['yellow', 'gold', 'pale']
+    dark_colors = ['red', 'amber', 'copper', 'brown', 'dark', 'ebony', 'black']
+    light_colors = ['light', 'yellow', 'pale', 'gold', 'golden', 'tan']
+    origin = ['india', 'american', 'european', 'german', 'bohemian', 'belgian', "irish", "baltic"]
+    flavors = ['bitter', 'bitterness', 'coffee', 'dry', 'sour', 'chocolate', 'caramel', 'wheat', 'sweet']
+    hops = ['hop', 'hops', 'hopped', 'hoppy', 'hoppiness', 'hoppyness']
+    malt = ['malty', 'malt', 'maltyness', 'maltiness']
 
     # Avoid right hand production or case containing more than one terminal such as '<term1> nonterm1 nonterm2'
     # Create another production rule instead.
     _grammar = OrderedDict({
         '<beer>': ['<type_list>'],
-        '<type_list>': ['<type> <type_list>', '<type> <type>'],
-        '<type>': ['<ales>', '<lager>', '<adj_list> <type>'],
-        '<ales>': ['<stouts>', 'ale', 'ales'],
-        '<stouts>': ['stout', 'stouts'],
-        '<lager>': ['lager', 'lagers'],
+        '<type_list>': ['<type> <type_list>', '<type>'],
+        '<type>': ['<ales>', '<lager>', '<adj_list> <type>', '<adj>'],
+        '<ales>': ['<stouts>', 'ale', 'ales', 'lambic', '<porter>'],
+        '<stouts>': ['stout', 'stouts', 'oatmeal', 'oats'],
+        '<lager>': ['<pilsner>', 'lager', 'lagers'],
+        '<porter>': ['porter', 'porters'],
         '<adj_list>': ['<adj> <adj_list>', '<adj>'],
-        '<adj>': ['<color>', '<origin>', '<epsilon>'],
+        '<adj>': ['<color>', '<origin>', '<malt>', '<hops>', '<flavor>', '<epsilon>'],
+        '<flavor>': flavors,
+        '<hops>': hops,
+        '<malt>': malt,
         '<color>': ['<light_colors>', '<dark_colors>'],
         '<light_colors>': light_colors,
         '<dark_colors>': dark_colors,
-        '<origin>': ['india', 'american'],
+        '<origin>': origin,
         '<epsilon>': [''],
     })
 
-    terminal_symbols = light_colors + dark_colors + ['', 'lager', 'lagers', 'ale', 'ales', 'stout', 'stouts',
-                                                     'india', 'american']
+    terminal_symbols = light_colors + dark_colors + origin + hops + malt + flavors +\
+                       ['', 'lager', 'lagers', 'ale', 'ales', 'stout', 'stouts', 'oatmeal', 'oats', 'porter', 'porters']
 
     @classmethod
     def beer_type_list(cls, value):
@@ -95,10 +103,10 @@ class DescriptionParser(object):
                 pass
 
         # Example of printing the tree
-        # for e in stack:
-        #     if isinstance(e, TreeNode):
-        #         print_tree(e, '')
-        #         print('\n')
+        for e in stack:
+            if isinstance(e, TreeNode):
+                print_tree(e, '')
+                print('\n')
 
         # Example of rendering the tree to a pdf
         # root = stack[0]
@@ -137,7 +145,6 @@ class DescriptionParser(object):
                 is_match, match_length = self.case_matches_stack(case_as_list, stack[-len(case_as_list):])
                 if is_match:
                     if (lh == '<type_list>' and len_rem is not 0) or (lh == '<beer>' and len(stack) is not 1):
-                        # Don't reduce to type_list until all is parsed or until <beer> rule and stack is at one.
                         continue
                     trees = list(map(lambda c: TreeNode(c) if isinstance(c, str) else c, stack[-match_length:]))
                     stack[-match_length:] = [TreeNode(lh, trees)]
@@ -156,9 +163,9 @@ def is_terminal(node_name):
     return node_name in Grammar.terminal_symbols
 
 
-def render_tree(node, dot, uid):
+def render_tree(node, dot, parent_uid):
     for i, c in enumerate(node.children):
-        uid_str = str(uid) * (i + 1)
-        dot.node(uid_str, c.name if not is_terminal(c.name) else '"%s"' % c.name)
-        dot.edge("%d" % (uid - 1), uid_str)
-        render_tree(c, dot, int(uid_str) + 1)
+        new_uid = str(uuid.uuid4())
+        dot.node(new_uid, c.name if not is_terminal(c.name) else '"%s"' % c.name)
+        dot.edge("%s" % parent_uid, new_uid)
+        render_tree(c, dot, new_uid)
