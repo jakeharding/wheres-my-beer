@@ -111,8 +111,9 @@ class DescriptionParser(object):
         # Example of rendering the tree to a pdf
         # root = stack[0]
         # dot = Digraph()
-        # dot.node('0', root.name)
-        # render_tree(root, dot, 1)
+        # root_uid = str(uuid.uuid4())
+        # dot.node(root_uid, root.name)
+        # render_tree(root, dot, root_uid)
         # print(dot.source)
         # dot.render('tree.gv')
 
