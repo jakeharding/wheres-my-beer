@@ -1,9 +1,11 @@
 .idea/
 .DS_Store
 *.iml
+*.gv
 __pycache__/
 .coverage
 local_settings.py
+htmlcov/
 *.log
 db.sqlite3
 venv
