@@ -65,17 +65,50 @@ class Grammar(object):
                        ['', 'lager', 'lagers', 'ale', 'ales', 'stout', 'stouts', 'oatmeal', 'oats', 'porter', 'porters']
 
     @classmethod
-    def beer_type_list(cls, value):
+    def beer_type_list(cls, node, store):
         """
         An example of method to handle semantics. Name of method is significant so we can use getattr.
-        :param value: Value to define a meaning to.
+        :param node:
+        :param store:
         :return:
         """
-        print("semantics go here", value)
+        store["BEER"] = store.get("BEER", 0) + 1
+        print("INCR BEER in beer -> type list", store)
+        return cls.call_children(node, store)
+
+    @classmethod
+    def type_list_type(cls, node, store):
+        store["BEER"] = store.get("BEER", 0) + 1
+        print("INCR BEER in type list -> type", store)
+        return cls.call_children(node, store)
+
+    @classmethod
+    def type_list_type_list(cls, node, store):
+        store["BEER"] = store.get("BEER", 0) + 1
+        print("INCR BEER in type list -> type list", store)
+        return cls.call_children(node, store)
+
+    @classmethod
+    def type_adj(cls, node, store):
+        store["BEER"] = store.get("BEER", 0) + 1
+        print("INCR BEER in type -> adj", store)
+        return cls.call_children(node, store)
+
+    @classmethod
+    def call_children(cls, node, store):
+        for c in node.children:
+            store = getattr(cls, "_".join([node.name.strip("<>"), c.name.strip("<>")]))(c, store)
+        return store
 
     @classmethod
     def items(cls):
         return cls._grammar.items()
+
+
+class DescriptionParseException(Exception):
+
+    def __init__(self, stack):
+        super("Stack has %d elements. Should only have one" % len(stack))
 
 
 class DescriptionParser(object):
@@ -107,6 +140,15 @@ class DescriptionParser(object):
             if isinstance(e, TreeNode):
                 print_tree(e, '')
                 print('\n')
+
+        if len(stack) is 1:
+            root = stack[0]
+            # store = {}
+            # for c in root.children:
+            store = getattr(Grammar, "beer_type_list")(root, {})
+            print("FINISH", store)
+        else:
+            raise DescriptionParseException(stack)
 
         # Example of rendering the tree to a pdf
         # root = stack[0]
