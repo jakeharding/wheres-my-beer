@@ -25,6 +25,8 @@ class Beer(m.Model):
     name_of_api = m.CharField(max_length=255, help_text="Name of the api used to get data.")
     created_at = m.DateTimeField(auto_now_add=True, help_text="Date and time the beer was added to this database")
 
+    def __str__(self):
+        return self.name
 
 class BeerRating(m.Model):
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
