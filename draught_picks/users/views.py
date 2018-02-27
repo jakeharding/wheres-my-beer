@@ -10,6 +10,7 @@ Author(s) of this file:
 Expose user models through a REST API.
 """
 
+from django.contrib.auth.hashers import make_password
 from rest_framework.serializers import ModelSerializer
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
@@ -19,9 +20,13 @@ from .models import DraughtPicksUser
 
 
 class UserSerializer(ModelSerializer):
+
+    def validate_password(self, value):
+        return make_password(value)
+
     class Meta:
         model = DraughtPicksUser
-        fields = ('uuid', 'username', 'email', 'weight', 'date_of_birth',)
+        fields = ('uuid', 'username', 'email', 'weight', 'date_of_birth', 'password', 'first_name', 'last_name')
 
 
 class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
