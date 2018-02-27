@@ -28,6 +28,7 @@ class Beer(m.Model):
     def __str__(self):
         return self.name
 
+
 class BeerRating(m.Model):
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     user = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.PROTECT)

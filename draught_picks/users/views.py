@@ -11,22 +11,39 @@ Expose user models through a REST API.
 """
 
 from django.contrib.auth.hashers import make_password
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, UUIDField
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny
+
+from beers.views import BeerSerializer
+from beers.models import Beer
 
 from .models import DraughtPicksUser, BeerPreferences
 
 
 class UserSerializer(ModelSerializer):
 
+    uuid = UUIDField(required=True)
+    favorite_beers = BeerSerializer(many=True, required=False)
+    recent_beers = BeerSerializer(many=True, required=False)
+    rated_beers = BeerSerializer(many=True, required=False)
+
     def validate_password(self, value):
         return make_password(value)
 
+    def update(self, instance, validated_data):
+        faves = validated_data.pop('favorite_beers')
+        fave_uid = list(map(lambda beer: beer.get('uuid'), faves))
+        fave_objs = Beer.objects.filter(uuid__in=fave_uid)
+        instance.favorite_beers.set(fave_objs)
+        return instance
+
     class Meta:
         model = DraughtPicksUser
-        fields = ('uuid', 'username', 'email', 'weight', 'date_of_birth', 'password', 'first_name', 'last_name')
+        fields = ('uuid', 'username', 'email', 'weight', 'date_of_birth', 'password', 'first_name', 'last_name',
+                  'favorite_beers', 'recent_beers', 'rated_beers',
+                  )
 
 
 class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
