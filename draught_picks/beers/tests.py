@@ -16,6 +16,7 @@ from rest_framework.test import APITestCase
 
 
 class TestBeers(APITestCase):
+    fixtures = ['beers/fixtures/beers.json']
 
     def setUp(self):
         self.beer = get_user_model().objects.first()
