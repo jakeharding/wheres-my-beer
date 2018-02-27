@@ -19,11 +19,10 @@ from .models import Beer, BeerRating, RecentBeer
 
 
 class BeerSerializer(ModelSerializer):
-    uuid = UUIDField(required=True)
 
     class Meta:
         model = Beer
-        fields = ('uuid', 'name', 'description', 'abv', 'ibu', 'api_id', 'name_of_api', 'created_at',)
+        exclude = ('id', )
 
 
 class BeerSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):

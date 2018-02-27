@@ -43,7 +43,10 @@ class TestUsers(APITestCase):
             'username': 'admin2',
             'password': 'test',
             'date_of_birth': '1997-04-20',
-            'weight': 195
+            'weight': 195,
+            'favorite_beers': [],
+            'recent_beers': [],
+            'rated_beers': [],
         }, format='json')
         self.assertTrue(status.is_success(r.status_code), r.status_code)
         self.assertEquals(r.data.get('weight'), 195)

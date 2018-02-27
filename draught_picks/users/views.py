@@ -24,7 +24,6 @@ from .models import DraughtPicksUser, BeerPreferences
 
 class UserSerializer(ModelSerializer):
 
-    uuid = UUIDField(required=True)
     favorite_beers = BeerSerializer(many=True, required=False)
     recent_beers = BeerSerializer(many=True, required=False)
     rated_beers = BeerSerializer(many=True, required=False)
@@ -34,16 +33,21 @@ class UserSerializer(ModelSerializer):
 
     def update(self, instance, validated_data):
         faves = validated_data.pop('favorite_beers')
+
+        # TODO save the recents and rated also
+        validated_data.pop('recent_beers')
+        validated_data.pop('rated_beers')
         fave_uid = list(map(lambda beer: beer.get('uuid'), faves))
         fave_objs = Beer.objects.filter(uuid__in=fave_uid)
         instance.favorite_beers.set(fave_objs)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
         return instance
 
     class Meta:
         model = DraughtPicksUser
-        fields = ('uuid', 'username', 'email', 'weight', 'date_of_birth', 'password', 'first_name', 'last_name',
-                  'favorite_beers', 'recent_beers', 'rated_beers',
-                  )
+        exclude = ('id', 'last_login', 'is_superuser', 'is_staff', 'is_active', 'groups', 'user_permissions')
 
 
 class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
