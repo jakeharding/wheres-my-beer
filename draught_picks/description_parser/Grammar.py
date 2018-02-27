@@ -72,27 +72,38 @@ class Grammar(object):
         :param store:
         :return:
         """
-        store["BEER"] = store.get("BEER", 0) + 1
-        print("INCR BEER in beer -> type list", store)
+        # store["BEER"] = store.get("BEER", 0) + 1
+        # print("INCR BEER in beer -> type list", store)
         return cls.call_children(node, store)
 
     @classmethod
     def type_list_type(cls, node, store):
-        store["BEER"] = store.get("BEER", 0) + 1
-        print("INCR BEER in type list -> type", store)
+        # store["BEER"] = store.get("BEER", 0) + 1
+        # print("INCR BEER in type list -> type", store)
         return cls.call_children(node, store)
 
     @classmethod
     def type_list_type_list(cls, node, store):
-        store["BEER"] = store.get("BEER", 0) + 1
-        print("INCR BEER in type list -> type list", store)
+        # store["BEER"] = store.get("BEER", 0) + 1
+        # print("INCR BEER in type list -> type list", store)
         return cls.call_children(node, store)
 
     @classmethod
     def type_adj(cls, node, store):
-        store["BEER"] = store.get("BEER", 0) + 1
-        print("INCR BEER in type -> adj", store)
+        # store["BEER"] = store.get("BEER", 0) + 1
+        # print("INCR BEER in type -> adj", store)
         return cls.call_children(node, store)
+
+    @classmethod
+    def type_ales(cls, node, store):
+        return cls.call_children(node, store)
+
+    @classmethod
+    def type_lagers(cls, node, store):
+        return cls.call_children(node, store)
+
+    # @classmethod
+    # def t
 
     @classmethod
     def call_children(cls, node, store):
