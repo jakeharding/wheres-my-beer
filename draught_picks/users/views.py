@@ -11,7 +11,7 @@ Expose user models through a REST API.
 """
 
 from django.contrib.auth.hashers import make_password
-from rest_framework.serializers import ModelSerializer, UUIDField
+from rest_framework.serializers import ModelSerializer, SlugRelatedField
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny
@@ -68,12 +68,21 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
 
 
 class BeerPreferencesSerializer(ModelSerializer):
+    user = SlugRelatedField(slug_field='uuid', queryset=DraughtPicksUser.objects.all())
+
+    def get_queryset(self):
+        """
+        Only allow users access to their user instance.
+        :return: queryset the user has access to.
+        """
+        return BeerPreferences.objects.filter(user__id=self.request.user.id)
+
     class Meta:
         model = BeerPreferences
         fields = ('uuid', 'abv_low', 'abv_hi', 'ibu_low', 'ibu_hi', 'like_description', 'user', 'created_at',)
 
 
-class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
+class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
     serializer_class = BeerPreferencesSerializer
     queryset = BeerPreferences.objects.all()
     lookup_field = 'uuid'

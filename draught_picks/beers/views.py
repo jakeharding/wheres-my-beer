@@ -10,7 +10,7 @@ Author(s) of this file:
 Expose user models through a REST API.
 """
 
-from rest_framework.serializers import ModelSerializer, UUIDField
+from rest_framework.serializers import ModelSerializer
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny
