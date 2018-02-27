@@ -1,0 +1,86 @@
+[
+{
+    "model": "beers.beer",
+    "pk": 1,
+    "fields": {
+        "uuid": "2db417d0-cf21-4d9d-a37b-1b2fa0c581cb",
+        "name": "\"Alternating Currant\" Sour",
+        "description": "Black Currant Kettle Sour.",
+        "abv": "4.8",
+        "ibu": 12,
+        "api_id": "1",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:30:36.889Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 2,
+    "fields": {
+        "uuid": "d2be237e-0cdb-4561-8cf4-15b7657a37ea",
+        "name": "\"B.B. Rodriguez\" Double Brown",
+        "description": "Caramel. Walnut. Toast. Luxury.",
+        "abv": "8.5",
+        "ibu": 30,
+        "api_id": "2",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:30:59.687Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 3,
+    "fields": {
+        "uuid": "5a8e4105-0f95-447c-94de-549a0128b7f3",
+        "name": "\"Dust Up\" Cloudy Pale Ale | 1 of 4 Part Pale Ale Series",
+        "description": "The Pale Ale series will feature 4 distinct variations within the Pale Ale category. \"Dust Up\" Cloudy Pale Ale, the first of the series, showcases caramelized wheat, an abundant amount of earthy forest hops and finishes crisp and snappy. Unfiltered, untamed, yet friendly to consume.",
+        "abv": "5.4",
+        "ibu": 54,
+        "api_id": "3",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:31:24.223Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 4,
+    "fields": {
+        "uuid": "8f8aa683-da9f-4873-a71a-e124adb84f27",
+        "name": "\"Hey Victor\" Smoked Porter",
+        "description": "Rooted in Western pop culture, our porter is named for the film, Smoke Signals, and is also related to Sherman Alexie\u2019s story, \u201cThis is What it Means to Say, \u2018Phoenix, Arizona.\u2019\u201d\r\n\r\nOur smoked porter is very approachable; it\u2019s not overly smoky and its blend of malts (Maris Otter, English Brown and chocolate) and hops (East Kent Golding, & Fuggle) will remind you of hikes, s\u2019mores and cool, dusky campfires in the Snowies. Take a growler to the mountains and enjoy its rich color and flavor.",
+        "abv": "5.5",
+        "ibu": null,
+        "api_id": "4",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:31:44.287Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 5,
+    "fields": {
+        "uuid": "3030e32e-abd6-4e35-b5e4-8d6e5184c86b",
+        "name": "\"Mary Lee Please Don't Eat Me\" Saison Ale",
+        "description": "Classic Saison Ale with flavors of Lemon, Pepper a tart and crisp finish. Brewed in honor of the 16 foot Great White Shark! 5.0% ABV\r\nHops: Mandarina Baverina",
+        "abv": "5.0",
+        "ibu": null,
+        "api_id": "5",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:32:03.517Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 6,
+    "fields": {
+        "uuid": "03127236-4760-4aa9-8244-346ce07dabae",
+        "name": "Brett Golden Sour",
+        "description": "This beer had a long weekend in our brew kettle allowing beer bugs (Pediococcus and Latcobacillus) to get down get down and do their sour thang. While yeast strains eat sugar and produce alcohol beer bugs eat sugar and produce acids. This gives sour beers their puckering power. After letting the bugs play in the sweet wort pool we boil the beer and add a touch of earthy hops. Disco Pig #2 Brett Golden Sour is 100% Brett fermented to replicate as closely as possible what a traditional Belgian wild fermented sour beer should be!",
+        "abv": "6.5",
+        "ibu": 9,
+        "api_id": "6",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:32:33.390Z"
+    }
+}
+]
