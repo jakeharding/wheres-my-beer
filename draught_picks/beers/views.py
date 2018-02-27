@@ -14,7 +14,7 @@ from rest_framework.serializers import ModelSerializer
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny
-
+from rest_framework.filters import SearchFilter
 from .models import Beer, BeerRating, RecentBeer
 
 
@@ -29,6 +29,8 @@ class BeerSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelM
     queryset = Beer.objects.all()
     lookup_field = 'uuid'
     permission_classes = (AllowAny, )
+    search_fields = ("name", )
+    filter_backends = (SearchFilter, )
 
 
 class BeerRatingSerializer(ModelSerializer):

@@ -1,0 +1,170 @@
+[
+{
+    "model": "beers.beer",
+    "pk": 1,
+    "fields": {
+        "uuid": "b37c7357-eb6f-4393-b408-d329145e435c",
+        "name": "Coors Light",
+        "description": "A very light beer",
+        "abv": "4.2",
+        "ibu": 2,
+        "api_id": "coors",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:19:33.303Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 2,
+    "fields": {
+        "uuid": "04d0949e-86c2-49e4-9943-7ba520624e12",
+        "name": "Molson Canadian",
+        "description": "",
+        "abv": "7.6",
+        "ibu": 2,
+        "api_id": "Molson",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:20:17.294Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 3,
+    "fields": {
+        "uuid": "22c093f7-e7bc-4b5e-a2eb-81d922a953a7",
+        "name": "Stella Artois",
+        "description": "The best beer",
+        "abv": "7.4",
+        "ibu": 2,
+        "api_id": "Stella",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:21:12.292Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 4,
+    "fields": {
+        "uuid": "a9819f77-902c-4bff-95f2-fc8ded35848d",
+        "name": "Stone IPA",
+        "description": "A stoney beer",
+        "abv": "6.5",
+        "ibu": 3,
+        "api_id": "Stone",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:21:53.259Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 5,
+    "fields": {
+        "uuid": "8bb051d7-d6a7-48ac-99fe-fefd3fc56879",
+        "name": "Abita Turbodog",
+        "description": "Turboyeyyy",
+        "abv": "8.9",
+        "ibu": 3,
+        "api_id": "Abita",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:22:27.926Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 6,
+    "fields": {
+        "uuid": "4b7e99bd-9407-40ce-8b10-758d3b92bab8",
+        "name": "Red Stripe",
+        "description": "Stripey Beer, man.",
+        "abv": "14.2",
+        "ibu": 7,
+        "api_id": "StripeRed",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:23:03.916Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 7,
+    "fields": {
+        "uuid": "148cbb19-b46b-4a44-b7fb-4d6816a14c52",
+        "name": "Bass Brewery",
+        "description": "Bassey Brewery BEER BRUH",
+        "abv": "5.2",
+        "ibu": 7,
+        "api_id": "BassB",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:23:38.032Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 8,
+    "fields": {
+        "uuid": "7efea27d-fa6f-4390-8089-c585963fbc40",
+        "name": "Budweiser",
+        "description": "Horses are cool...Horse Commercial.",
+        "abv": "2.4",
+        "ibu": 5,
+        "api_id": "BudWeiser",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:24:22.146Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 9,
+    "fields": {
+        "uuid": "ecc2b340-db52-4905-b9c7-605f933d5298",
+        "name": "Guiness",
+        "description": "GUS",
+        "abv": "13.0",
+        "ibu": 12,
+        "api_id": "9GUS",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:25:05.343Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 10,
+    "fields": {
+        "uuid": "b7f8cc8e-2395-4a9c-97ab-a37294ec0a74",
+        "name": "Harp Lager",
+        "description": "LAGER HARP MAN",
+        "abv": "13.0",
+        "ibu": 12,
+        "api_id": "HARPLAG",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:26:09.007Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 11,
+    "fields": {
+        "uuid": "579631fb-fcbd-46eb-af1c-5635ebdbbfea",
+        "name": "Irish Red Ale",
+        "description": "Ale and Irish Ale ALE ALE ale ALE",
+        "abv": "15.0",
+        "ibu": 4,
+        "api_id": "IrishA",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:27:05.197Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 12,
+    "fields": {
+        "uuid": "32f5fe5b-028d-431e-8ced-99e1329ba609",
+        "name": "Dogfish Head",
+        "description": "Brewery of the Dogfishes",
+        "abv": "8.2",
+        "ibu": 3,
+        "api_id": "dogfishes",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:27:51.125Z"
+    }
+}
+]
