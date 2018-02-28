@@ -11,22 +11,43 @@ Expose user models through a REST API.
 """
 
 from django.contrib.auth.hashers import make_password
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SlugRelatedField
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny
+
+from beers.views import BeerSerializer
+from beers.models import Beer
 
 from .models import DraughtPicksUser, BeerPreferences
 
 
 class UserSerializer(ModelSerializer):
 
+    favorite_beers = BeerSerializer(many=True, required=False)
+    recent_beers = BeerSerializer(many=True, required=False)
+    rated_beers = BeerSerializer(many=True, required=False)
+
     def validate_password(self, value):
         return make_password(value)
 
+    def update(self, instance, validated_data):
+        faves = validated_data.pop('favorite_beers')
+
+        # TODO save the recents and rated also
+        validated_data.pop('recent_beers')
+        validated_data.pop('rated_beers')
+        fave_uid = list(map(lambda beer: beer.get('uuid'), faves))
+        fave_objs = Beer.objects.filter(uuid__in=fave_uid)
+        instance.favorite_beers.set(fave_objs)
+        for attr, value in validated_data.items():
+            setattr(instance, attr, value)
+        instance.save()
+        return instance
+
     class Meta:
         model = DraughtPicksUser
-        fields = ('uuid', 'username', 'email', 'weight', 'date_of_birth', 'password', 'first_name', 'last_name')
+        exclude = ('id', 'last_login', 'is_superuser', 'is_staff', 'is_active', 'groups', 'user_permissions')
 
 
 class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
@@ -47,12 +68,21 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
 
 
 class BeerPreferencesSerializer(ModelSerializer):
+    user = SlugRelatedField(slug_field='uuid', queryset=DraughtPicksUser.objects.all())
+
+    def get_queryset(self):
+        """
+        Only allow users access to their user instance.
+        :return: queryset the user has access to.
+        """
+        return BeerPreferences.objects.filter(user__id=self.request.user.id)
+
     class Meta:
         model = BeerPreferences
         fields = ('uuid', 'abv_low', 'abv_hi', 'ibu_low', 'ibu_hi', 'like_description', 'user', 'created_at',)
 
 
-class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
+class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
     serializer_class = BeerPreferencesSerializer
     queryset = BeerPreferences.objects.all()
     lookup_field = 'uuid'

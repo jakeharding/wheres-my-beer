@@ -10,13 +10,13 @@ Author(s) of this file:
 Test user endpoints.
 """
 
-from draught_picks.beers.models import Beer
+from beers.models import Beer
 from rest_framework import status
 from rest_framework.test import APITestCase
 
 
 class TestBeers(APITestCase):
-    fixtures = ['users/fixtures/beers.json']
+    fixtures = ['beers/fixtures/beers.json']
 
     def setUp(self):
         self.beer = Beer.objects.first()
