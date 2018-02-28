@@ -89,6 +89,7 @@ class Grammar(object):
 
     @classmethod
     def type_adj(cls, node, store):
+        return cls.call_children(node, store)
 
     @classmethod
     def type_ales(cls, node, store):
