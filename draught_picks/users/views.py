@@ -16,7 +16,7 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny
 
-from .models import DraughtPicksUser
+from .models import DraughtPicksUser, BeerPreferences
 
 
 class UserSerializer(ModelSerializer):
@@ -45,3 +45,15 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         else:
             return DraughtPicksUser.objects.filter(id=self.request.user.id)
 
+
+class BeerPreferencesSerializer(ModelSerializer):
+    class Meta:
+        model = BeerPreferences
+        fields = ('uuid', 'abv_low', 'abv_hi', 'ibu_low', 'ibu_hi', 'like_description', 'user', 'created_at',)
+
+
+class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
+    serializer_class = BeerPreferencesSerializer
+    queryset = BeerPreferences.objects.all()
+    lookup_field = 'uuid'
+    permission_classes = (AllowAny, )

@@ -14,11 +14,16 @@ from django.urls import re_path, include
 from rest_framework.authtoken import views
 from rest_framework.routers import DefaultRouter
 
-from users.views import UserViewSet
+from users.views import UserViewSet, UserBeerPreferencesSet
+from beers.views import BeerSet, BeerRatingSet, RecentBeerSet
 
 router = DefaultRouter(trailing_slash=False)
 
 router.register('users', UserViewSet)
+router.register('preferences', UserBeerPreferencesSet)
+router.register('beers', BeerSet)
+router.register('beer-ratings', BeerRatingSet)
+router.register('recent-beers', RecentBeerSet)
 
 urlpatterns = [
     re_path(r'^login', views.obtain_auth_token),
