@@ -19,7 +19,7 @@ class TestParser(TestCase):
 
     def setUp(self):
         self.parser = DescriptionParser("I like india pale ales, brown lagers and dark stouts")
-        # self.parser = DescriptionParser("""Our first beer has been aptly named ""633"" after the Regions telephone exchange for starters.  ""If I could call a beer home, this would be the one."" ~ Win
+        # self.parser_ = DescriptionParser("""Our first beer has been aptly named ""633"" after the Regions telephone exchange for starters.  ""If I could call a beer home, this would be the one."" ~ Win
 
 # It is a mildly hoppy pale ale using a 2 row, vienna, and munich malts for body,color, and head retention. It is hopped with American west coast hops later in the boil giving it a nice citrus hop flavor and very mild aroma. Slight addition of a roasted caramel malt gives ""633"" it's signature 'sunset over the harbor glow'.""")
 
