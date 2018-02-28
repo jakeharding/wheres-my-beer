@@ -24,6 +24,9 @@ class TreeNode(object):
         self.name = name
         self.children = children
 
+    def has_children(self):
+        return len(self.children) > 0
+
 
 class Grammar(object):
     """
@@ -45,9 +48,11 @@ class Grammar(object):
         '<beer>': ['<type_list>'],
         '<type_list>': ['<type> <type_list>', '<type>'],
         '<type>': ['<ales>', '<lager>', '<adj_list> <type>', '<adj>'],
-        '<ales>': ['<stouts>', 'ale', 'ales', 'lambic', '<porter>'],
+        '<ales>': ['<stouts>',  '<porter>', '<ale_terms>'],
+        '<ale_terms>': ['ale', 'ales', 'lambic'],
         '<stouts>': ['stout', 'stouts', 'oatmeal', 'oats'],
-        '<lager>': ['<pilsner>', 'lager', 'lagers'],
+        '<lager>': ['<pilsner>', '<lager_terms>'],
+        '<lager_terms>': ['lager', 'lagers'],
         '<porter>': ['porter', 'porters'],
         '<adj_list>': ['<adj> <adj_list>', '<adj>'],
         '<adj>': ['<color>', '<origin>', '<malt>', '<hops>', '<flavor>', '<epsilon>'],
@@ -72,27 +77,18 @@ class Grammar(object):
         :param store:
         :return:
         """
-        # store["BEER"] = store.get("BEER", 0) + 1
-        # print("INCR BEER in beer -> type list", store)
         return cls.call_children(node, store)
 
     @classmethod
     def type_list_type(cls, node, store):
-        # store["BEER"] = store.get("BEER", 0) + 1
-        # print("INCR BEER in type list -> type", store)
         return cls.call_children(node, store)
 
     @classmethod
     def type_list_type_list(cls, node, store):
-        # store["BEER"] = store.get("BEER", 0) + 1
-        # print("INCR BEER in type list -> type list", store)
         return cls.call_children(node, store)
 
     @classmethod
     def type_adj(cls, node, store):
-        # store["BEER"] = store.get("BEER", 0) + 1
-        # print("INCR BEER in type -> adj", store)
-        return cls.call_children(node, store)
 
     @classmethod
     def type_ales(cls, node, store):
@@ -102,14 +98,63 @@ class Grammar(object):
     def type_lagers(cls, node, store):
         return cls.call_children(node, store)
 
-    # @classmethod
-    # def t
+    @classmethod
+    def type_adj_list_type(cls, node, store):
+        return cls.call_children(node, store)
+
+    @classmethod
+    def type_adj(cls, node, store):
+        return cls.call_children(node, store)
+
+    @classmethod
+    def ales_stouts(cls, node, store):
+        return cls.call_children(node, store)
+
+    @classmethod
+    def ales_porter(cls, node, store):
+        """
+        A rule that only goes to terminals applies the semantics.
+        :param node:
+        :param store:
+        :return:
+        """
+        current = store.get('ales', 0)
+        store['ales'] = current + Grammar.rules()[node.name].index(node.name) + 1
+        return store
+
+    @classmethod
+    def ales_stouts(cls, node, store):
+        """
+        A rule that only goes to terminals applies the semantics.
+        :param node:
+        :param store:
+        :return:
+        """
+        current = store.get('ales', 0)
+        store['ales'] = current + Grammar.rules()[node.name].index(node.name) + 1
+        return store
+
+    @classmethod
+    def ales_ale_terms(cls, node, store):
+        """
+        A rule that only goes to terminals applies the semantics.
+        :param node:
+        :param store:
+        :return:
+        """
+        current = store.get('ales', 0)
+        store['ales'] = current + Grammar.rules()[node.name].index(node.name) + 1
+        return store
 
     @classmethod
     def call_children(cls, node, store):
         for c in node.children:
             store = getattr(cls, "_".join([node.name.strip("<>"), c.name.strip("<>")]))(c, store)
         return store
+
+    @classmethod
+    def rules(cls):
+        return cls._grammar
 
     @classmethod
     def items(cls):
