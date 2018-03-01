@@ -96,7 +96,7 @@ class Grammar(object):
         return cls.call_children(node, store)
 
     @classmethod
-    def type_lagers(cls, node, store):
+    def type_lager(cls, node, store):
         return cls.call_children(node, store)
 
     @classmethod
@@ -106,6 +106,15 @@ class Grammar(object):
     @classmethod
     def type_adj(cls, node, store):
         return cls.call_children(node, store)
+
+    @classmethod
+    def adj_epsilon(cls, node, store):
+        return store
+
+    @classmethod
+    def lager_lager_terms(cls, node, store):
+        print(node.name)
+        return store
 
     @classmethod
     def ales_porter(cls, node, store):
@@ -128,7 +137,8 @@ class Grammar(object):
         :return:
         """
         current = store.get('ales', 0)
-        store['ales'] = current + Grammar.rules()[node.name].index(node.name) + 1
+        term = node.children[0]  # We are one level above a terminal
+        store['ales'] = current + Grammar.rules()[node.name].index(term.name) + 1
         return store
 
     @classmethod
