@@ -108,10 +108,6 @@ class Grammar(object):
         return cls.call_children(node, store)
 
     @classmethod
-    def ales_stouts(cls, node, store):
-        return cls.call_children(node, store)
-
-    @classmethod
     def ales_porter(cls, node, store):
         """
         A rule that only goes to terminals applies the semantics.
