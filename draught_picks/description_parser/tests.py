@@ -18,7 +18,8 @@ from .Grammar import DescriptionParser, TreeNode
 class TestParser(TestCase):
 
     def setUp(self):
-        self.parser = DescriptionParser("I like india pale ales, brown lagers and dark stouts")
+        self.parser = DescriptionParser("I like lagers stouts")
+        # self.parser = DescriptionParser("I like india pale ales, brown lagers and dark stouts")
         # self.parser = DescriptionParser("""Our first beer has been aptly named ""633"" after the Regions telephone exchange for starters.  ""If I could call a beer home, this would be the one."" ~ Win
 
 # It is a mildly hoppy pale ale using a 2 row, vienna, and munich malts for body,color, and head retention. It is hopped with American west coast hops later in the boil giving it a nice citrus hop flavor and very mild aroma. Slight addition of a roasted caramel malt gives ""633"" it's signature 'sunset over the harbor glow'.""")
@@ -28,7 +29,8 @@ class TestParser(TestCase):
         stack = []
         self.parser.shift(stack, self.parser.tokens)
         self.assertEqual(stack, [''])
-        self.assertEqual(self.parser.tokens, ['like', 'india', 'pale', 'ales', 'brown', 'lagers', 'and', 'dark', 'stouts'])
+        self.assertEqual(self.parser.tokens, ['like', 'lagers', 'stouts'])
+        # self.assertEqual(self.parser.tokens, ['like', 'india', 'pale', 'ales', 'brown', 'lagers', 'and', 'dark', 'stouts'])
 
     def test_init(self):
         a_parser = DescriptionParser("American-style lagers and ales")
@@ -79,7 +81,7 @@ class TestParser(TestCase):
         self.parser.reduce(stack, 1)
 
         # Assert it should parse the right most symbol to a tree
-        self.assertTrue(isinstance(stack[0], TreeNode) and stack[0].name == "<lager>", stack[0].name)
+        self.assertTrue(isinstance(stack[0], TreeNode) and stack[0].name == "<lager_terms>", stack[0].name)
         stack.append("stouts")
         self.parser.reduce(stack, 0)
         self.assertTrue(isinstance(stack[1], TreeNode) and stack[1].name == "<stouts>", stack[1].name)
