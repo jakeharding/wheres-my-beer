@@ -27,7 +27,7 @@ class DraughtPicksUser(AbstractUser):
     date_of_birth = m.DateField()
     weight = m.IntegerField(help_text="Weight in pounds.", blank=True, null=True)
     favorite_beers = m.ManyToManyField('beers.Beer', related_name='favorite_beers')
-    recent_beers = m.ManyToManyField('beers.Beer', related_name='recent_beers')
+    recent_beers = m.ManyToManyField('beers.Beer', related_name='recent_beers', through='beers.RecentBeer')
     rated_beers = m.ManyToManyField('beers.Beer', related_name='rated_beers', through='beers.BeerRating')
 
 

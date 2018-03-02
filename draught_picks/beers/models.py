@@ -43,3 +43,6 @@ class RecentBeer(m.Model):
     user = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.PROTECT)
     beer = m.ForeignKey(Beer, on_delete=m.PROTECT)
     created_at = m.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "%s drank %s" % (self.user.username, self.beer.name)
