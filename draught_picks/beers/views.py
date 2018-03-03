@@ -44,7 +44,11 @@ class BeerWithRatingSerializer(BeerSerializer):
     rating = SerializerMethodField()
 
     def get_rating(self, obj):
-        return BeerRatingSerializer(BeerRating.objects.filter(beer=obj, user=self.context['request'].user), many=True).data
+        req = self.context.get('request')
+        ratings = []
+        if req:
+            ratings = BeerRating.objects.filter(beer=obj, user=req.user)
+        return BeerRatingSerializer(ratings, many=True).data
 
 
 class BeerSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
@@ -94,8 +98,8 @@ class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         page = self.paginate_queryset(qs)
 
         if page is not None:
-            serializer = BeerWithRatingSerializer(page, user=request.user, many=True)
+            serializer = BeerWithRatingSerializer(page, many=True)
             return self.get_paginated_response(serializer.data)
 
-        serializer = BeerWithRatingSerializer(qs, user=request.user, many=True)
+        serializer = BeerWithRatingSerializer(qs, many=True)
         return Response(serializer.data)
