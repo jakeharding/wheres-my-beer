@@ -43,16 +43,12 @@ class BeerWithRatingSerializer(BeerSerializer):
     """
     rating = SerializerMethodField()
 
-    def __init__(self, data, user=None, **kwargs):
-        super().__init__(data, **kwargs)
-        self.user = user
-
     def get_rating(self, obj):
-        return BeerRatingSerializer(BeerRating.objects.filter(beer=obj, user=self.user), many=True).data
+        return BeerRatingSerializer(BeerRating.objects.filter(beer=obj, user=self.context['request'].user), many=True).data
 
 
 class BeerSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
-    serializer_class = BeerSerializer
+    serializer_class = BeerWithRatingSerializer
     queryset = Beer.objects.all()
     lookup_field = 'uuid'
     search_fields = ("name", )
