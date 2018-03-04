@@ -25,7 +25,7 @@ SECRET_KEY = 'ey_3xk%(-gj#ibxxf31=v8ag_te@+cc6($pg5i93^n&23%t6(8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 REST_API_VERSION = 'dev'
 

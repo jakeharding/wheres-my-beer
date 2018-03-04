@@ -43,15 +43,21 @@ class BeerWithRatingSerializer(BeerSerializer):
     """
     rating = SerializerMethodField()
 
+    def __init__(self, instance, user=None, **kwargs):
+        self.user = user
+        super().__init__(instance, **kwargs)
+
     def get_rating(self, obj):
         req = self.context.get('request')
         ratings = []
-        if req:
+        if self.user:
+            ratings = BeerRating.objects.filter(beer=obj, user=self.user)
+        elif req:
             ratings = BeerRating.objects.filter(beer=obj, user=req.user)
         return BeerRatingSerializer(ratings, many=True).data
 
 
-class BeerSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
+class BeerSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
     serializer_class = BeerWithRatingSerializer
     queryset = Beer.objects.all()
     lookup_field = 'uuid'
@@ -63,6 +69,10 @@ class BeerRatingSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, Retrieve
     serializer_class = BeerRatingSerializer
     queryset = BeerRating.objects.all()
     lookup_field = 'uuid'
+
+    def create(self, request, *args, **kwargs):
+        request.data['user'] = str(request.user.uuid)
+        return super().create(request, *args, **kwargs)
 
     def get_queryset(self):
         return BeerRating.objects.filter(user=self.request.user)
@@ -86,6 +96,10 @@ class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     def get_queryset(self):
         return RecentBeer.objects.filter(user=self.request.user)
 
+    def create(self, request, *args, **kwargs):
+        request.data['user'] = str(request.user.uuid)
+        return super().create(request, *args, **kwargs)
+
     def list(self, request, *arg, **kwargs):
         """
         Override to serialize the beers and not the through table.
@@ -98,8 +112,8 @@ class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         page = self.paginate_queryset(qs)
 
         if page is not None:
-            serializer = BeerWithRatingSerializer(page, many=True)
+            serializer = BeerWithRatingSerializer(page, user=request.user, many=True)
             return self.get_paginated_response(serializer.data)
 
-        serializer = BeerWithRatingSerializer(qs, many=True)
+        serializer = BeerWithRatingSerializer(qs, user=request.user, many=True)
         return Response(serializer.data)
