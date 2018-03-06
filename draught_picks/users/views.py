@@ -61,10 +61,7 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         Only allow users access to their user instance.
         :return: queryset the user has access to.
         """
-        if self.request.user.is_superuser:
-            return DraughtPicksUser.objects.all()
-        else:
-            return DraughtPicksUser.objects.filter(id=self.request.user.id)
+        return DraughtPicksUser.objects.filter(id=self.request.user.id)
 
 
 class BeerPreferencesSerializer(ModelSerializer):
