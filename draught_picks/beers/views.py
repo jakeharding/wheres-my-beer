@@ -20,11 +20,11 @@ from .models import Beer, BeerRating, RecentBeer
 
 
 class BeerSerializer(ModelSerializer):
-    uuid = UUIDField(read_only=True)
+    uuid = UUIDField()
 
     class Meta:
         model = Beer
-        exclude = ('id', )
+        fields = ('uuid', 'name', 'description', 'abv', 'ibu', 'api_id', 'name_of_api', 'created_at',)
 
 
 class BeerRatingSerializer(ModelSerializer):
@@ -55,6 +55,10 @@ class BeerWithRatingSerializer(BeerSerializer):
         elif req:
             ratings = BeerRating.objects.filter(beer=obj, user=req.user)
         return BeerRatingSerializer(ratings, many=True).data
+
+    class Meta:
+        model = Beer
+        fields = ('uuid', 'rating', 'name', 'description', 'abv', 'ibu', 'api_id', 'name_of_api', 'created_at',)
 
 
 class BeerSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
