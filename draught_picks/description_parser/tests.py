@@ -18,7 +18,7 @@ from .Grammar import DescriptionParser, TreeNode
 class TestParser(TestCase):
 
     def setUp(self):
-        self.parser = DescriptionParser("I like lagers stouts and light dark ales from india")
+        self.parser = DescriptionParser("I like lagers stouts and light/dark ales from india")
         # self.parser = DescriptionParser("I like india pale ales, brown lagers and dark stouts")
         # self.parser = DescriptionParser("""Our first beer has been aptly named ""633"" after the Regions telephone exchange for starters.  ""If I could call a beer home, this would be the one."" ~ Win
 

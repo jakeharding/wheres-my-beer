@@ -38,7 +38,9 @@ class Grammar(object):
     dark_colors = ['red', 'amber', 'copper', 'brown', 'dark', 'ebony', 'black']
     light_colors = ['light', 'yellow', 'pale', 'gold', 'golden', 'tan']
     origin = ['india', 'american', 'european', 'german', 'bohemian', 'belgian', "irish", "baltic"]
-    flavors = ['coffee', 'chocolate', 'caramel', 'wheat', 'vanilla']
+    flavors = ['coffee', 'chocolate', 'caramel', 'wheat', 'vanilla', 'strawberry', 'almond',
+               'coconut', 'pineapple', 'plum','mango', 'orange', 'peach', 'caramel', 'toffee',
+               'melon', 'honey', 'hazelnut', 'blueberry', 'banana', 'pumpkin']
     dry = ['dry', 'dryness']
     sour = ['sour', 'sourness']
     sweet = ['sweet', 'sweetness']
@@ -82,7 +84,7 @@ class Grammar(object):
         '<epsilon>': [''],
     })
 
-    terminal_symbols = light_colors + dark_colors + origin + hops + malt + flavors + bitter + oats + dry + sweet + tart+ sour +\
+    terminal_symbols = light_colors + dark_colors + origin + hops + malt + flavors + bitter + oats + dry + sweet + tart + sour +\
                        ['', 'lager', 'lagers', 'ale', 'ales', 'stout', 'stouts', 'oatmeal', 'oats', 'porter', 'porters']
 
     @classmethod
