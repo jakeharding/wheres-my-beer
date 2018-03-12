@@ -20,7 +20,7 @@ class Beer(m.Model):
     name = m.CharField(max_length=255)
     description = m.TextField(blank=True, null=True)
     abv = m.DecimalField(max_digits=3, decimal_places=1, blank=True, null=True)
-    ibu = m.PositiveSmallIntegerField(blank=True, null=True)
+    ibu = m.DecimalField(max_digits=5, decimal_places=1, blank=True, null=True)
     api_id = m.CharField(max_length=255, help_text="Unique id of the api the beer was pulled from")
     name_of_api = m.CharField(max_length=255, help_text="Name of the api used to get data.")
     created_at = m.DateTimeField(auto_now_add=True, help_text="Date and time the beer was added to this database")
