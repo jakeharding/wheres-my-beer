@@ -13,7 +13,7 @@ Parse all the descriptions in the database
 from concurrent import futures
 from django.core.management.base import BaseCommand
 
-from openpyxl import load_workbook
+# from openpyxl import load_workbook
 
 from beers.models import Beer
 from description_parser.Grammar import DescriptionParser, DescriptionParseException
@@ -32,12 +32,20 @@ def worker_block(beers):
 
 class Command(BaseCommand):
 
+    # Asynchronous about 4 and half minutes
     def handle(self, *args, **kwargs):
         beers = Beer.objects.filter(description__isnull=False).all()
+        errors = []
 
         with futures.ProcessPoolExecutor() as executor:
-            executor.map(worker_block, [beers[j-5:j] for j in range(5, beers.count(), 5)])
+            try:
+                executor.map(worker_block, [beers[j:j + 5] for j in range(0, beers.count(), 5)])
+            except DescriptionParseException as e:
+                errors.append(e)
+        print("COMPLETE")
+        print("ERRORS:", errors)
 
+    # Synchronous about 13 minutes
     # def handle(self, *args, **options):
     #     total_parsed = 0
     #     total_errors = []
