@@ -13,7 +13,6 @@ Parse all the descriptions in the database
 from concurrent import futures
 from django.core.management.base import BaseCommand
 
-# from openpyxl import load_workbook
 
 from beers.models import Beer
 from description_parser.Grammar import DescriptionParser, DescriptionParseException
