@@ -10,10 +10,13 @@ Author(s) of this file:
 Define how a grammar and it's productions rules behave.
 """
 
-import string, uuid
+import string, uuid, sys
 from collections import OrderedDict
 
 from graphviz import Digraph
+
+# Set a higher recursion limit or we will get RecursionErrors in large descriptions due to many epsilon
+sys.setrecursionlimit(2000)
 
 
 class TreeNode(object):
@@ -59,11 +62,11 @@ class Grammar(object):
         '<beer>': ['<type_list>'],
         '<type_list>': ['<type> <type_list>', '<type>'],
         '<type>': ['<ales>', '<lager>', '<adj_list> <type>', '<adj>'],
-        '<ales>': ['<stouts>', '<oats>', '<porter>', '<ale_terms>','<lambic>'],
+        '<ales>': ['<stouts>', '<oats>', '<porter>', '<ale_terms>', '<lambic>'],
         '<ale_terms>': ['ale', 'ales'],
         '<lambic>': ['lambic'],
         '<stouts>': ['stout', 'stouts'],
-        '<oats>': ['oats','oatmeal','oat'],
+        '<oats>': ['oats', 'oatmeal', 'oat'],
         '<lager>': ['<pilsner>', '<lager_terms>'],
         '<lager_terms>': ['lager', 'lagers'],
         '<porter>': ['porter', 'porters'],
@@ -98,8 +101,14 @@ class Grammar(object):
         return cls.call_children(node, store)
 
     @classmethod
-    def ales_lambic(cls, node, store):
-        return cls.call_children(node, store)
+    def adj_malt(cls, node, store):
+        store['malt'] = 1
+        return store
+
+    @classmethod
+    def adj_hops(cls, node, store):
+        store['hops'] = 1
+        return store
 
     @classmethod
     def type_list_type(cls, node, store):
@@ -263,7 +272,7 @@ class Grammar(object):
 class DescriptionParseException(Exception):
 
     def __init__(self, stack):
-        super("Stack has %d elements. Should only have one" % len(stack))
+        super().__init__("Stack has %d elements. Should only have one" % len(stack))
 
 
 class DescriptionParser(object):
@@ -291,10 +300,10 @@ class DescriptionParser(object):
                 pass
 
         # Example of printing the tree
-        for e in stack:
-            if isinstance(e, TreeNode):
-                print_tree(e, '')
-                print('\n')
+        # for e in stack:
+        #     if isinstance(e, TreeNode):
+        #         print_tree(e, '')
+        #         print('\n')
 
         if len(stack) is 1:
             root = stack[0]

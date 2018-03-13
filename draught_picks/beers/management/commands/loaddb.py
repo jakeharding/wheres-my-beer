@@ -64,6 +64,25 @@ def load_page_block(page_start):
 
 class Command(BaseCommand):
 
+    # Load database from spreadsheet using openpyxl
+    # def handle(self, *args, **options):
+    #     wb = load_workbook('/Users/jake/Desktop/draught-picks/output.xlsx')
+    #     sheet = wb['Sheet1']
+    #     for beer in sheet.rows:
+    #         beer_data = {
+    #             "name": beer[2].value,
+    #             "api_id": beer[1].value,
+    #             "abv": beer[3].value,
+    #             "ibu": beer[4].value,
+    #             "description": beer[9].value
+    #         }
+    #         try:
+    #             Beer.objects.create(**beer_data)
+    #         except Exception as e:
+    #             print(e)
+    #             print(beer[1].value)
+
+    # Load database from network using requests package
     #  sync example
     def handle(self, *args, **options):
         # print("Synchronous execution of loading db")
