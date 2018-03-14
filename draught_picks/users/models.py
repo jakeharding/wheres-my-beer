@@ -55,27 +55,25 @@ class BeerPreferences(m.Model):
     created_at = m.DateTimeField(auto_now_add=True)
     beer_learning = m.OneToOneField('beers.BeerLearning', blank=True, null=True, on_delete=m.PROTECT)
 
+    def save(self, *args, **kwargs):
+        parsed = {}
+        if self.like_description:
+            p = DescriptionParser(self.like_description)
+            parsed = p.parse()
+        if not self.beer_learning:
+            self.beer_learning = BeerLearning.objects.create(**parsed)
+        else:
+            # fields to update are in parsed.keys() and only set to 1
+            # The difference between beer_learning.fields and parsed.keys() is set to zero
+            zeros = self.beer_learning.learning_fields - parsed.keys()
+            for attr in zeros:
+                setattr(self.beer_learning, attr, 0)
+            for k, v in parsed.items():
+                setattr(self.beer_learning, k, v)
+            self.beer_learning.save()
+        super(BeerPreferences, self).save(*args, **kwargs)
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-
-
-@receiver(post_save, sender=BeerPreferences)
-def parse_desc(sender, instance=None, created=False, **kwargs):
-    parsed = {}
-    if instance.like_description:
-        p = DescriptionParser(instance.like_description)
-        parsed = p.parse()
-    if not instance.beer_learning:
-        instance.beer_learning = BeerLearning.objects.create(**parsed)
-    else:
-        # fields to update are in parsed.keys() and only set to 1
-        # The difference between parsed.keys() and beer_learning.fields are set to zero
-        zeros = instance.beer_learning.learning_fields - parsed.keys()
-        for attr in zeros:
-            setattr(instance.beer_learning, attr, 0)
-        for k, v in parsed.items():
-            setattr(instance.beer_learning, k, v)
-        instance.beer_learning.save()
