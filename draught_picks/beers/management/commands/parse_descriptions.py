@@ -14,14 +14,12 @@ from concurrent import futures
 from django.core.management.base import BaseCommand
 
 
-from beers.models import Beer
+from beers.models import Beer, BeerLearning
 from description_parser.Grammar import DescriptionParser, DescriptionParseException
 
 
 def worker(beer):
-    parser = DescriptionParser(beer.description)
-    parser.parse()
-    # TODO save the machine learning table here
+    beer.save()  # Calling save on a beer objects will create and save a  descriptoin
 
 
 def worker_block(beers):
@@ -37,10 +35,7 @@ class Command(BaseCommand):
         errors = []
 
         with futures.ProcessPoolExecutor() as executor:
-            try:
-                executor.map(worker_block, [beers[j:j + 5] for j in range(0, beers.count(), 5)])
-            except DescriptionParseException as e:
-                errors.append(e)
+            executor.map(worker_block, [beers[j:j + 5] for j in range(0, beers.count(), 5)])
         print("COMPLETE")
         print("ERRORS:", errors)
 
@@ -49,12 +44,15 @@ class Command(BaseCommand):
     #     total_parsed = 0
     #     total_errors = []
     #     for b in Beer.objects.filter(description__isnull=False).order_by('-pk'):
+    #         parsed = {}
     #         try:
     #             new_parser = DescriptionParser(b.description)
-    #             new_parser.parse()
+    #             parsed = new_parser.parse()
     #             total_parsed += 1
     #         except DescriptionParseException as e:
     #             total_errors.append((b, e))
     #             print("ERROR:", b.name)
+    #         b.beer_learning = BeerLearning.objects.create(**parsed)
+    #         b.save()
     #     print("Total descriptions:", total_parsed)
     #     print("Total errors:", total_errors)

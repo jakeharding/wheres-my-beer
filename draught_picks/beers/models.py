@@ -14,6 +14,8 @@ import uuid
 from django.db import models as m
 from django.conf import settings
 
+from description_parser.Grammar import DescriptionParser, DescriptionParseException
+
 
 class Beer(m.Model):
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
@@ -27,6 +29,27 @@ class Beer(m.Model):
     created_at = m.DateTimeField(auto_now_add=True, help_text="Date and time the beer was added to this database")
     beer_learning = m.OneToOneField('beers.BeerLearning', blank=True, null=True, related_name='beer',
                                     on_delete=m.PROTECT)
+
+    def save(self, *args, **kwargs):
+        parsed = {}
+        if self.description:
+            p = DescriptionParser(self.description)
+            try:
+                parsed = p.parse()
+            except DescriptionParseException:
+                pass
+        if not self.beer_learning:
+            self.beer_learning = BeerLearning.objects.create(**parsed)
+        else:
+            # fields to update are in parsed.keys() and only set to 1
+            # The difference between beer_learning.fields and parsed.keys() is set to zero
+            zeros = self.beer_learning.learning_fields - parsed.keys()
+            for attr in zeros:
+                setattr(self.beer_learning, attr, 0)
+            for k, v in parsed.items():
+                setattr(self.beer_learning, k, v)
+            self.beer_learning.save()
+        super(Beer, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -83,6 +106,7 @@ class BeerLearning(m.Model):
     orange = m.IntegerField(default=0)
     peach = m.IntegerField(default=0)
     toffee = m.IntegerField(default=0)
+    melon = m.IntegerField(default=0)
     honey = m.IntegerField(default=0)
     hazelnut = m.IntegerField(default=0)
     blueberry = m.IntegerField(default=0)
@@ -104,7 +128,7 @@ class BeerLearning(m.Model):
 
     @property
     def learning_fields(self):
-        fields =list(map(lambda f: f.name, self._meta.fields))
+        fields = list(map(lambda f: f.name, self._meta.fields))
         fields.remove('uuid')
         fields.remove('id')
         return fields
