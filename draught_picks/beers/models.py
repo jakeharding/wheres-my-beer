@@ -52,6 +52,8 @@ class RecentBeer(m.Model):
 
 
 class BeerLearning(m.Model):
+    uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+
     # Malt/Hops
     malt = m.IntegerField(default=0)
     hops = m.IntegerField(default=0)
@@ -99,3 +101,10 @@ class BeerLearning(m.Model):
     porter = m.IntegerField(default=0)
     stouts = m.IntegerField(default=0)
     ales = m.IntegerField(default=0)
+
+    @property
+    def learning_fields(self):
+        fields =list(map(lambda f: f.name, self._meta.fields))
+        fields.remove('uuid')
+        fields.remove('id')
+        return fields

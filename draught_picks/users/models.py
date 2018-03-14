@@ -19,6 +19,7 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
 from description_parser.Grammar import DescriptionParser
+from beers.models import BeerLearning
 
 
 class DraughtPicksUser(AbstractUser):
@@ -62,6 +63,19 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 
 
 @receiver(post_save, sender=BeerPreferences)
-def parse_desc(sender, instance=None, **kwargs):
-    p = DescriptionParser(instance.like_description)
-    p.parse()
+def parse_desc(sender, instance=None, created=False, **kwargs):
+    parsed = {}
+    if instance.like_description:
+        p = DescriptionParser(instance.like_description)
+        parsed = p.parse()
+    if not instance.beer_learning:
+        instance.beer_learning = BeerLearning.objects.create(**parsed)
+    else:
+        # fields to update are in parsed.keys() and only set to 1
+        # The difference between parsed.keys() and beer_learning.fields are set to zero
+        zeros = instance.beer_learning.learning_fields - parsed.keys()
+        for attr in zeros:
+            setattr(instance.beer_learning, attr, 0)
+        for k, v in parsed.items():
+            setattr(instance.beer_learning, k, v)
+        instance.beer_learning.save()

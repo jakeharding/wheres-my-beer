@@ -101,7 +101,7 @@ class Grammar(object):
     })
 
     terminal_symbols = light_colors + dark_colors + other_origin + ireland + belgium + german + america + india + hops + malt + flavors + bitter + oats + dry + sweet + tart + sour +\
-                       ['', 'lager', 'lagers', 'ale', 'ales', 'stout', 'stouts', 'oatmeal', 'oats', 'porter', 'porters']
+                       ['', 'lager', 'lagers', 'ale', 'ales', 'stout', 'stouts', 'oatmeal', 'oats', 'porter', 'porters', 'lambic']
 
     @classmethod
     def beer_type_list(cls, node, store):
@@ -357,7 +357,7 @@ class DescriptionParser(object):
             # store = {}
             # for c in root.children:
             store = getattr(Grammar, "beer_type_list")(root, {})
-            print("FINISH", store)
+            # print("FINISH", store)
         else:
             raise DescriptionParseException(stack)
 
@@ -369,6 +369,7 @@ class DescriptionParser(object):
         # render_tree(root, dot, root_uid)
         # print(dot.source)
         # dot.render('tree.gv')
+
         return store
 
     def shift(self, stack, remaining):
