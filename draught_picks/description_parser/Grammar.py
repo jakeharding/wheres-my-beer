@@ -40,9 +40,15 @@ class Grammar(object):
     # Colors will be listed from lighter -> darker
     dark_colors = ['red', 'amber', 'copper', 'brown', 'dark', 'ebony', 'black']
     light_colors = ['light', 'yellow', 'pale', 'gold', 'golden', 'tan']
-    origin = ['india', 'american', 'european', 'german', 'bohemian', 'belgian', "irish", "baltic"]
-    flavors = ['coffee', 'chocolate', 'caramel', 'wheat', 'vanilla', 'strawberry', 'almond',
-               'coconut', 'pineapple', 'plum','mango', 'orange', 'peach', 'caramel', 'toffee',
+    america = ['america', 'american']
+    india = ['indian', 'india']
+    german = ['german', 'germany']
+    europe = ['european', 'europe']
+    belgium = ['belgium', 'belgian']
+    ireland = ['irish', 'ireland']
+    other_origin = ['bohemian', "baltic"]
+    flavors = ['coffee', 'chocolate', 'wheat', 'vanilla', 'strawberry', 'almond',
+               'coconut', 'pineapple', 'plum', 'mango', 'orange', 'peach', 'caramel', 'toffee',
                'melon', 'honey', 'hazelnut', 'blueberry', 'banana', 'pumpkin']
     dry = ['dry', 'dryness']
     sour = ['sour', 'sourness']
@@ -83,12 +89,19 @@ class Grammar(object):
         '<color>': ['<light_colors>', '<dark_colors>'],
         '<light_colors>': light_colors,
         '<dark_colors>': dark_colors,
-        '<origin>': origin,
+        '<origin>': ['<america>', '<india>', '<ireland>', '<german>', '<belgium>', '<europe>', '<other_origin>'],
+        '<ireland>': ireland,
+        '<belgium>': belgium,
+        '<europe>': europe,
+        '<german>': german,
+        '<america>': america,
+        '<india>': india,
+        '<other_origin>': other_origin,
         '<epsilon>': [''],
     })
 
-    terminal_symbols = light_colors + dark_colors + origin + hops + malt + flavors + bitter + oats + dry + sweet + tart + sour +\
-                       ['', 'lager', 'lagers', 'ale', 'ales', 'stout', 'stouts', 'oatmeal', 'oats', 'porter', 'porters']
+    terminal_symbols = light_colors + dark_colors + other_origin + ireland + belgium + german + america + india + hops + malt + flavors + bitter + oats + dry + sweet + tart + sour +\
+                       ['', 'lager', 'lagers', 'ale', 'ales', 'stout', 'stouts', 'oatmeal', 'oats', 'porter', 'porters', 'lambic']
 
     @classmethod
     def beer_type_list(cls, node, store):
@@ -136,6 +149,40 @@ class Grammar(object):
 
     @classmethod
     def adj_origin(cls, node, store):
+        return cls.call_children(node, store)
+
+    @classmethod
+    def origin_america(cls, node, store):
+        store['america'] = 1
+        return store
+
+    @classmethod
+    def origin_india(cls, node, store):
+        store['india'] = 1
+        return store
+
+    @classmethod
+    def origin_german(cls, node, store):
+        store['german'] = 1
+        return store
+
+    @classmethod
+    def origin_europe(cls, node, store):
+        store['europe'] = 1
+        return store
+
+    @classmethod
+    def origin_belgium(cls, node, store):
+        store['belgium'] = 1
+        return store
+
+    @classmethod
+    def origin_ireland(cls, node, store):
+        store['ireland'] = 1
+        return store
+
+    @classmethod
+    def origin_other_origin(cls, node, store):
         term = node.children[0]
         store[term.name] = 1
         return store
@@ -310,7 +357,7 @@ class DescriptionParser(object):
             # store = {}
             # for c in root.children:
             store = getattr(Grammar, "beer_type_list")(root, {})
-            print("FINISH", store)
+            # print("FINISH", store)
         else:
             raise DescriptionParseException(stack)
 
@@ -322,6 +369,7 @@ class DescriptionParser(object):
         # render_tree(root, dot, root_uid)
         # print(dot.source)
         # dot.render('tree.gv')
+
         return store
 
     def shift(self, stack, remaining):
