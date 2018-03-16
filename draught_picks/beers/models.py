@@ -13,6 +13,8 @@ import uuid
 
 from django.db import models as m
 from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from description_parser.Grammar import DescriptionParser, DescriptionParseException
 
@@ -53,6 +55,20 @@ class Beer(m.Model):
 
     def __str__(self):
         return self.name
+
+
+# Utility method to parse a beer's name and description when using the loaddata management command
+# DO NOT USE THIS FUNCTION WITH THE ABOVE SAVE METHOD ENABLED
+# @receiver(post_save, sender=Beer)
+# def parse_beer_desc(sender, instance=None, **kwargs):
+#     if not instance.beer_learning:
+#         if not instance.description:
+#             instance.description = ""
+#         n = DescriptionParser(instance.name)
+#         p = DescriptionParser(instance.description, initial_store=n.parse())
+#         parsed = p.parse()
+#         instance.beer_learning = BeerLearning.objects.create(**parsed)
+#         instance.save()
 
 
 class BeerRating(m.Model):

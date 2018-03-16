@@ -14,6 +14,7 @@ from django.test import TestCase
 
 from .Grammar import DescriptionParser, TreeNode
 
+
 class TestParser(TestCase):
 
     def setUp(self):

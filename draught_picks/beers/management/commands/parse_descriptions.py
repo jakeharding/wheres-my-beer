@@ -15,7 +15,6 @@ from django.core.management.base import BaseCommand
 
 
 from beers.models import Beer, BeerLearning
-from description_parser.Grammar import DescriptionParser, DescriptionParseException
 
 
 def worker(beer):
@@ -31,7 +30,7 @@ class Command(BaseCommand):
 
     # Asynchronous about 4 and half minutes
     def handle(self, *args, **kwargs):
-        beers = Beer.objects.filter(description__isnull=False).all()
+        beers = Beer.objects.all()
         errors = []
 
         with futures.ProcessPoolExecutor() as executor:
