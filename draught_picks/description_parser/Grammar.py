@@ -13,7 +13,6 @@ Define how a grammar and it's productions rules behave.
 import string, uuid, sys
 from collections import OrderedDict
 
-from graphviz import Digraph
 
 # Set a higher recursion limit or we will get RecursionErrors in large descriptions due to many epsilon
 sys.setrecursionlimit(2000)
@@ -328,7 +327,8 @@ class DescriptionParser(object):
     """
     description = ''
 
-    def __init__(self, description):
+    def __init__(self, description, initial_store={}):
+        self.initial_store = initial_store
 
         # Map punctuation to spaces and upper to lower case
         table = str.maketrans(string.ascii_uppercase + string.punctuation, string.ascii_lowercase + " " * len(string.punctuation))
@@ -346,29 +346,13 @@ class DescriptionParser(object):
             while self.reduce(stack, len(remaining)):
                 pass
 
-        # Example of printing the tree
-        # for e in stack:
-        #     if isinstance(e, TreeNode):
-        #         print_tree(e, '')
-        #         print('\n')
-
         if len(stack) is 1:
             root = stack[0]
-            # store = {}
-            # for c in root.children:
-            store = getattr(Grammar, "beer_type_list")(root, {})
-            # print("FINISH", store)
+            store = getattr(Grammar, "beer_type_list")(root, self.initial_store)
+        elif len(stack) is 0:
+            store = {}
         else:
             raise DescriptionParseException(stack)
-
-        # Example of rendering the tree to a pdf
-        # root = stack[0]
-        # dot = Digraph()
-        # root_uid = str(uuid.uuid4())
-        # dot.node(root_uid, root.name)
-        # render_tree(root, dot, root_uid)
-        # print(dot.source)
-        # dot.render('tree.gv')
 
         return store
 
@@ -409,6 +393,12 @@ class DescriptionParser(object):
 
 
 def print_tree(node, margin='--'):
+    """
+    Recursie function to print the tree.
+    :param node: TreeNode to process
+    :param margin: Left handed margin
+    :return: None
+    """
     print('%s%s' % (margin, node.name))
     margin += '|--'
     for child in node.children:
@@ -416,12 +406,41 @@ def print_tree(node, margin='--'):
 
 
 def is_terminal(node_name):
+    """
+    Determines if the string is in our language.
+    :param node_name:
+    :return: Boolean
+    """
     return node_name in Grammar.terminal_symbols
 
 
 def render_tree(node, dot, parent_uid):
+    """
+    Recursive function to build the graph for graphviz.
+    :param node: TreeNode being processed
+    :param dot: Dipraph object from graphviz
+    :param parent_uid: UUID of parent
+    :return: None
+    """
     for i, c in enumerate(node.children):
         new_uid = str(uuid.uuid4())
         dot.node(new_uid, c.name if not is_terminal(c.name) else '"%s"' % c.name)
-        dot.edge("%s" % parent_uid, new_uid)
+        dot.edge(parent_uid, new_uid)
         render_tree(c, dot, new_uid)
+
+
+def render_tree_to_pdf(root):
+    """
+    Use graphviz to render a tree to a file.
+    :param root: root TreeNode
+    :return: None
+    """
+    try:
+        from graphviz import Digraph
+    except ImportError:
+        raise DescriptionParseException("You must have graphviz installed to render a tree.")
+    dot = Digraph()
+    root_uid = str(uuid.uuid4())
+    dot.node(root_uid, root.name)
+    render_tree(root, dot, root_uid)
+    dot.render('tree.gv')

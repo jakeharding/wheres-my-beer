@@ -31,13 +31,13 @@ class Beer(m.Model):
                                     on_delete=m.PROTECT)
 
     def save(self, *args, **kwargs):
-        parsed = {}
-        if self.description:
-            p = DescriptionParser(self.description)
-            try:
-                parsed = p.parse()
-            except DescriptionParseException:
-                pass
+
+        if not self.description:
+            self.description = ""
+        n = DescriptionParser(self.name)
+        p = DescriptionParser(self.description, initial_store=n.parse())
+        parsed = p.parse()
+
         if not self.beer_learning:
             self.beer_learning = BeerLearning.objects.create(**parsed)
         else:
