@@ -75,7 +75,15 @@ class RecentBeer(m.Model):
 
 
 class BeerLearning(m.Model):
+    """
+    !!IMPORTANT
+    Any changes to this table need to be reflected in the UserLearningProfile.
+    """
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+
+    # Scaled ibu/abv
+    scaled_ibu = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    scaled_abv = m.DecimalField(max_digits=4, decimal_places=3, default=0)
 
     # Malt/Hops
     malt = m.IntegerField(default=0)
@@ -132,3 +140,75 @@ class BeerLearning(m.Model):
         fields.remove('uuid')
         fields.remove('id')
         return fields
+
+
+class UserLearningProfile(m.Model):
+    """
+    This table mirrors BeerLearning but uses Decimals.
+    !!IMPORTANT
+    Any changes to either table should be reflected in the other.
+    """
+
+    uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+    user = m.OneToOneField('users.DraughtPicksUser', related_name='learning_profile', on_delete=m.PROTECT)
+
+    # Scaled ibu/abv
+    scaled_ibu = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    scaled_abv = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+
+    # Malt/Hops
+    malt = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    hops = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+
+    # Origin
+    india = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    america = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    german = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    belgium = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    ireland = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    europe = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    bohemian = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    baltic = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+
+    # Flavor
+    coffee = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    chocolate = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    caramel = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    wheat = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    vanilla = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    strawberry = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    almond = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    coconut = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    pineapple = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    plum = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    mango = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    orange = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    peach = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    toffee = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    melon = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    honey = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    hazelnut = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    blueberry = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    banana = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    pumpkin = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    tart = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    sour = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    sweet = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    dry = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    oats = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    light_colors = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    dark_colors = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    bitter = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    lambic = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    lager = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    porter = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    stouts = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+    ales = m.DecimalField(max_digits=4, decimal_places=3, default=0)
+
+    @property
+    def learning_fields(self):
+        fields = list(map(lambda f: f.name, self._meta.fields))
+        fields.remove('uuid')
+        fields.remove('id')
+        return fields
+
