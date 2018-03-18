@@ -34,6 +34,7 @@ class TestUsers(APITestCase):
         r = self.client.post('/api/dev/users', {
             'username': 'admin2',
             'password': 'test',
+            'email': 't@t.com',
             'date_of_birth': '1997-05-04'
         }, format='json')
         self.assertTrue(status.is_success(r.status_code), r.status_code)
@@ -42,6 +43,7 @@ class TestUsers(APITestCase):
         r = self.client.put('/api/dev/users/%s' % self.user.uuid, {
             'username': 'admin2',
             'password': 'test',
+            'email': 't@t.com',
             'date_of_birth': '1997-04-20',
             'weight': 195,
             'favorite_beers': [],

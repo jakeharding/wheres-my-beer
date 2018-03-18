@@ -35,6 +35,7 @@ class DraughtPicksUser(AbstractUser):
     )
 
     REQUIRED_FIELDS = ['email', 'date_of_birth']
+    email = m.EmailField(unique=True)
     uuid = m.UUIDField(unique=True, editable=False, default=uuid.uuid4)
     date_of_birth = m.DateField()
     weight = m.IntegerField(help_text="Weight in pounds.", blank=True, null=True)
