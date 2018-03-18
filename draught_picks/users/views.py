@@ -67,13 +67,6 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
 class BeerPreferencesSerializer(ModelSerializer):
     user = SlugRelatedField(slug_field='uuid', queryset=DraughtPicksUser.objects.all())
 
-    def get_queryset(self):
-        """
-        Only allow users access to their user instance.
-        :return: queryset the user has access to.
-        """
-        return BeerPreferences.objects.filter(user__id=self.request.user.id)
-
     class Meta:
         model = BeerPreferences
         fields = ('uuid', 'abv_low', 'abv_hi', 'ibu_low', 'ibu_hi', 'like_description', 'user', 'created_at',)
@@ -84,3 +77,10 @@ class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin,
     queryset = BeerPreferences.objects.all()
     lookup_field = 'uuid'
     permission_classes = (AllowAny, )
+
+    def get_queryset(self):
+        """
+        Only allow users access to their user instance.
+        :return: queryset the user has access to.
+        """
+        return BeerPreferences.objects.filter(user__id=self.request.user.id)
