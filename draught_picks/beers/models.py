@@ -74,6 +74,17 @@ class RecentBeer(m.Model):
         return "%s drank %s" % (self.user.username, self.beer.name)
 
 
+class RecommendedBeer(m.Model):
+    uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
+    user = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.PROTECT)
+    recommendedBeer = m.ForeignKey(Beer, on_delete=m.PROTECT)
+    created_at = m.DateTimeField(auto_now_add=True)
+    agreed = m.BooleanField()
+
+    def __str__(self):
+        return "%s is recommended for %s" % (self.recommendedBeer.name, self.user.username)
+
+
 class BeerLearning(m.Model):
     """
     !!IMPORTANT
