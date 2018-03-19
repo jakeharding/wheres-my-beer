@@ -43,6 +43,7 @@ class DraughtPicksUser(AbstractUser):
     favorite_beers = m.ManyToManyField('beers.Beer', related_name='favorite_beers')
     recent_beers = m.ManyToManyField('beers.Beer', related_name='recent_beers', through='beers.RecentBeer')
     rated_beers = m.ManyToManyField('beers.Beer', related_name='rated_beers', through='beers.BeerRating')
+    recommended_beers = m.ManyToManyField('beers.Beer',related_name='recommended_beers', through='beers.RecommendedBeer')
 
 
 class BeerPreferences(m.Model):
