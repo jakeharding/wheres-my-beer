@@ -66,7 +66,7 @@ class Grammar(object):
     _grammar = OrderedDict({
         '<beer>': ['<type_list>'],
         '<type_list>': ['<type> <type_list>', '<type>'],
-        '<type>': ['<ales>', '<lager>', '<adj_list> <type>', '<adj>'],
+        '<type>': ['<ales>', '<lager>', '<adj_list> <type>', '<adj_list>'],
         '<ales>': ['<stouts>', '<oats>', '<porter>', '<ale_terms>', '<lambic>'],
         '<ale_terms>': ['ale', 'ales'],
         '<lambic>': ['lambic'],
@@ -113,6 +113,10 @@ class Grammar(object):
         return cls.call_children(node, store)
 
     @classmethod
+    def adj_list_adj(cls, node, store):
+        return cls.call_children(node, store)
+
+    @classmethod
     def adj_malt(cls, node, store):
         store['malt'] = 1
         return store
@@ -131,7 +135,7 @@ class Grammar(object):
         return cls.call_children(node, store)
 
     @classmethod
-    def type_adj(cls, node, store):
+    def type_adj_list(cls, node, store):
         return cls.call_children(node, store)
 
     @classmethod
@@ -345,7 +349,6 @@ class DescriptionParser(object):
             self.shift(stack, remaining)
             while self.reduce(stack, len(remaining)):
                 pass
-
         if len(stack) is 1:
             root = stack[0]
             store = getattr(Grammar, "beer_type_list")(root, self.initial_store)
@@ -444,3 +447,4 @@ def render_tree_to_pdf(root):
     dot.node(root_uid, root.name)
     render_tree(root, dot, root_uid)
     dot.render('tree.gv')
+
