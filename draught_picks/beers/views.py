@@ -16,7 +16,7 @@ from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 
 from users.models import DraughtPicksUser
-from .models import Beer, BeerRating, RecentBeer
+from .models import Beer, BeerRating, RecentBeer, RecommendedBeer
 
 
 class BeerSerializer(ModelSerializer):
@@ -121,3 +121,13 @@ class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
         serializer = BeerWithRatingSerializer(qs, user=request.user, many=True)
         return Response(serializer.data)
+
+
+class RecommendedBeerSet(ListModelMixin, GenericViewSet):
+    serializer_class = BeerWithRatingSerializer
+    queryset = Beer.objects.all()
+    lookup_field = 'uuid'
+
+    def get_queryset(self):
+        ids = self.request.user.recommendedbeer_set.values_list('id',flat=True)
+        return Beer.objects.get(name__contains='Bud').order_by('-name') #Beer.objects.filter(pk__in=ids)
