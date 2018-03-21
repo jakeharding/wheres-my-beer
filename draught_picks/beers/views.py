@@ -125,8 +125,9 @@ class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
 
 class RecommendedBeerSet(ListModelMixin, GenericViewSet):
     serializer_class = BeerWithRatingSerializer
-    queryset = RecommendedBeer.objects.all()
+    queryset = Beer.objects.all()
     lookup_field = 'uuid'
 
     def get_queryset(self):
-        return RecommendedBeer.objects.filter(user=self.request.user.order_by('-created_at'))
+        ids = self.request.user.recommendedbeer_set.values_list('id',flat=True)
+        return Beer.objects.filter(pk__in=ids)

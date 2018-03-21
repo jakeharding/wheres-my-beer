@@ -24,7 +24,7 @@ router.register('preferences', UserBeerPreferencesSet)
 router.register('beers', BeerSet)
 router.register('beer-ratings', BeerRatingSet)
 router.register('recent-beers', RecentBeerSet)
-router.register('recommended_beers', RecentBeerSet)
+router.register('recommended-beers', RecommendedBeerSet)
 
 urlpatterns = [
     re_path(r'^login', views.obtain_auth_token),
