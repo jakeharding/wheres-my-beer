@@ -14,9 +14,14 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
+from django.contrib.auth.models import User
+from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.decorators import detail_route, list_route
+from rest_framework.response import Response
 
 from users.models import DraughtPicksUser
-from .models import Beer, BeerRating, RecentBeer
+from .models import Beer, BeerRating, RecentBeer, RecommendedBeer
 
 
 class BeerSerializer(ModelSerializer):
@@ -120,4 +125,38 @@ class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
             return self.get_paginated_response(serializer.data)
 
         serializer = BeerWithRatingSerializer(qs, user=request.user, many=True)
+        return Response(serializer.data)
+
+
+class RecommendedBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
+    serializer_class = RecentBeerSerializer
+    queryset = RecommendedBeer.objects.all()
+    lookup_field = 'uuid'
+
+    def get_queryset(self):
+        return RecommendedBeer.objects.filter(user=self.request.user)
+
+    @detail_route(methods=['post'])
+    def set_recommended_list(self, request, pk=None):
+        user = self.get_object()
+        serializer = RecentBeer(data=request.data)
+        if serializer.is_valid():
+            user.set_recommened_list(serializer.data['beer'])
+            user.save()
+            return Response({'status': 'beer set'})
+        else:
+            return Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
+    @list_route()
+    def list(self, request, *arg, **kwargs):
+
+        qs = self.request.user.recommended_beers.order_by('created_at')
+        page = self.paginate_queryset(qs)
+
+        if page is not None:
+            serializer = RecentBeerSerializer(page, user=request.user, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = RecentBeerSerializer(qs, user=request.user, many=True)
         return Response(serializer.data)
