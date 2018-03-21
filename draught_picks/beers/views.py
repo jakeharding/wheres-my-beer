@@ -130,4 +130,4 @@ class RecommendedBeerSet(ListModelMixin, GenericViewSet):
 
     def get_queryset(self):
         ids = self.request.user.recommendedbeer_set.values_list('id',flat=True)
-        return Beer.objects.get(name__contains='Bud').order_by('-name') #Beer.objects.filter(pk__in=ids)
+        return Beer.objects.filter(name__contains='Bud').order_by('-name') #Beer.objects.filter(pk__in=ids)
