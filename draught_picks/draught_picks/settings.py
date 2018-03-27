@@ -34,6 +34,7 @@ AUTH_USER_MODEL = 'users.DraughtPicksUser'
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admindocs',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
     'users',
     'rest_api',
     'beers',
+    'description_parser',
 ]
 
 MIDDLEWARE = [
