@@ -18,6 +18,9 @@ from description_parser.Grammar import DescriptionParser, DescriptionParseExcept
 
 
 class Beer(m.Model):
+    """
+    Stores information about beer.
+    """
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     calories = m.IntegerField(blank=True, null=True)
     name = m.CharField(max_length=255)
@@ -31,6 +34,12 @@ class Beer(m.Model):
                                     on_delete=m.PROTECT)
 
     def save(self, *args, **kwargs):
+        """
+        Override the save method to parse a beer's description on save.
+        :param args:
+        :param kwargs:
+        :return:
+        """
 
         if not self.description:
             self.description = ""
