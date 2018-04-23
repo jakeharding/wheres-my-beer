@@ -1,9 +1,11 @@
 language: python
 python:
   - "3.6"
-before_install:
-  - export DJANGO_SETTINGS_MODULE=draught_picks.travis_settings
-script:
+env:
+  - DJANGO_SETTINGS_MODULE="draught_picks.travis_settings"
+before_script:
+  - psql -c "CREATE DATABASE travisdb;" -U postgres
+install:
   - "pip install -r requirements.txt"
   - "pip install python-coveralls coverage"
   - "cd draught_picks/ && coverage run --source=beers,draught_picks,rest_api,users,description_parser --omit=manage.py,draught_picks/wsgi.py,tf_model/ manage.py test"
