@@ -17,7 +17,7 @@ except ImportError:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'travisci',
+        'NAME': 'travisdb',
         'USER': 'postgres',
         'PASSWORD': '',
         'HOST': 'localhost',
