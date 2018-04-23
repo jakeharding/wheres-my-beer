@@ -1,6 +1,8 @@
 language: python
 python:
   - "3.6"
+before_install:
+  - export DJANGO_SETTINGS_MODULE=draught_picks.travis_settings
 script:
   - "pip install -r requirements.txt"
   - "pip install python-coveralls coverage"
