@@ -47,7 +47,7 @@ class DraughtPicksUser(AbstractUser):
     favorite_beers = m.ManyToManyField('beers.Beer', related_name='favorite_beers')
     recent_beers = m.ManyToManyField('beers.Beer', related_name='recent_beers', through='beers.RecentBeer')
     rated_beers = m.ManyToManyField('beers.Beer', related_name='rated_beers', through='beers.BeerRating')
-    recommended_beers = m.ManyToManyField('beers.Beer',related_name='recommended_beers', through='beers.RecommendedBeer')
+    recommended_beers = m.ManyToManyField('beers.Beer', related_name='recommended_beers', through='beers.RecommendedBeer')
 
 
 class BeerPreferences(m.Model):
@@ -78,11 +78,6 @@ class BeerPreferences(m.Model):
                 setattr(self.beer_learning, k, v)
             self.beer_learning.save()
 
-        # k_means = tf.contrib.factorization.KMeansClustering(
-        #     num_clusters=8, use_mini_batch=False,
-        #     model_dir='/Users/jake/PycharmProjects/untitled/models/one_hot'
-        # )
-
         faves_and_desc = []
         cols = self.beer_learning.learning_fields
         faves_and_desc.append(map(lambda f: getattr(self.beer_learning, f), cols))
@@ -108,11 +103,26 @@ class BeerPreferences(m.Model):
         for i, e in enumerate(cluster_indices):
             if e == l[0]:
                 rec_beers.append(ids[i])
-        beers = Beer.objects.filter(id__in=rec_beers).exclude(id__in=self.user.favorite_beers.values_list('id', flat=True))
+        beers = Beer.objects.filter(
+            id__in=rec_beers).exclude(
+                id__in=self.user.favorite_beers.values_list('id', flat=True))
         self.user.recommended_beers.clear()
         for b in beers:
-            RecommendedBeer.objects.create(user=self.user, beer=b)
+            RecommendedBeer.objects.create(user=self.user, beer=b, percent_match=self.get_percent_match(b, cols))
         super(BeerPreferences, self).save(*args, **kwargs)
+
+    def get_percent_match(self, beer, cols):
+        user_learn = self.beer_learning
+        beer_learn = beer.beer_learning
+        num_features = len(cols)
+
+        # Number of 1s in user description
+        num_ind = len(list(filter(lambda x: getattr(user_learn, x) == 1, cols)))
+
+        # Number of matched features between user and beer
+        num_matches = len(list(filter(lambda x: ((getattr(user_learn, x) == 1) and (getattr(beer_learn, x) == 1)), cols)))
+
+        return int((num_features - (num_ind - num_matches)) / num_features * 100)
 
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)

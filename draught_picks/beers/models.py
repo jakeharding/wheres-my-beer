@@ -21,6 +21,7 @@ class Beer(m.Model):
     """
     Stores information about beer.
     """
+
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     calories = m.IntegerField(blank=True, null=True)
     name = m.CharField(max_length=255)
@@ -89,6 +90,7 @@ class RecommendedBeer(m.Model):
     beer = m.ForeignKey(Beer, on_delete=m.PROTECT)
     created_at = m.DateTimeField(auto_now_add=True)
     agreed = m.BooleanField(default=False)
+    percent_match = m.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return "%s is recommended for %s" % (self.beer.name, self.user.username)

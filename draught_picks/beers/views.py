@@ -37,15 +37,38 @@ class BeerRatingSerializer(ModelSerializer):
         fields = ('uuid', 'user', 'beer', 'rating', 'description', 'created_at',)
 
 
+class RecommendedBeerSerializer(ModelSerializer):
+    user = SlugRelatedField(slug_field='uuid', queryset=DraughtPicksUser.objects.all())
+    beer = SlugRelatedField(slug_field='uuid', queryset=Beer.objects.all())
+    uuid = UUIDField(read_only=True)
+
+    class Meta:
+        model = RecommendedBeer
+        fields = ('uuid', 'user', 'beer', 'percent_match', 'agreed', 'created_at',)
+
+
 class BeerWithRatingSerializer(BeerSerializer):
     """
     Serializer to include the rating by the given user.
     """
     rating = SerializerMethodField()
+    recommended = SerializerMethodField()
 
     def __init__(self, instance, user=None, **kwargs):
         self.user = user
         super().__init__(instance, **kwargs)
+
+    def get_recommended(self, beer):
+        req = self.context.get('request')
+        user = None
+        if self.user:
+            user = self.user
+        elif req:
+            user = req.user
+        recommended = user.recommendedbeer_set.filter(beer=beer).first()
+        if recommended:
+            return RecommendedBeerSerializer(recommended).data
+        return {}
 
     def get_rating(self, obj):
         req = self.context.get('request')
@@ -58,7 +81,8 @@ class BeerWithRatingSerializer(BeerSerializer):
 
     class Meta:
         model = Beer
-        fields = ('uuid', 'rating', 'name', 'description', 'abv', 'ibu', 'api_id', 'name_of_api', 'created_at',)
+        fields = ('uuid', 'rating', 'name', 'description',
+                  'abv', 'ibu', 'api_id', 'name_of_api', 'created_at', 'recommended')
 
 
 class BeerSet(ListModelMixin, RetrieveModelMixin, GenericViewSet):
@@ -129,6 +153,4 @@ class RecommendedBeerSet(ListModelMixin, GenericViewSet):
     lookup_field = 'uuid'
 
     def get_queryset(self):
-        # return self.request.user.recommendedbeer_set.all()
-        ids = self.request.user.recommendedbeer_set.values_list('id', flat=True)
-        return Beer.objects.filter(pk__in=ids)
+        return self.request.user.recommended_beers.order_by('-recommendedbeer__percent_match')
