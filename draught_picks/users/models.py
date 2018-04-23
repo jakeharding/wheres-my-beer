@@ -10,6 +10,9 @@ Author(s) of this file:
 Models pertaining to users.
 """
 import uuid
+import tensorflow as tf
+import numpy as np
+import pandas as pd
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models as m
@@ -19,7 +22,8 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 
 from description_parser.Grammar import DescriptionParser
-from beers.models import BeerLearning
+from beers.models import BeerLearning, Beer, RecommendedBeer
+from tf_model import k_means, cluster_indices, ids
 
 
 class DraughtPicksUser(AbstractUser):
@@ -60,7 +64,7 @@ class BeerPreferences(m.Model):
     def save(self, *args, **kwargs):
         parsed = {}
         if self.like_description:
-            p = DescriptionParser(self.like_description)
+            p = DescriptionParser(self.like_description, {})
             parsed = p.parse()
         if not self.beer_learning:
             self.beer_learning = BeerLearning.objects.create(**parsed)
@@ -73,6 +77,41 @@ class BeerPreferences(m.Model):
             for k, v in parsed.items():
                 setattr(self.beer_learning, k, v)
             self.beer_learning.save()
+
+        # k_means = tf.contrib.factorization.KMeansClustering(
+        #     num_clusters=8, use_mini_batch=False,
+        #     model_dir='/Users/jake/PycharmProjects/untitled/models/one_hot'
+        # )
+
+        faves_and_desc = []
+        cols = self.beer_learning.learning_fields
+        faves_and_desc.append(map(lambda f: getattr(self.beer_learning, f), cols))
+
+        faves_learn = map(lambda x: x.beer_learning, self.user.favorite_beers.all())
+        faves_learn = map(lambda x: map(lambda f: getattr(x, f), cols), faves_learn)
+
+        faves_and_desc += faves_learn
+
+        user_d = pd.DataFrame(data=faves_and_desc, dtype=np.float32, columns=cols)
+
+        # user_d = pd.read_csv("/Users/jake/PycharmProjects/untitled/data/user_desc.csv", header=0, dtype=np.float32)
+
+        def predict_fn(features):
+            return tf.train.limit_epochs(
+                tf.convert_to_tensor(np.array(features, dtype=np.float32)), num_epochs=1,
+            )
+
+        l = list(k_means.predict_cluster_index(lambda: predict_fn(user_d)))
+
+        rec_beers = []
+
+        for i, e in enumerate(cluster_indices):
+            if e == l[0]:
+                rec_beers.append(ids[i])
+        beers = Beer.objects.filter(id__in=rec_beers).exclude(id__in=self.user.favorite_beers.values_list('id', flat=True))
+        self.user.recommended_beers.clear()
+        for b in beers:
+            RecommendedBeer.objects.create(user=self.user, beer=b)
         super(BeerPreferences, self).save(*args, **kwargs)
 
 
