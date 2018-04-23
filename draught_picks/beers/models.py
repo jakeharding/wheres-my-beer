@@ -21,6 +21,7 @@ class Beer(m.Model):
     """
     Stores information about beer.
     """
+
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     calories = m.IntegerField(blank=True, null=True)
     name = m.CharField(max_length=255)
@@ -43,8 +44,8 @@ class Beer(m.Model):
 
         if not self.description:
             self.description = ""
-        n = DescriptionParser(self.name)
-        p = DescriptionParser(self.description, initial_store=n.parse())
+        n = DescriptionParser(self.name, {})
+        p = DescriptionParser(self.description, n.parse())
         parsed = p.parse()
 
         if not self.beer_learning:
@@ -89,9 +90,80 @@ class RecommendedBeer(m.Model):
     beer = m.ForeignKey(Beer, on_delete=m.PROTECT)
     created_at = m.DateTimeField(auto_now_add=True)
     agreed = m.BooleanField(default=False)
+    percent_match = m.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return "%s is recommended for %s" % (self.beer.name, self.user.username)
+
+
+class BeerLearningManager(m.Manager):
+
+    def beer_descriptions(self):
+        from django.db import connection
+        with connection.cursor() as c:
+            c.execute("""SELECT 
+                bb.id as id,
+                bl.malt,
+                bl.hops,
+                bl.india,
+                bl.america,
+                bl.german,
+                bl.belgium,
+                bl.ireland,
+                bl.europe,
+                bl.bohemian,
+                bl.baltic,
+                bl.coffee,
+                bl.chocolate,
+                bl.caramel,
+                bl.wheat,
+                bl.vanilla,
+                bl.strawberry,
+                bl.almond,
+                bl.coconut,
+                bl.pineapple,
+                bl.plum,
+                bl.mango,
+                bl.orange,
+                bl.peach,
+                bl.toffee,
+                bl.honey,
+                bl.hazelnut,
+                bl.blueberry,
+                bl.banana,
+                bl.pumpkin,
+                bl.tart,
+                bl.sour,
+                bl.sweet,
+                bl.dry,
+                bl.oats,
+                bl.light_colors,
+                bl.dark_colors,
+                bl.bitter,
+                bl.lambic,
+                bl.lager,
+                bl.porter,
+                bl.stouts,
+                bl.ales,
+                bl.melon
+                from beers_beerlearning bl
+                join beers_beer bb ON bl.id = bb.beer_learning_id
+                where bb.beer_learning_id is not NULL and (
+                   bl.malt     >= 1 or bl.hops      >= 1 or bl.india        >= 1 or bl.america     >= 1
+                or bl.german   >= 1 or bl.belgium   >= 1 or bl.ireland      >= 1 or bl.europe      >= 1
+                or bl.bohemian >= 1 or bl.baltic    >= 1 or bl.coffee       >= 1 or bl.chocolate   >= 1
+                or bl.caramel  >= 1 or bl. wheat    >= 1 or bl.vanilla      >= 1 or bl.strawberry  >= 1
+                or bl.almond   >= 1 or bl.coconut   >= 1 or bl.pineapple    >= 1 or bl.plum        >= 1
+                or bl.mango    >= 1 or bl.orange    >= 1 or bl.peach        >= 1 or bl.toffee      >= 1
+                or bl.honey    >= 1 or bl.hazelnut  >= 1 or bl.blueberry    >= 1 or bl.banana      >= 1
+                or bl.pumpkin  >= 1 or bl.tart      >= 1 or bl.sour         >= 1 or bl.sweet       >= 1
+                or bl.dry      >= 1 or bl.oats      >= 1 or bl.light_colors >= 1 or bl.dark_colors >= 1
+                or bl.bitter   >= 1 or bl.lambic    >= 1 or bl.lager        >= 1 or bl.porter      >= 1
+                or bl.stouts   >= 1 or bl.ales      >= 1 or bl.melon        >= 1
+                );""")
+            col_names = [x.name for x in c.description]
+            rows = c.fetchall()
+        return rows, col_names
 
 
 class BeerLearning(m.Model):
@@ -99,6 +171,8 @@ class BeerLearning(m.Model):
     !!IMPORTANT
     Any changes to this table need to be reflected in the UserLearningProfile.
     """
+    objects = BeerLearningManager()
+
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
 
     # Scaled ibu/abv
@@ -159,6 +233,8 @@ class BeerLearning(m.Model):
         fields = list(map(lambda f: f.name, self._meta.fields))
         fields.remove('uuid')
         fields.remove('id')
+        fields.remove('scaled_abv')
+        fields.remove('scaled_ibu')
         return fields
 
 

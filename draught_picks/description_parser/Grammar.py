@@ -290,7 +290,7 @@ class Grammar(object):
         :param store:
         :return:
         """
-        store['stouts'] =  1
+        store['stouts'] = 1
         return store
 
     @classmethod
@@ -331,7 +331,7 @@ class DescriptionParser(object):
     """
     description = ''
 
-    def __init__(self, description, initial_store={}):
+    def __init__(self, description, initial_store):
         self.initial_store = initial_store
 
         # Map punctuation to spaces and upper to lower case
