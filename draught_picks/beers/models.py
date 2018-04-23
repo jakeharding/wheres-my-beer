@@ -43,8 +43,8 @@ class Beer(m.Model):
 
         if not self.description:
             self.description = ""
-        n = DescriptionParser(self.name)
-        p = DescriptionParser(self.description, initial_store=n.parse())
+        n = DescriptionParser(self.name, {})
+        p = DescriptionParser(self.description, n.parse())
         parsed = p.parse()
 
         if not self.beer_learning:
@@ -159,6 +159,8 @@ class BeerLearning(m.Model):
         fields = list(map(lambda f: f.name, self._meta.fields))
         fields.remove('uuid')
         fields.remove('id')
+        fields.remove('scaled_abv')
+        fields.remove('scaled_ibu')
         return fields
 
 
