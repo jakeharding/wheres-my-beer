@@ -9,4 +9,3 @@ htmlcov/
 *.log
 db.sqlite3
 venv
-*.bat
