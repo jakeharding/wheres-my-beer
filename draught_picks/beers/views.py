@@ -97,7 +97,6 @@ class BeerWithRecentSerializer(BeerWithRatingSerializer):
 
     def get_recents(self, obj):
         req = self.context.get('request')
-        recent = []
         users = None
         if self.user:
             user = self.user
