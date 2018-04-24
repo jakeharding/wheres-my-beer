@@ -116,6 +116,24 @@ class RecentBeerSerializer(ModelSerializer):
         fields = ('uuid', 'user', 'beer', 'created_at',)
 
 
+class BeerWithRecentSerializer(BeerWithRatingSerializer):
+    recents = SerializerMethodField()
+
+    def get_recents(self, obj):
+        req = self.context.get('request')
+        users = None
+        if self.user:
+            user = self.user
+        elif req:
+           user = req.user
+        recents = user.recentbeer_set.filter(beer=obj)
+        return RecentBeerSerializer(recents, many=True).data
+
+    class Meta:
+        model = Beer
+        fields = ('uuid', 'rating', 'name', 'description', 'abv', 'ibu', 'api_id', 'name_of_api', 'created_at', 'recents')
+
+
 class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
     serializer_class = RecentBeerSerializer
     queryset = RecentBeer.objects.all()
@@ -136,14 +154,14 @@ class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         :param kwargs:
         :return:
         """
-        qs = self.request.user.recent_beers.order_by('created_at')
+        qs = self.request.user.recent_beers.distinct()
         page = self.paginate_queryset(qs)
 
         if page is not None:
-            serializer = BeerWithRatingSerializer(page, user=request.user, many=True)
+            serializer = BeerWithRecentSerializer(page, user=request.user, many=True)
             return self.get_paginated_response(serializer.data)
 
-        serializer = BeerWithRatingSerializer(qs, user=request.user, many=True)
+        serializer = BeerWithRecentSerializer(qs, user=request.user, many=True)
         return Response(serializer.data)
 
 
