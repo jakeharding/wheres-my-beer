@@ -101,12 +101,8 @@ class BeerWithRecentSerializer(BeerWithRatingSerializer):
         users = None
         if self.user:
             user = self.user
-            #recents = RecentBeer.objects.filter(beer=obj, user=self.user)
-            #self.user.recent_beers.filter()
         elif req:
            user = req.user
-           #recents = RecentBeer.objects.filter(beer=obj, user=req.user)
-           # req.user.recent_beers.filter(beer=obj)
         recents = user.recentbeer_set.filter(beer=obj)
         return RecentBeerSerializer(recents, many=True).data
 
