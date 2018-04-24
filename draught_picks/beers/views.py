@@ -98,12 +98,16 @@ class BeerWithRecentSerializer(BeerWithRatingSerializer):
     def get_recents(self, obj):
         req = self.context.get('request')
         recent = []
+        users = None
         if self.user:
-            recents = RecentBeer.objects.filter(beer=obj, user=self.user)
+            user = self.user
+            #recents = RecentBeer.objects.filter(beer=obj, user=self.user)
             #self.user.recent_beers.filter()
         elif req:
-           recents = RecentBeer.objects.filter(beer=obj, user=req.user)
+           user = req.user
+           #recents = RecentBeer.objects.filter(beer=obj, user=req.user)
            # req.user.recent_beers.filter(beer=obj)
+        recents = user.recentbeer_set.filter(beer=obj)
         return RecentBeerSerializer(recents, many=True).data
 
     class Meta:
@@ -131,7 +135,7 @@ class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         :param kwargs:
         :return:
         """
-        qs = self.request.user.recent_beers.order_by('-created_at')
+        qs = self.request.user.recent_beers.distinct()
         page = self.paginate_queryset(qs)
 
         if page is not None:
