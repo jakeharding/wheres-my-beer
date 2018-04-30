@@ -28,6 +28,14 @@ class Command(BaseCommand):
     # Use pip install openpyxl to install but don't save it to the requirements file.
     # Assumes the spreadsheet is in the project root
     def handle(self, *args, **options):
+        """
+        Description: Loads db from spreadsheet using openpyxl
+        Use pip install openpyxl to install but don't save it to the requirements file.
+        Assumes the spreadsheet is in the project root
+        :param args:
+        :param options:
+        :return:
+        """
         wb = load_workbook(settings.BASE_DIR + '/../output.xlsx')
         sheet = wb['Sheet1']
         for beer in sheet.rows:

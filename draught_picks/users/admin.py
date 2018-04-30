@@ -6,18 +6,33 @@ from .models import DraughtPicksUser
 
 
 class DraughtPicksUserCreateForm(UserCreationForm):
+    """
+    This class creates a form for the user
+    """
     class Meta(UserCreationForm.Meta):
+        """
+        This exposes the fields needed for user creation
+        """
         model = DraughtPicksUser
         fields = UserCreationForm.Meta.fields
 
 
 class DraughtPicksUserChangeForm(UserChangeForm):
+    """
+    This class changes the user form
+    """
     class Meta(UserChangeForm):
+        """
+        This exposes the fields needed for user change form
+        """
         model = DraughtPicksUser
         fields = UserChangeForm.Meta.fields
 
 
 class DraughtPicksUserAdmin(UserAdmin):
+    """
+    This class creates the user admin
+    """
     add_form = DraughtPicksUserCreateForm
     form = DraughtPicksUserChangeForm
 

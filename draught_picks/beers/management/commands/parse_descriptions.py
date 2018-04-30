@@ -16,8 +16,13 @@ from beers.models import Beer, BeerLearning
 
 
 class Command(BaseCommand):
-
     def handle(self, *args, **options):
+        """
+        Description: Parse all the descriptions in the database
+        :param args:
+        :param options:
+        :return:
+        """
         total_parsed = 0
         total_errors = []
         for b in Beer.objects.all():

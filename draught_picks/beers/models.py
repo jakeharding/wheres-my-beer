@@ -62,10 +62,17 @@ class Beer(m.Model):
         super(Beer, self).save(*args, **kwargs)
 
     def __str__(self):
+        """
+        Description: str representation
+        :return: self.name
+        """
         return self.name
 
 
 class BeerRating(m.Model):
+    """
+    Class handles the beer rating
+    """
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     user = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.PROTECT)
     beer = m.ForeignKey(Beer, on_delete=m.PROTECT)
@@ -75,6 +82,9 @@ class BeerRating(m.Model):
 
 
 class RecentBeer(m.Model):
+    """
+    Class hnadles the recent beers
+    """
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     user = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.PROTECT)
     beer = m.ForeignKey(Beer, on_delete=m.PROTECT)
@@ -85,6 +95,9 @@ class RecentBeer(m.Model):
 
 
 class RecommendedBeer(m.Model):
+    """
+    Class that handles recommended beers by assigning recommended beer
+    """
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     user = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.PROTECT)
     beer = m.ForeignKey(Beer, on_delete=m.PROTECT)
@@ -93,12 +106,23 @@ class RecommendedBeer(m.Model):
     percent_match = m.IntegerField(blank=True, null=True)
 
     def __str__(self):
+        """
+        __str__ string representation method override
+        :return:
+        """
         return "%s is recommended for %s" % (self.beer.name, self.user.username)
 
 
 class BeerLearningManager(m.Manager):
-
+"""
+Beer Learning Manager: Manages the machine learning for the recommended beers
+"""
     def beer_descriptions(self):
+        """
+        Handles the beer descriptions to be used in the beer recommendation algorithm
+        :param self:
+        :return:
+        """
         from django.db import connection
         with connection.cursor() as c:
             c.execute("""SELECT 
@@ -230,6 +254,10 @@ class BeerLearning(m.Model):
 
     @property
     def learning_fields(self):
+        """
+        Learning fields used for the model
+        :return:
+        """
         fields = list(map(lambda f: f.name, self._meta.fields))
         fields.remove('uuid')
         fields.remove('id')
@@ -303,6 +331,10 @@ class UserLearningProfile(m.Model):
 
     @property
     def learning_fields(self):
+        """
+        Learning fields used for the model
+        :return:
+        """
         fields = list(map(lambda f: f.name, self._meta.fields))
         fields.remove('uuid')
         fields.remove('id')

@@ -19,14 +19,26 @@ sys.setrecursionlimit(2000)
 
 
 class TreeNode(object):
+    """
+    This class instantiates a tree node for the grammar
+    """
     children = []
     name = ''
 
     def __init__(self, name, children=[]):
+        """
+        This method instantiates a tree node object
+        :param name:
+        :param children:
+        """
         self.name = name
         self.children = children
 
     def has_children(self):
+        """
+        This returns true of the tree node has children
+        :return:
+        """
         return len(self.children) > 0
 
 
@@ -114,133 +126,301 @@ class Grammar(object):
 
     @classmethod
     def adj_list_adj(cls, node, store):
+        """
+        This method adjusts the list adj
+        :param node:
+        :param store:
+        :return:
+        """
         return cls.call_children(node, store)
 
     @classmethod
     def adj_malt(cls, node, store):
+        """
+        This method adjusts the malt
+        :param node:
+        :param store:
+        :return:
+        """
         store['malt'] = 1
         return store
 
     @classmethod
     def adj_hops(cls, node, store):
+        """
+        This method adjusts the hops
+        :param node:
+        :param store:
+        :return:
+        """
         store['hops'] = 1
         return store
 
     @classmethod
     def type_list_type(cls, node, store):
+        """
+        This method returns the type_list type
+        :param node:
+        :param store:
+        :return:
+        """
         return cls.call_children(node, store)
 
     @classmethod
     def type_list_type_list(cls, node, store):
+        """
+        This method returns the type_list type_list
+        :param node:
+        :param store:
+        :return:
+        """
         return cls.call_children(node, store)
 
     @classmethod
     def type_adj_list(cls, node, store):
+        """
+        This method adjusts the type list
+        :param node:
+        :param store:
+        :return:
+        """
         return cls.call_children(node, store)
 
     @classmethod
     def type_ales(cls, node, store):
+        """
+        This method returns the ale children
+        :param node:
+        :param store:
+        :return:
+        """
         return cls.call_children(node, store)
 
     @classmethod
     def type_lager(cls, node, store):
+        """
+        This method returns the lager children
+        :param node:
+        :param store:
+        :return:
+        """
         return cls.call_children(node, store)
 
     @classmethod
     def type_adj_list_type(cls, node, store):
+        """
+        This method returns the type adjusts list type
+        :param node:
+        :param store:
+        :return:
+        """
         return cls.call_children(node, store)
 
     @classmethod
     def adj_origin(cls, node, store):
+        """
+        This emthod adjusts the origin for the beer
+        :param node:
+        :param store:
+        :return:
+        """
         return cls.call_children(node, store)
 
     @classmethod
     def origin_america(cls, node, store):
+        """
+        This sets the origin to america
+        :param node:
+        :param store:
+        :return:
+        """
         store['america'] = 1
         return store
 
     @classmethod
     def origin_india(cls, node, store):
+        """
+        This sets the origin to india
+        :param node:
+        :param store:
+        :return:
+        """
         store['india'] = 1
         return store
 
     @classmethod
     def origin_german(cls, node, store):
+        """
+        This sets the origin to germany
+        :param node:
+        :param store:
+        :return:
+        """
         store['german'] = 1
         return store
 
     @classmethod
     def origin_europe(cls, node, store):
+        """
+        This sets the origin to europe
+        :param node:
+        :param store:
+        :return:
+        """
         store['europe'] = 1
         return store
 
     @classmethod
     def origin_belgium(cls, node, store):
+        """
+        This sets the origin to belgium
+        :param node:
+        :param store:
+        :return:
+        """
         store['belgium'] = 1
         return store
 
     @classmethod
     def origin_ireland(cls, node, store):
+        """
+        This sets the origin to ireland
+        :param node:
+        :param store:
+        :return:
+        """
         store['ireland'] = 1
         return store
 
     @classmethod
     def origin_other_origin(cls, node, store):
+        """
+        This sets an origin to other
+        :param node:
+        :param store:
+        :return:
+        """
         term = node.children[0]
         store[term.name] = 1
         return store
 
     @classmethod
     def adj_flavor(cls, node, store):
+        """
+        This method adjusts the flavor
+        :param node:
+        :param store:
+        :return:
+        """
         term = node.children[0]
         store[term.name] = 1
         return store
 
     @classmethod
     def adj_tart(cls, node, store):
+        """
+        This method adjusts the flavor to tart
+        :param node:
+        :param store:
+        :return:
+        """
         store['tart'] = 1
         return store
 
     @classmethod
     def adj_sour(cls, node, store):
+        """
+        This method adjusts the flavor to sour
+        :param node:
+        :param store:
+        :return:
+        """
         store['sour'] = 1
         return store
 
     @classmethod
     def adj_sweet(cls, node, store):
+        """
+        This method adjusts the sweetness of the beer
+        :param node:
+        :param store:
+        :return:
+        """
         store['sweet'] = 1
         return store
 
     @classmethod
     def adj_dry(cls, node, store):
+        """
+        This method adjusts the dryness of the beer
+        :param node:
+        :param store:
+        :return:
+        """
         store['dry'] = 1
         return store
 
     @classmethod
     def type_adj(cls, node, store):
+        """
+        This method adjusts the type
+        :param node:
+        :param store:
+        :return:
+        """
         return cls.call_children(node, store)
 
     @classmethod
     def adj_epsilon(cls, node, store):
+        """
+        This method adjusts the epsilon
+        :param node:
+        :param store:
+        :return:
+        """
         return store
 
     @classmethod
     def ales_oats(cls, node, store):
+        """
+        This method sets the ales' oats
+        :param node:
+        :param store:
+        :return:
+        """
         store['oats'] = 1
         return store
 
     @classmethod
     def color_light_colors(cls, node, store):
+        """
+        This sets the beer to light color
+        :param node:
+        :param store:
+        :return:
+        """
         store['light_colors'] = 1
         return store
 
     @classmethod
     def color_dark_colors(cls, node, store):
+        """
+        This sets the beer to a dark color
+        :param node:
+        :param store:
+        :return:
+        """
         store['dark_colors'] = 1
         return store
 
     @classmethod
     def adj_color(cls, node, store):
+        """
+        This adjusts the beer color
+        :param node:
+        :param store:
+        :return:
+        """
         return cls.call_children(node, store)
 
 
@@ -268,6 +448,12 @@ class Grammar(object):
 
     @classmethod
     def lager_lager_terms(cls, node, store):
+        """
+        This sets it to a lager
+        :param node:
+        :param store:
+        :return:
+        """
         store['lager'] = 1
         return store
 
@@ -306,22 +492,42 @@ class Grammar(object):
 
     @classmethod
     def call_children(cls, node, store):
+        """
+        this method calls the children
+        :param node:
+        :param store:
+        :return:
+        """
         for c in node.children:
             store = getattr(cls, "_".join([node.name.strip("<>"), c.name.strip("<>")]))(c, store)
         return store
 
     @classmethod
     def rules(cls):
+        """
+        This sets the rules for the grammar
+        :return:
+        """
         return cls._grammar
 
     @classmethod
     def items(cls):
+        """
+        This gets the grammar items
+        :return:
+        """
         return cls._grammar.items()
 
 
 class DescriptionParseException(Exception):
-
+    """
+    This class raises a DescriptionParseException
+    """
     def __init__(self, stack):
+        """
+        Initializes the DescriptionParaseException
+        :param stack:
+        """
         super().__init__("Stack has %d elements. Should only have one" % len(stack))
 
 
@@ -332,6 +538,11 @@ class DescriptionParser(object):
     description = ''
 
     def __init__(self, description, initial_store):
+        """
+        Initializes the Description Parser
+        :param description:
+        :param initial_store:
+        """
         self.initial_store = initial_store
 
         # Map punctuation to spaces and upper to lower case
@@ -341,7 +552,10 @@ class DescriptionParser(object):
         self.tokens = self.description.split()
 
     def parse(self):
-
+        """
+        This method parses the grammar
+        :return:
+        """
         stack = []
         remaining = self.tokens
 
@@ -360,6 +574,12 @@ class DescriptionParser(object):
         return store
 
     def shift(self, stack, remaining):
+        """
+        This method shifts the grammar
+        :param stack:
+        :param remaining:
+        :return:
+        """
         if len(remaining) > 0 and not is_terminal(remaining[0]):
             # Remove any string not in our terminal symbols for now. We may do something with them later.
             remaining.remove(remaining[0])
@@ -369,7 +589,12 @@ class DescriptionParser(object):
         remaining.remove(remaining[0])
 
     def case_matches_stack(self, case, stack):
-
+        """
+        This method case_matches the stack
+        :param case:
+        :param stack:
+        :return:
+        """
         for m in stack:
             if isinstance(m, str) and m in case:
                 # If we have a string it is a terminal and if it is in the rule we have a match
@@ -380,6 +605,12 @@ class DescriptionParser(object):
         return (case, len(combo)) if combo == case else (None, None)
 
     def reduce(self, stack, len_rem):
+        """
+        This reduces an element in the grammar if requirements are not met
+        :param stack:
+        :param len_rem:
+        :return:
+        """
         for lh, rh in Grammar.items():
             for case in rh:
                 case_as_list = [case]

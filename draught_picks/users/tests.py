@@ -16,20 +16,34 @@ from rest_framework import status
 
 
 class TestUsers(APITestCase):
-
+    """
+    This class tests the user
+    """
     fixtures = ['users/fixtures/users.json']
 
     def setUp(self):
+        """
+        This tests user creation by setting up the test
+        :return:
+        """
         self.user = get_user_model().objects.first()
         # Assume user is authenticated for testing.
         self.client.force_authenticate(user=self.user)
 
     def test_login(self):
+        """
+        This tests if the user can login
+        :return:
+        """
         self.client.force_authenticate(user=None) # Remove auth for login
         r = self.client.post('/api/dev/login', {'username': 'admin', 'password': 'admin'}, format='json')
         self.assertTrue(status.is_success(r.status_code))
 
     def test_create(self):
+        """
+        This creates the test for the user creation
+        :return:
+        """
         self.client.force_authenticate(user=None) # Remove auth for create
         r = self.client.post('/api/dev/users', {
             'username': 'admin2',
@@ -40,6 +54,10 @@ class TestUsers(APITestCase):
         self.assertTrue(status.is_success(r.status_code), r.status_code)
 
     def test_update(self):
+        """
+        This tests the user update
+        :return:
+        """
         r = self.client.put('/api/dev/users/%s' % self.user.uuid, {
             'username': 'admin2',
             'password': 'test',
@@ -54,11 +72,19 @@ class TestUsers(APITestCase):
         self.assertEquals(r.data.get('weight'), 195)
 
     def test_retrieve(self):
+        """
+        This tests the retreival
+        :return:
+        """
         r = self.client.get('/api/dev/users/%s' % self.user.uuid)
         self.assertTrue(status.is_success(r.status_code), r.status_code)
         self.assertEqual(self.user.username, r.data.get('username'))
 
     def test_list(self):
+        """
+        This tests the user lists
+        :return:
+        """
         r = self.client.get('/api/dev/users')
         self.assertTrue(status.is_success(r.status_code), r.status_code)
         results = r.data.get('results')
