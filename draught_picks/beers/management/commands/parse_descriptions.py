@@ -16,6 +16,9 @@ from beers.models import Beer, BeerLearning
 
 
 class Command(BaseCommand):
+    """
+    This class will parse all the descriptions in the database
+    """
     def handle(self, *args, **options):
         """
         Description: Parse all the descriptions in the database
