@@ -23,15 +23,28 @@ from .models import DraughtPicksUser, BeerPreferences
 
 
 class UserSerializer(ModelSerializer):
-
+    """
+    This is the user serializer
+    """
     favorite_beers = BeerSerializer(many=True, required=False)
     recent_beers = BeerSerializer(many=True, required=False)
     rated_beers = BeerSerializer(many=True, required=False)
 
     def validate_password(self, value):
+        """
+        This validates the user's password
+        :param value:
+        :return:
+        """
         return make_password(value)
 
     def update(self, instance, validated_data):
+        """
+        This updates the user serialization
+        :param instance:
+        :param validated_data:
+        :return:
+        """
         faves = validated_data.pop('favorite_beers')
 
         # TODO save the recents and rated also
@@ -46,11 +59,17 @@ class UserSerializer(ModelSerializer):
         return instance
 
     class Meta:
+        """
+        This exposes the fields needed for the user serialization
+        """
         model = DraughtPicksUser
         exclude = ('id', 'last_login', 'is_superuser', 'is_staff', 'is_active', 'groups', 'user_permissions')
 
 
 class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
+    """
+    This creates a user set
+    """
     serializer_class = UserSerializer
     queryset = DraughtPicksUser.objects.all()
     lookup_field = 'uuid'
@@ -65,20 +84,33 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
 
 
 class BeerPreferencesSerializer(ModelSerializer):
+    """
+    This serializes the beer preferences
+    """
     user = SlugRelatedField(slug_field='uuid', queryset=DraughtPicksUser.objects.all())
 
     class Meta:
+        """
+        This exposes the fields needed for the beer preferences serializer
+        """
         model = BeerPreferences
         fields = ('uuid', 'abv_low', 'abv_hi', 'ibu_low', 'ibu_hi', 'like_description', 'user', 'created_at',)
 
 
 class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    """
+    This creates the user beer preferences set
+    """
     serializer_class = BeerPreferencesSerializer
     queryset = BeerPreferences.objects.all()
     lookup_field = 'uuid'
     permission_classes = (AllowAny, )
 
     def get_queryset(self):
+        """
+        This gets the queryset for the user beer preferences set
+        :return:
+        """
         """
         Only allow users access to their user instance.
         :return: queryset the user has access to.

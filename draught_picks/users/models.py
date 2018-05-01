@@ -27,7 +27,9 @@ from tf_model import k_means, cluster_indices, ids
 
 
 class DraughtPicksUser(AbstractUser):
-
+    """
+    This class defines the draught picks user
+    """
     MALE_CHOICE = 'M'
     FEMALE_CHOICE = 'F'
     OTHER_CHOICE = 'O'
@@ -51,6 +53,9 @@ class DraughtPicksUser(AbstractUser):
 
 
 class BeerPreferences(m.Model):
+    """
+    This class is the blueprint for the beer preference
+    """
     uuid = m.UUIDField(unique=True, editable=False, default=uuid.uuid4)
     abv_low = m.IntegerField(null=True, blank=True)
     abv_hi = m.IntegerField(null=True, blank=True)
@@ -62,6 +67,12 @@ class BeerPreferences(m.Model):
     beer_learning = m.OneToOneField('beers.BeerLearning', blank=True, null=True, on_delete=m.PROTECT)
 
     def save(self, *args, **kwargs):
+        """
+        This saves the beer preference object
+        :param args:
+        :param kwargs:
+        :return:
+        """
         parsed = {}
         if self.like_description:
             p = DescriptionParser(self.like_description, {})
@@ -92,6 +103,11 @@ class BeerPreferences(m.Model):
         # user_d = pd.read_csv("/Users/jake/PycharmProjects/untitled/data/user_desc.csv", header=0, dtype=np.float32)
 
         def predict_fn(features):
+            """
+            This method predicts various clusters based on the info given
+            :param features:
+            :return:
+            """
             return tf.train.limit_epochs(
                 tf.convert_to_tensor(np.array(features, dtype=np.float32)), num_epochs=1,
             )
@@ -112,6 +128,12 @@ class BeerPreferences(m.Model):
         super(BeerPreferences, self).save(*args, **kwargs)
 
     def get_percent_match(self, beer, cols):
+        """
+        This method gets the match percentage for the beer
+        :param beer:
+        :param cols:
+        :return:
+        """
         user_learn = self.beer_learning
         beer_learn = beer.beer_learning
         num_features = len(cols)
@@ -127,5 +149,13 @@ class BeerPreferences(m.Model):
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
+    """
+    This method creates an authentication token for use
+    :param sender:
+    :param instance:
+    :param created:
+    :param kwargs:
+    :return:
+    """
     if created:
         Token.objects.create(user=instance)
