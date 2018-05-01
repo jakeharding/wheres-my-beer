@@ -114,9 +114,9 @@ class RecommendedBeer(m.Model):
 
 
 class BeerLearningManager(m.Manager):
-"""
-Beer Learning Manager: Manages the machine learning for the recommended beers
-"""
+    """
+    Beer Learning Manager: Manages the machine learning for the recommended beers
+    """
     def beer_descriptions(self):
         """
         Handles the beer descriptions to be used in the beer recommendation algorithm

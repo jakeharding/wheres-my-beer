@@ -219,7 +219,7 @@ class Grammar(object):
     @classmethod
     def adj_origin(cls, node, store):
         """
-        This emthod adjusts the origin for the beer
+        This method adjusts the origin for the beer
         :param node:
         :param store:
         :return:
