@@ -1,0 +1,254 @@
+[
+{
+    "model": "beers.beer",
+    "pk": 1,
+    "fields": {
+        "uuid": "b37c7357-eb6f-4393-b408-d329145e435c",
+        "name": "Coors Light",
+        "description": "A very light beer",
+        "abv": "4.2",
+        "ibu": 2,
+        "api_id": "coors",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:19:33.303Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 2,
+    "fields": {
+        "uuid": "04d0949e-86c2-49e4-9943-7ba520624e12",
+        "name": "Molson Canadian",
+        "description": "",
+        "abv": "7.6",
+        "ibu": 2,
+        "api_id": "Molson",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:20:17.294Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 3,
+    "fields": {
+        "uuid": "22c093f7-e7bc-4b5e-a2eb-81d922a953a7",
+        "name": "Stella Artois",
+        "description": "The best beer",
+        "abv": "7.4",
+        "ibu": 2,
+        "api_id": "Stella",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:21:12.292Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 4,
+    "fields": {
+        "uuid": "a9819f77-902c-4bff-95f2-fc8ded35848d",
+        "name": "Stone IPA",
+        "description": "A stoney beer",
+        "abv": "6.5",
+        "ibu": 3,
+        "api_id": "Stone",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:21:53.259Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 5,
+    "fields": {
+        "uuid": "8bb051d7-d6a7-48ac-99fe-fefd3fc56879",
+        "name": "Abita Turbodog",
+        "description": "Turboyeyyy",
+        "abv": "8.9",
+        "ibu": 3,
+        "api_id": "Abita",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:22:27.926Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 6,
+    "fields": {
+        "uuid": "4b7e99bd-9407-40ce-8b10-758d3b92bab8",
+        "name": "Red Stripe",
+        "description": "Stripey Beer, man.",
+        "abv": "14.2",
+        "ibu": 7,
+        "api_id": "StripeRed",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:23:03.916Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 7,
+    "fields": {
+        "uuid": "148cbb19-b46b-4a44-b7fb-4d6816a14c52",
+        "name": "Bass Brewery",
+        "description": "Bassey Brewery BEER BRUH",
+        "abv": "5.2",
+        "ibu": 7,
+        "api_id": "BassB",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:23:38.032Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 8,
+    "fields": {
+        "uuid": "7efea27d-fa6f-4390-8089-c585963fbc40",
+        "name": "Budweiser",
+        "description": "Horses are cool...Horse Commercial.",
+        "abv": "2.4",
+        "ibu": 5,
+        "api_id": "BudWeiser",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:24:22.146Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 9,
+    "fields": {
+        "uuid": "ecc2b340-db52-4905-b9c7-605f933d5298",
+        "name": "Guiness",
+        "description": "GUS",
+        "abv": "13.0",
+        "ibu": 12,
+        "api_id": "9GUS",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:25:05.343Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 10,
+    "fields": {
+        "uuid": "b7f8cc8e-2395-4a9c-97ab-a37294ec0a74",
+        "name": "Harp Lager",
+        "description": "LAGER HARP MAN",
+        "abv": "13.0",
+        "ibu": 12,
+        "api_id": "HARPLAG",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:26:09.007Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 11,
+    "fields": {
+        "uuid": "579631fb-fcbd-46eb-af1c-5635ebdbbfea",
+        "name": "Irish Red Ale",
+        "description": "Ale and Irish Ale ALE ALE ale ALE",
+        "abv": "15.0",
+        "ibu": 4,
+        "api_id": "IrishA",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:27:05.197Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 12,
+    "fields": {
+        "uuid": "32f5fe5b-028d-431e-8ced-99e1329ba609",
+        "name": "Dogfish Head",
+        "description": "Brewery of the Dogfishes",
+        "abv": "8.2",
+        "ibu": 3,
+        "api_id": "dogfishes",
+        "name_of_api": "brewerydb",
+        "created_at": "2018-02-27T00:27:51.125Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 13,
+    "fields": {
+        "uuid": "2db417d0-cf21-4d9d-a37b-1b2fa0c581cb",
+        "name": "\"Alternating Currant\" Sour",
+        "description": "Black Currant Kettle Sour.",
+        "abv": "4.8",
+        "ibu": 12,
+        "api_id": "1",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:30:36.889Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 14,
+    "fields": {
+        "uuid": "d2be237e-0cdb-4561-8cf4-15b7657a37ea",
+        "name": "\"B.B. Rodriguez\" Double Brown",
+        "description": "Caramel. Walnut. Toast. Luxury.",
+        "abv": "8.5",
+        "ibu": 30,
+        "api_id": "2",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:30:59.687Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 15,
+    "fields": {
+        "uuid": "5a8e4105-0f95-447c-94de-549a0128b7f3",
+        "name": "\"Dust Up\" Cloudy Pale Ale | 1 of 4 Part Pale Ale Series",
+        "description": "The Pale Ale series will feature 4 distinct variations within the Pale Ale category. \"Dust Up\" Cloudy Pale Ale, the first of the series, showcases caramelized wheat, an abundant amount of earthy forest hops and finishes crisp and snappy. Unfiltered, untamed, yet friendly to consume.",
+        "abv": "5.4",
+        "ibu": 54,
+        "api_id": "3",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:31:24.223Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 16,
+    "fields": {
+        "uuid": "8f8aa683-da9f-4873-a71a-e124adb84f27",
+        "name": "\"Hey Victor\" Smoked Porter",
+        "description": "Rooted in Western pop culture, our porter is named for the film, Smoke Signals, and is also related to Sherman Alexie\u2019s story, \u201cThis is What it Means to Say, \u2018Phoenix, Arizona.\u2019\u201d\r\n\r\nOur smoked porter is very approachable; it\u2019s not overly smoky and its blend of malts (Maris Otter, English Brown and chocolate) and hops (East Kent Golding, & Fuggle) will remind you of hikes, s\u2019mores and cool, dusky campfires in the Snowies. Take a growler to the mountains and enjoy its rich color and flavor.",
+        "abv": "5.5",
+        "ibu": null,
+        "api_id": "4",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:31:44.287Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 17,
+    "fields": {
+        "uuid": "3030e32e-abd6-4e35-b5e4-8d6e5184c86b",
+        "name": "\"Mary Lee Please Don't Eat Me\" Saison Ale",
+        "description": "Classic Saison Ale with flavors of Lemon, Pepper a tart and crisp finish. Brewed in honor of the 16 foot Great White Shark! 5.0% ABV\r\nHops: Mandarina Baverina",
+        "abv": "5.0",
+        "ibu": null,
+        "api_id": "5",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:32:03.517Z"
+    }
+},
+{
+    "model": "beers.beer",
+    "pk": 18,
+    "fields": {
+        "uuid": "03127236-4760-4aa9-8244-346ce07dabae",
+        "name": "Brett Golden Sour",
+        "description": "This beer had a long weekend in our brew kettle allowing beer bugs (Pediococcus and Latcobacillus) to get down get down and do their sour thang. While yeast strains eat sugar and produce alcohol beer bugs eat sugar and produce acids. This gives sour beers their puckering power. After letting the bugs play in the sweet wort pool we boil the beer and add a touch of earthy hops. Disco Pig #2 Brett Golden Sour is 100% Brett fermented to replicate as closely as possible what a traditional Belgian wild fermented sour beer should be!",
+        "abv": "6.5",
+        "ibu": 9,
+        "api_id": "6",
+        "name_of_api": "Beer",
+        "created_at": "2018-02-27T00:32:33.390Z"
+    }
+}
+]
