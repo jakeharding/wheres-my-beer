@@ -20,6 +20,14 @@ draught\_picks.settings module
     :undoc-members:
     :show-inheritance:
 
+draught\_picks.travis\_settings module
+--------------------------------------
+
+.. automodule:: draught_picks.travis_settings
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 draught\_picks.urls module
 --------------------------
 

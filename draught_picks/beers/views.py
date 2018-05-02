@@ -189,11 +189,11 @@ class BeerWithRecentSerializer(BeerWithRatingSerializer):
         :return:
         """
         req = self.context.get('request')
-        users = None
+        user = None
         if self.user:
             user = self.user
         elif req:
-           user = req.user
+            user = req.user
         recents = user.recentbeer_set.filter(beer=obj)
         return RecentBeerSerializer(recents, many=True).data
 
@@ -202,7 +202,8 @@ class BeerWithRecentSerializer(BeerWithRatingSerializer):
         Exposes the fields needed in order to serialize the get recent beers
         """
         model = Beer
-        fields = ('uuid', 'rating', 'name', 'description', 'abv', 'ibu', 'api_id', 'name_of_api', 'created_at', 'recents')
+        fields = ('uuid', 'rating', 'name', 'description', 'abv',
+                  'ibu', 'api_id', 'name_of_api', 'created_at', 'recents', 'recommended')
 
 
 class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):

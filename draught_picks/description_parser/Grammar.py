@@ -628,7 +628,7 @@ class DescriptionParser(object):
 
 def print_tree(node, margin='--'):
     """
-    Recursie function to print the tree.
+    Recursive function to print the tree.
     :param node: TreeNode to process
     :param margin: Left handed margin
     :return: None

@@ -10,6 +10,8 @@ Author(s) of this file:
 Expose user models through a REST API.
 """
 
+import logging
+
 from django.contrib.auth.hashers import make_password
 from rest_framework.serializers import ModelSerializer, SlugRelatedField
 from rest_framework.viewsets import GenericViewSet
@@ -20,6 +22,8 @@ from beers.views import BeerSerializer
 from beers.models import Beer
 
 from .models import DraughtPicksUser, BeerPreferences
+
+logger = logging.getLogger('users.views')
 
 
 class UserSerializer(ModelSerializer):
@@ -36,7 +40,12 @@ class UserSerializer(ModelSerializer):
         :param value:
         :return:
         """
-        return make_password(value)
+        logger.debug(self.initial_data.get('username'))
+        logger.debug("password: %s" % value)
+        p = make_password(value)
+        logger.debug("make_password: %s\n\n" % p)
+        return p
+
 
     def update(self, instance, validated_data):
         """
@@ -107,10 +116,6 @@ class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin,
     permission_classes = (AllowAny, )
 
     def get_queryset(self):
-        """
-        This gets the queryset for the user beer preferences set
-        :return:
-        """
         """
         Only allow users access to their user instance.
         :return: queryset the user has access to.

@@ -53,8 +53,12 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="method">
 <dt id="beers.management.commands.loaddb.Command.handle">
 <code class="descname">handle</code><span class="sig-paren">(</span><em>*args</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.management.commands.loaddb.Command.handle" title="Permalink to this definition">¶</a></dt>
-<dd><p>The actual logic of the command. Subclasses must implement
-this method.</p>
+<dd><p>Description: Loads db from spreadsheet using openpyxl
+Use pip install openpyxl to install but don’t save it to the requirements file.
+Assumes the spreadsheet is in the project root
+:param args:
+:param options:
+:return:</p>
 </dd></dl>
 
 </dd></dl>
@@ -74,11 +78,14 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="beers.management.commands.parse_descriptions.Command">
 <em class="property">class </em><code class="descclassname">beers.management.commands.parse_descriptions.</code><code class="descname">Command</code><span class="sig-paren">(</span><em>stdout=None</em>, <em>stderr=None</em>, <em>no_color=False</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.management.commands.parse_descriptions.Command" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.management.base.BaseCommand</span></code></p>
+<p>This class will parse all the descriptions in the database</p>
 <dl class="method">
 <dt id="beers.management.commands.parse_descriptions.Command.handle">
 <code class="descname">handle</code><span class="sig-paren">(</span><em>*args</em>, <em>**options</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.management.commands.parse_descriptions.Command.handle" title="Permalink to this definition">¶</a></dt>
-<dd><p>The actual logic of the command. Subclasses must implement
-this method.</p>
+<dd><p>Description: Parse all the descriptions in the database
+:param args:
+:param options:
+:return:</p>
 </dd></dl>
 
 </dd></dl>

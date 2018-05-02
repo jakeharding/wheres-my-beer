@@ -180,6 +180,8 @@
 </li>
       <li><a href="modules/beers.html#beers.models.Beer.MultipleObjectsReturned">Beer.MultipleObjectsReturned</a>
 </li>
+      <li><a href="modules/beers.html#beers.models.BeerLearningManager.beer_descriptions">beer_descriptions() (beers.models.BeerLearningManager method)</a>
+</li>
       <li><a href="modules/beers.html#beers.models.BeerRating.beer_id">beer_id (beers.models.BeerRating attribute)</a>
 
       <ul>
@@ -204,11 +206,15 @@
 </li>
       <li><a href="modules/description_parser.html#description_parser.Grammar.Grammar.beer_type_list">beer_type_list() (description_parser.Grammar.Grammar class method)</a>
 </li>
+      <li><a href="modules/beers.html#beers.admin.BeerAdmin">BeerAdmin (class in beers.admin)</a>
+</li>
       <li><a href="modules/beers.html#beers.models.BeerLearning">BeerLearning (class in beers.models)</a>
 </li>
       <li><a href="modules/beers.html#beers.models.BeerLearning.DoesNotExist">BeerLearning.DoesNotExist</a>
 </li>
       <li><a href="modules/beers.html#beers.models.BeerLearning.MultipleObjectsReturned">BeerLearning.MultipleObjectsReturned</a>
+</li>
+      <li><a href="modules/beers.html#beers.models.BeerLearningManager">BeerLearningManager (class in beers.models)</a>
 </li>
       <li><a href="modules/beers.html#beers.models.BeerLearning.beerpreferences">beerpreferences (beers.models.BeerLearning attribute)</a>
 </li>
@@ -220,10 +226,10 @@
 </li>
       <li><a href="modules/users.html#users.views.BeerPreferencesSerializer">BeerPreferencesSerializer (class in users.views)</a>
 </li>
-      <li><a href="modules/users.html#users.views.BeerPreferencesSerializer.Meta">BeerPreferencesSerializer.Meta (class in users.views)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/users.html#users.views.BeerPreferencesSerializer.Meta">BeerPreferencesSerializer.Meta (class in users.views)</a>
+</li>
       <li><a href="modules/beers.html#beers.models.BeerRating">BeerRating (class in beers.models)</a>
 </li>
       <li><a href="modules/beers.html#beers.models.BeerRating.DoesNotExist">BeerRating.DoesNotExist</a>
@@ -273,6 +279,10 @@
       <li><a href="modules/beers.html#beers.views.BeerWithRatingSerializer">BeerWithRatingSerializer (class in beers.views)</a>
 </li>
       <li><a href="modules/beers.html#beers.views.BeerWithRatingSerializer.Meta">BeerWithRatingSerializer.Meta (class in beers.views)</a>
+</li>
+      <li><a href="modules/beers.html#beers.views.BeerWithRecentSerializer">BeerWithRecentSerializer (class in beers.views)</a>
+</li>
+      <li><a href="modules/beers.html#beers.views.BeerWithRecentSerializer.Meta">BeerWithRecentSerializer.Meta (class in beers.views)</a>
 </li>
       <li><a href="modules/beers.html#beers.models.BeerLearning.belgium">belgium (beers.models.BeerLearning attribute)</a>
 
@@ -414,13 +424,15 @@
 </li>
       <li><a href="modules/description_parser.html#description_parser.Grammar.DescriptionParser">DescriptionParser (class in description_parser.Grammar)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/draught_picks.html#module-draught_picks">draught_picks (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/draught_picks.html#module-draught_picks.local_settings">draught_picks.local_settings (module)</a>
 </li>
       <li><a href="modules/draught_picks.html#module-draught_picks.settings">draught_picks.settings (module)</a>
+</li>
+      <li><a href="modules/draught_picks.html#module-draught_picks.travis_settings">draught_picks.travis_settings (module)</a>
 </li>
       <li><a href="modules/draught_picks.html#module-draught_picks.urls">draught_picks.urls (module)</a>
 </li>
@@ -466,8 +478,12 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/users.html#users.views.UserSerializer.Meta.exclude">exclude (users.views.UserSerializer.Meta attribute)</a>
+      <li><a href="modules/beers.html#beers.admin.BeerAdmin.exclude">exclude (beers.admin.BeerAdmin attribute)</a>
+
+      <ul>
+        <li><a href="modules/users.html#users.views.UserSerializer.Meta.exclude">(users.views.UserSerializer.Meta attribute)</a>
 </li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -489,7 +505,11 @@
 </li>
         <li><a href="modules/beers.html#beers.views.BeerWithRatingSerializer.Meta.fields">(beers.views.BeerWithRatingSerializer.Meta attribute)</a>
 </li>
+        <li><a href="modules/beers.html#beers.views.BeerWithRecentSerializer.Meta.fields">(beers.views.BeerWithRecentSerializer.Meta attribute)</a>
+</li>
         <li><a href="modules/beers.html#beers.views.RecentBeerSerializer.Meta.fields">(beers.views.RecentBeerSerializer.Meta attribute)</a>
+</li>
+        <li><a href="modules/beers.html#beers.views.RecommendedBeerSerializer.Meta.fields">(beers.views.RecommendedBeerSerializer.Meta attribute)</a>
 </li>
         <li><a href="modules/users.html#users.admin.DraughtPicksUserChangeForm.Meta.fields">(users.admin.DraughtPicksUserChangeForm.Meta attribute)</a>
 </li>
@@ -550,6 +570,8 @@
 </li>
       <li><a href="modules/users.html#users.models.DraughtPicksUser.get_next_by_date_of_birth">get_next_by_date_of_birth() (users.models.DraughtPicksUser method)</a>
 </li>
+      <li><a href="modules/users.html#users.models.BeerPreferences.get_percent_match">get_percent_match() (users.models.BeerPreferences method)</a>
+</li>
       <li><a href="modules/beers.html#beers.models.Beer.get_previous_by_created_at">get_previous_by_created_at() (beers.models.Beer method)</a>
 
       <ul>
@@ -581,6 +603,10 @@
 </li>
       </ul></li>
       <li><a href="modules/beers.html#beers.views.BeerWithRatingSerializer.get_rating">get_rating() (beers.views.BeerWithRatingSerializer method)</a>
+</li>
+      <li><a href="modules/beers.html#beers.views.BeerWithRecentSerializer.get_recents">get_recents() (beers.views.BeerWithRecentSerializer method)</a>
+</li>
+      <li><a href="modules/beers.html#beers.views.BeerWithRatingSerializer.get_recommended">get_recommended() (beers.views.BeerWithRatingSerializer method)</a>
 </li>
       <li><a href="modules/description_parser.html#description_parser.Grammar.Grammar">Grammar (class in description_parser.Grammar)</a>
 </li>
@@ -756,9 +782,11 @@
         <li><a href="modules/beers.html#beers.models.UserLearningProfile.mango">(beers.models.UserLearningProfile attribute)</a>
 </li>
       </ul></li>
-      <li><a href="modules/users.html#users.admin.DraughtPicksUserAdmin.media">media (users.admin.DraughtPicksUserAdmin attribute)</a>
+      <li><a href="modules/beers.html#beers.admin.BeerAdmin.media">media (beers.admin.BeerAdmin attribute)</a>
 
       <ul>
+        <li><a href="modules/users.html#users.admin.DraughtPicksUserAdmin.media">(users.admin.DraughtPicksUserAdmin attribute)</a>
+</li>
         <li><a href="modules/users.html#users.admin.DraughtPicksUserChangeForm.media">(users.admin.DraughtPicksUserChangeForm attribute)</a>
 </li>
         <li><a href="modules/users.html#users.admin.DraughtPicksUserChangeForm.Meta.media">(users.admin.DraughtPicksUserChangeForm.Meta attribute)</a>
@@ -781,7 +809,11 @@
 </li>
         <li><a href="modules/beers.html#beers.views.BeerWithRatingSerializer.Meta.model">(beers.views.BeerWithRatingSerializer.Meta attribute)</a>
 </li>
+        <li><a href="modules/beers.html#beers.views.BeerWithRecentSerializer.Meta.model">(beers.views.BeerWithRecentSerializer.Meta attribute)</a>
+</li>
         <li><a href="modules/beers.html#beers.views.RecentBeerSerializer.Meta.model">(beers.views.RecentBeerSerializer.Meta attribute)</a>
+</li>
+        <li><a href="modules/beers.html#beers.views.RecommendedBeerSerializer.Meta.model">(beers.views.RecommendedBeerSerializer.Meta attribute)</a>
 </li>
         <li><a href="modules/users.html#users.admin.DraughtPicksUserChangeForm.Meta.model">(users.admin.DraughtPicksUserChangeForm.Meta attribute)</a>
 </li>
@@ -882,6 +914,8 @@
         <li><a href="modules/beers.html#beers.models.UserLearningProfile.peach">(beers.models.UserLearningProfile attribute)</a>
 </li>
       </ul></li>
+      <li><a href="modules/beers.html#beers.models.RecommendedBeer.percent_match">percent_match (beers.models.RecommendedBeer attribute)</a>
+</li>
       <li><a href="modules/users.html#users.views.UserBeerPreferencesSet.permission_classes">permission_classes (users.views.UserBeerPreferencesSet attribute)</a>
 
       <ul>
@@ -994,6 +1028,10 @@
         <li><a href="modules/users.html#users.models.DraughtPicksUser.recommendedbeer_set">(users.models.DraughtPicksUser attribute)</a>
 </li>
       </ul></li>
+      <li><a href="modules/beers.html#beers.views.RecommendedBeerSerializer">RecommendedBeerSerializer (class in beers.views)</a>
+</li>
+      <li><a href="modules/beers.html#beers.views.RecommendedBeerSerializer.Meta">RecommendedBeerSerializer.Meta (class in beers.views)</a>
+</li>
       <li><a href="modules/beers.html#beers.views.RecommendedBeerSet">RecommendedBeerSet (class in beers.views)</a>
 </li>
       <li><a href="modules/description_parser.html#description_parser.Grammar.DescriptionParser.reduce">reduce() (description_parser.Grammar.DescriptionParser method)</a>
@@ -1134,10 +1172,10 @@
         <li><a href="modules/users.html#users.tests.TestUsers.test_retrieve">(users.tests.TestUsers method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/description_parser.html#description_parser.tests.TestParser.test_shift">test_shift() (description_parser.tests.TestParser method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/users.html#users.tests.TestUsers.test_update">test_update() (users.tests.TestUsers method)</a>
 </li>
       <li><a href="modules/beers.html#beers.tests.TestBeers">TestBeers (class in beers.tests)</a>
@@ -1145,6 +1183,10 @@
       <li><a href="modules/description_parser.html#description_parser.tests.TestParser">TestParser (class in description_parser.tests)</a>
 </li>
       <li><a href="modules/users.html#users.tests.TestUsers">TestUsers (class in users.tests)</a>
+</li>
+      <li><a href="modules/tf_model.html#module-tf_model">tf_model (module)</a>
+</li>
+      <li><a href="modules/tf_model.html#tf_model.TFModelException">TFModelException</a>
 </li>
       <li><a href="modules/beers.html#beers.models.BeerLearning.toffee">toffee (beers.models.BeerLearning attribute)</a>
 

@@ -59,6 +59,22 @@
 </div>
 <div class="section" id="module-beers.admin">
 <span id="beers-admin-module"></span><h2>beers.admin module<a class="headerlink" href="#module-beers.admin" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="beers.admin.BeerAdmin">
+<em class="property">class </em><code class="descclassname">beers.admin.</code><code class="descname">BeerAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.admin.BeerAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.admin.options.ModelAdmin</span></code></p>
+<dl class="attribute">
+<dt id="beers.admin.BeerAdmin.exclude">
+<code class="descname">exclude</code><em class="property"> = ('beer_learning',)</em><a class="headerlink" href="#beers.admin.BeerAdmin.exclude" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="beers.admin.BeerAdmin.media">
+<code class="descname">media</code><a class="headerlink" href="#beers.admin.BeerAdmin.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-beers.apps">
 <span id="beers-apps-module"></span><h2>beers.apps module<a class="headerlink" href="#module-beers.apps" title="Permalink to this headline">¶</a></h2>
@@ -66,6 +82,7 @@
 <dt id="beers.apps.BeersConfig">
 <em class="property">class </em><code class="descclassname">beers.apps.</code><code class="descname">BeersConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.apps.BeersConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<p>The beers configuration</p>
 <dl class="attribute">
 <dt id="beers.apps.BeersConfig.name">
 <code class="descname">name</code><em class="property"> = 'beers'</em><a class="headerlink" href="#beers.apps.BeersConfig.name" title="Permalink to this definition">¶</a></dt>
@@ -547,7 +564,9 @@ object the first time, the query is executed.</p>
 <dl class="attribute">
 <dt id="beers.models.BeerLearning.learning_fields">
 <code class="descname">learning_fields</code><a class="headerlink" href="#beers.models.BeerLearning.learning_fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Learning fields used for the model
+:return:</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="beers.models.BeerLearning.light_colors">
@@ -586,7 +605,7 @@ object the first time, the query is executed.</p>
 
 <dl class="attribute">
 <dt id="beers.models.BeerLearning.objects">
-<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#beers.models.BeerLearning.objects" title="Permalink to this definition">¶</a></dt>
+<code class="descname">objects</code><em class="property"> = &lt;beers.models.BeerLearningManager object&gt;</em><a class="headerlink" href="#beers.models.BeerLearning.objects" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -711,9 +730,25 @@ object the first time, the query is executed.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="beers.models.BeerLearningManager">
+<em class="property">class </em><code class="descclassname">beers.models.</code><code class="descname">BeerLearningManager</code><a class="headerlink" href="#beers.models.BeerLearningManager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.manager.Manager</span></code></p>
+<p>Beer Learning Manager: Manages the machine learning for the recommended beers</p>
+<dl class="method">
+<dt id="beers.models.BeerLearningManager.beer_descriptions">
+<code class="descname">beer_descriptions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#beers.models.BeerLearningManager.beer_descriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Handles the beer descriptions to be used in the beer recommendation algorithm
+:param self:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="beers.models.BeerRating">
-<em class="property">class </em><code class="descclassname">beers.models.</code><code class="descname">BeerRating</code><span class="sig-paren">(</span><em>id</em>, <em>uuid</em>, <em>user</em>, <em>beer</em>, <em>rating</em>, <em>description</em>, <em>created_at</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.models.BeerRating" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">beers.models.</code><code class="descname">BeerRating</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.models.BeerRating" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Class handles the beer rating</p>
 <dl class="exception">
 <dt id="beers.models.BeerRating.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#beers.models.BeerRating.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -820,8 +855,9 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="beers.models.RecentBeer">
-<em class="property">class </em><code class="descclassname">beers.models.</code><code class="descname">RecentBeer</code><span class="sig-paren">(</span><em>id</em>, <em>uuid</em>, <em>user</em>, <em>beer</em>, <em>created_at</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.models.RecentBeer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">beers.models.</code><code class="descname">RecentBeer</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.models.RecentBeer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Class hnadles the recent beers</p>
 <dl class="exception">
 <dt id="beers.models.RecentBeer.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#beers.models.RecentBeer.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -914,8 +950,9 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="beers.models.RecommendedBeer">
-<em class="property">class </em><code class="descclassname">beers.models.</code><code class="descname">RecommendedBeer</code><span class="sig-paren">(</span><em>id</em>, <em>uuid</em>, <em>user</em>, <em>beer</em>, <em>created_at</em>, <em>agreed</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.models.RecommendedBeer" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">beers.models.</code><code class="descname">RecommendedBeer</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.models.RecommendedBeer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>Class that handles recommended beers by assigning recommended beer</p>
 <dl class="exception">
 <dt id="beers.models.RecommendedBeer.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#beers.models.RecommendedBeer.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -983,6 +1020,13 @@ object the first time, the query is executed.</p>
 <dt id="beers.models.RecommendedBeer.objects">
 <code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#beers.models.RecommendedBeer.objects" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt id="beers.models.RecommendedBeer.percent_match">
+<code class="descname">percent_match</code><a class="headerlink" href="#beers.models.RecommendedBeer.percent_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="beers.models.RecommendedBeer.user">
@@ -1210,7 +1254,9 @@ object the first time, the query is executed.</p>
 <dl class="attribute">
 <dt id="beers.models.UserLearningProfile.learning_fields">
 <code class="descname">learning_fields</code><a class="headerlink" href="#beers.models.UserLearningProfile.learning_fields" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Learning fields used for the model
+:return:</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="beers.models.UserLearningProfile.light_colors">
@@ -1407,6 +1453,7 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="beers.tests.TestBeers">
 <em class="property">class </em><code class="descclassname">beers.tests.</code><code class="descname">TestBeers</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.tests.TestBeers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.test.APITestCase</span></code></p>
+<p>TestBeers is a testing file to setup and retrieve beers</p>
 <dl class="attribute">
 <dt id="beers.tests.TestBeers.fixtures">
 <code class="descname">fixtures</code><em class="property"> = ['beers/fixtures/beers.json', 'users/fixtures/users.json']</em><a class="headerlink" href="#beers.tests.TestBeers.fixtures" title="Permalink to this definition">¶</a></dt>
@@ -1415,13 +1462,16 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="method">
 <dt id="beers.tests.TestBeers.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#beers.tests.TestBeers.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+<dd><p>setUp will instantiate the beer object, get the user, and force authentication
+:return:</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="beers.tests.TestBeers.test_retrieve">
 <code class="descname">test_retrieve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#beers.tests.TestBeers.test_retrieve" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>test_retreive will test to see if it is able to retreive a beer from the database
+:return:</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1440,10 +1490,12 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="beers.views.BeerRatingSerializer">
 <em class="property">class </em><code class="descclassname">beers.views.</code><code class="descname">BeerRatingSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.BeerRatingSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializes the beer rating</p>
 <dl class="class">
 <dt id="beers.views.BeerRatingSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#beers.views.BeerRatingSerializer.Meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Exposes the fields needed in order to serialize the beer rating</p>
 <dl class="attribute">
 <dt id="beers.views.BeerRatingSerializer.Meta.fields">
 <code class="descname">fields</code><em class="property"> = ('uuid', 'user', 'beer', 'rating', 'description', 'created_at')</em><a class="headerlink" href="#beers.views.BeerRatingSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
@@ -1463,23 +1515,22 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="beers.views.BeerRatingSet">
 <em class="property">class </em><code class="descclassname">beers.views.</code><code class="descname">BeerRatingSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.BeerRatingSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.CreateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.ListModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.UpdateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.RetrieveModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.GenericViewSet</span></code></p>
+<p>Creates a needed beer rating set</p>
 <dl class="method">
 <dt id="beers.views.BeerRatingSet.create">
 <code class="descname">create</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.BeerRatingSet.create" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Method used to create a beer rating set
+:param request:
+:param args:
+:param kwargs:
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="beers.views.BeerRatingSet.get_queryset">
 <code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.BeerRatingSet.get_queryset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the list of items for this view.
-This must be an iterable, and may be a queryset.
-Defaults to using <cite>self.queryset</cite>.</p>
-<p>This method should always be used rather than accessing <cite>self.queryset</cite>
-directly, as <cite>self.queryset</cite> gets evaluated only once, and those results
-are cached for all subsequent requests.</p>
-<p>You may want to override this if you need to provide different
-querysets depending on the incoming request.</p>
-<p>(Eg. return a list of items that is specific to the user)</p>
+<dd><p>Get the querysets
+:return:</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1489,7 +1540,7 @@ querysets depending on the incoming request.</p>
 
 <dl class="attribute">
 <dt id="beers.views.BeerRatingSet.queryset">
-<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#beers.views.BeerRatingSet.queryset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;BeerRating: BeerRating object (27)&gt;]&gt;</em><a class="headerlink" href="#beers.views.BeerRatingSet.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1504,10 +1555,12 @@ querysets depending on the incoming request.</p>
 <dt id="beers.views.BeerSerializer">
 <em class="property">class </em><code class="descclassname">beers.views.</code><code class="descname">BeerSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.BeerSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializes the beer</p>
 <dl class="class">
 <dt id="beers.views.BeerSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#beers.views.BeerSerializer.Meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Exposes the fields needed in order to serialize the beer</p>
 <dl class="attribute">
 <dt id="beers.views.BeerSerializer.Meta.fields">
 <code class="descname">fields</code><em class="property"> = ('uuid', 'name', 'description', 'abv', 'ibu', 'api_id', 'name_of_api', 'created_at')</em><a class="headerlink" href="#beers.views.BeerSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
@@ -1527,6 +1580,7 @@ querysets depending on the incoming request.</p>
 <dt id="beers.views.BeerSet">
 <em class="property">class </em><code class="descclassname">beers.views.</code><code class="descname">BeerSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.BeerSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.ListModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.RetrieveModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.GenericViewSet</span></code></p>
+<p>Creates a needed beer set</p>
 <dl class="attribute">
 <dt id="beers.views.BeerSet.filter_backends">
 <code class="descname">filter_backends</code><em class="property"> = (&lt;class 'rest_framework.filters.SearchFilter'&gt;,)</em><a class="headerlink" href="#beers.views.BeerSet.filter_backends" title="Permalink to this definition">¶</a></dt>
@@ -1539,7 +1593,7 @@ querysets depending on the incoming request.</p>
 
 <dl class="attribute">
 <dt id="beers.views.BeerSet.queryset">
-<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Beer: Summer Honey Wheat&gt;, &lt;Beer: Summer Hop&gt;, &lt;Beer: Summer in Belgium&gt;, &lt;Beer: Summer in Berlin&gt;, &lt;Beer: Summer In the City&gt;, &lt;Beer: SUMMER IPA&gt;, &lt;Beer: Summer IPA&gt;, &lt;Beer: Summer IPA&gt;, &lt;Beer: Summer IPA&gt;, &lt;Beer: Summer IPA&gt;, &lt;Beer: Summer Lightning&gt;, &lt;Beer: Summer Love Ale&gt;, &lt;Beer: Summer Lovin’&gt;, &lt;Beer: Summer Moon&gt;, &lt;Beer: Summer Moon&gt;, &lt;Beer: Summer Nectar Wheat Ale&gt;, &lt;Beer: Summer Night&gt;, &lt;Beer: Summer Of Lager&gt;, &lt;Beer: Summer of St. Martin Bière de Garde&gt;, &lt;Beer: Summer Pale&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#beers.views.BeerSet.queryset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Beer: Brighton ESB&gt;, &lt;Beer: Brimstone IPA&gt;, &lt;Beer: Bring The Long Night&gt;, &lt;Beer: Einbecker Brauherren Non-Alcoholic&gt;, &lt;Beer: Einbecker Diät-Pils&gt;, &lt;Beer: Einbecker Landbier&gt;, &lt;Beer: Einbecker Mai-Ur-Bock&gt;, &lt;Beer: Einbecker Mai-Ur-Bock&gt;, &lt;Beer: Einbecker Ur-Bock Dunkel&gt;, &lt;Beer: Einbecker Ur-Bock hell&gt;, &lt;Beer: Einbecker Winter-Bock Doppelback&gt;, &lt;Beer: Einbecker Winterbock&gt;, &lt;Beer: Slow Rye’d IPA&gt;, &lt;Beer: Broken Paddle&gt;, &lt;Beer: Abbaye de St Amand&gt;, &lt;Beer: Brooklyn Winter Ale&gt;, &lt;Beer: Einbock&gt;, &lt;Beer: Eine Bamberger Weisse Hell&gt;, &lt;Beer: Einhorn Bock&gt;, &lt;Beer: Einhorn Is Finkle 1995 IPA&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#beers.views.BeerSet.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1564,9 +1618,10 @@ querysets depending on the incoming request.</p>
 <dt id="beers.views.BeerWithRatingSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#beers.views.BeerWithRatingSerializer.Meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Exposes the fields needed in order to serialize the beer rating</p>
 <dl class="attribute">
 <dt id="beers.views.BeerWithRatingSerializer.Meta.fields">
-<code class="descname">fields</code><em class="property"> = ('uuid', 'rating', 'name', 'description', 'abv', 'ibu', 'api_id', 'name_of_api', 'created_at')</em><a class="headerlink" href="#beers.views.BeerWithRatingSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<code class="descname">fields</code><em class="property"> = ('uuid', 'rating', 'name', 'description', 'abv', 'ibu', 'api_id', 'name_of_api', 'created_at', 'recommended')</em><a class="headerlink" href="#beers.views.BeerWithRatingSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1580,7 +1635,51 @@ querysets depending on the incoming request.</p>
 <dl class="method">
 <dt id="beers.views.BeerWithRatingSerializer.get_rating">
 <code class="descname">get_rating</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.BeerWithRatingSerializer.get_rating" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a rating
+:param obj:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="beers.views.BeerWithRatingSerializer.get_recommended">
+<code class="descname">get_recommended</code><span class="sig-paren">(</span><em>beer</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.BeerWithRatingSerializer.get_recommended" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets a recommended beer
+:param beer:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="beers.views.BeerWithRecentSerializer">
+<em class="property">class </em><code class="descclassname">beers.views.</code><code class="descname">BeerWithRecentSerializer</code><span class="sig-paren">(</span><em>instance</em>, <em>user=None</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.BeerWithRecentSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#beers.views.BeerWithRatingSerializer" title="beers.views.BeerWithRatingSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">beers.views.BeerWithRatingSerializer</span></code></a></p>
+<p>This class Serlizes the beer with the recent beer</p>
+<dl class="class">
+<dt id="beers.views.BeerWithRecentSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#beers.views.BeerWithRecentSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Exposes the fields needed in order to serialize the get recent beers</p>
+<dl class="attribute">
+<dt id="beers.views.BeerWithRecentSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('uuid', 'rating', 'name', 'description', 'abv', 'ibu', 'api_id', 'name_of_api', 'created_at', 'recents', 'recommended')</em><a class="headerlink" href="#beers.views.BeerWithRecentSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
+
+<dl class="attribute">
+<dt id="beers.views.BeerWithRecentSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#beers.views.BeerWithRecentSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#beers.models.Beer" title="beers.models.Beer"><code class="xref py py-class docutils literal notranslate"><span class="pre">beers.models.Beer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="beers.views.BeerWithRecentSerializer.get_recents">
+<code class="descname">get_recents</code><span class="sig-paren">(</span><em>obj</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.BeerWithRecentSerializer.get_recents" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method gets the recent beer object
+:param obj:
+:return:</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -1588,10 +1687,12 @@ querysets depending on the incoming request.</p>
 <dt id="beers.views.RecentBeerSerializer">
 <em class="property">class </em><code class="descclassname">beers.views.</code><code class="descname">RecentBeerSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.RecentBeerSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>This class serializes recent beers</p>
 <dl class="class">
 <dt id="beers.views.RecentBeerSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#beers.views.RecentBeerSerializer.Meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Exposes the fields needed in order to serialize the recent beer</p>
 <dl class="attribute">
 <dt id="beers.views.RecentBeerSerializer.Meta.fields">
 <code class="descname">fields</code><em class="property"> = ('uuid', 'user', 'beer', 'created_at')</em><a class="headerlink" href="#beers.views.RecentBeerSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
@@ -1611,23 +1712,22 @@ querysets depending on the incoming request.</p>
 <dt id="beers.views.RecentBeerSet">
 <em class="property">class </em><code class="descclassname">beers.views.</code><code class="descname">RecentBeerSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.RecentBeerSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.CreateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.ListModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.GenericViewSet</span></code></p>
+<p>This class creates a recent beers set</p>
 <dl class="method">
 <dt id="beers.views.RecentBeerSet.create">
 <code class="descname">create</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.RecentBeerSet.create" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method will create a recent beer set
+:param request:
+:param args:
+:param kwargs:
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="beers.views.RecentBeerSet.get_queryset">
 <code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.RecentBeerSet.get_queryset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the list of items for this view.
-This must be an iterable, and may be a queryset.
-Defaults to using <cite>self.queryset</cite>.</p>
-<p>This method should always be used rather than accessing <cite>self.queryset</cite>
-directly, as <cite>self.queryset</cite> gets evaluated only once, and those results
-are cached for all subsequent requests.</p>
-<p>You may want to override this if you need to provide different
-querysets depending on the incoming request.</p>
-<p>(Eg. return a list of items that is specific to the user)</p>
+<dd><p>This method gets the queryset for the recent beer set
+:return:</p>
 </dd></dl>
 
 <dl class="method">
@@ -1647,7 +1747,7 @@ querysets depending on the incoming request.</p>
 
 <dl class="attribute">
 <dt id="beers.views.RecentBeerSet.queryset">
-<code class="descname">queryset</code><em class="property"> = &lt;QuerySet []&gt;</em><a class="headerlink" href="#beers.views.RecentBeerSet.queryset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;RecentBeer: admin drank Budweiser 1933 Repeal Reserve&gt;, &lt;RecentBeer: admin drank Budweiser 1933 Repeal Reserve&gt;, &lt;RecentBeer: admin drank Budweiser 1933 Repeal Reserve&gt;, &lt;RecentBeer: admin drank Budweiser 1933 Repeal Reserve&gt;, &lt;RecentBeer: admin drank Budweiser&gt;, &lt;RecentBeer: admin drank Budweiser&gt;, &lt;RecentBeer: admin drank Budweiser&gt;, &lt;RecentBeer: admin drank Budweiser&gt;, &lt;RecentBeer: admin drank Budweiser Select&gt;, &lt;RecentBeer: admin drank Budweiser Select&gt;, &lt;RecentBeer: admin drank Budweiser Select&gt;, &lt;RecentBeer: admin drank Budweiser&gt;, &lt;RecentBeer: admin drank Budweiser 1933 Repeal Reserve&gt;, &lt;RecentBeer: admin drank Budweiser Select&gt;, &lt;RecentBeer: admin drank Budweiser Select&gt;]&gt;</em><a class="headerlink" href="#beers.views.RecentBeerSet.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -1659,21 +1759,40 @@ querysets depending on the incoming request.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="beers.views.RecommendedBeerSerializer">
+<em class="property">class </em><code class="descclassname">beers.views.</code><code class="descname">RecommendedBeerSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.RecommendedBeerSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>Serializes the recommended beer</p>
+<dl class="class">
+<dt id="beers.views.RecommendedBeerSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#beers.views.RecommendedBeerSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Exposes the fields needed in order to serialize the beer rating</p>
+<dl class="attribute">
+<dt id="beers.views.RecommendedBeerSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('uuid', 'user', 'beer', 'percent_match', 'agreed', 'created_at')</em><a class="headerlink" href="#beers.views.RecommendedBeerSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="beers.views.RecommendedBeerSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#beers.views.RecommendedBeerSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#beers.models.RecommendedBeer" title="beers.models.RecommendedBeer"><code class="xref py py-class docutils literal notranslate"><span class="pre">beers.models.RecommendedBeer</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="beers.views.RecommendedBeerSet">
 <em class="property">class </em><code class="descclassname">beers.views.</code><code class="descname">RecommendedBeerSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.RecommendedBeerSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.ListModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.GenericViewSet</span></code></p>
+<p>This class creates a recommended beer set</p>
 <dl class="method">
 <dt id="beers.views.RecommendedBeerSet.get_queryset">
 <code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#beers.views.RecommendedBeerSet.get_queryset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the list of items for this view.
-This must be an iterable, and may be a queryset.
-Defaults to using <cite>self.queryset</cite>.</p>
-<p>This method should always be used rather than accessing <cite>self.queryset</cite>
-directly, as <cite>self.queryset</cite> gets evaluated only once, and those results
-are cached for all subsequent requests.</p>
-<p>You may want to override this if you need to provide different
-querysets depending on the incoming request.</p>
-<p>(Eg. return a list of items that is specific to the user)</p>
+<dd><p>This gets the queryset for the recommended beer set
+:return:</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -1683,7 +1802,7 @@ querysets depending on the incoming request.</p>
 
 <dl class="attribute">
 <dt id="beers.views.RecommendedBeerSet.queryset">
-<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Beer: Summer Honey Wheat&gt;, &lt;Beer: Summer Hop&gt;, &lt;Beer: Summer in Belgium&gt;, &lt;Beer: Summer in Berlin&gt;, &lt;Beer: Summer In the City&gt;, &lt;Beer: SUMMER IPA&gt;, &lt;Beer: Summer IPA&gt;, &lt;Beer: Summer IPA&gt;, &lt;Beer: Summer IPA&gt;, &lt;Beer: Summer IPA&gt;, &lt;Beer: Summer Lightning&gt;, &lt;Beer: Summer Love Ale&gt;, &lt;Beer: Summer Lovin’&gt;, &lt;Beer: Summer Moon&gt;, &lt;Beer: Summer Moon&gt;, &lt;Beer: Summer Nectar Wheat Ale&gt;, &lt;Beer: Summer Night&gt;, &lt;Beer: Summer Of Lager&gt;, &lt;Beer: Summer of St. Martin Bière de Garde&gt;, &lt;Beer: Summer Pale&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#beers.views.RecommendedBeerSet.queryset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;Beer: Brighton ESB&gt;, &lt;Beer: Brimstone IPA&gt;, &lt;Beer: Bring The Long Night&gt;, &lt;Beer: Einbecker Brauherren Non-Alcoholic&gt;, &lt;Beer: Einbecker Diät-Pils&gt;, &lt;Beer: Einbecker Landbier&gt;, &lt;Beer: Einbecker Mai-Ur-Bock&gt;, &lt;Beer: Einbecker Mai-Ur-Bock&gt;, &lt;Beer: Einbecker Ur-Bock Dunkel&gt;, &lt;Beer: Einbecker Ur-Bock hell&gt;, &lt;Beer: Einbecker Winter-Bock Doppelback&gt;, &lt;Beer: Einbecker Winterbock&gt;, &lt;Beer: Slow Rye’d IPA&gt;, &lt;Beer: Broken Paddle&gt;, &lt;Beer: Abbaye de St Amand&gt;, &lt;Beer: Brooklyn Winter Ale&gt;, &lt;Beer: Einbock&gt;, &lt;Beer: Eine Bamberger Weisse Hell&gt;, &lt;Beer: Einhorn Bock&gt;, &lt;Beer: Einhorn Is Finkle 1995 IPA&gt;, '...(remaining elements truncated)...']&gt;</em><a class="headerlink" href="#beers.views.RecommendedBeerSet.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">

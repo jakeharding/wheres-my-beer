@@ -50,17 +50,22 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="description_parser.Grammar.DescriptionParseException">
 <em class="property">exception </em><code class="descclassname">description_parser.Grammar.</code><code class="descname">DescriptionParseException</code><span class="sig-paren">(</span><em>stack</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.DescriptionParseException" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>This class raises a DescriptionParseException</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="description_parser.Grammar.DescriptionParser">
-<em class="property">class </em><code class="descclassname">description_parser.Grammar.</code><code class="descname">DescriptionParser</code><span class="sig-paren">(</span><em>description</em>, <em>initial_store={}</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.DescriptionParser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">description_parser.Grammar.</code><code class="descname">DescriptionParser</code><span class="sig-paren">(</span><em>description</em>, <em>initial_store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.DescriptionParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Builds the parse tree for a description.</p>
 <dl class="method">
 <dt id="description_parser.Grammar.DescriptionParser.case_matches_stack">
 <code class="descname">case_matches_stack</code><span class="sig-paren">(</span><em>case</em>, <em>stack</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.DescriptionParser.case_matches_stack" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method case_matches the stack
+:param case:
+:param stack:
+:return:</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="description_parser.Grammar.DescriptionParser.description">
@@ -70,17 +75,27 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="method">
 <dt id="description_parser.Grammar.DescriptionParser.parse">
 <code class="descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.DescriptionParser.parse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method parses the grammar
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="description_parser.Grammar.DescriptionParser.reduce">
 <code class="descname">reduce</code><span class="sig-paren">(</span><em>stack</em>, <em>len_rem</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.DescriptionParser.reduce" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This reduces an element in the grammar if requirements are not met
+:param stack:
+:param len_rem:
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="description_parser.Grammar.DescriptionParser.shift">
 <code class="descname">shift</code><span class="sig-paren">(</span><em>stack</em>, <em>remaining</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.DescriptionParser.shift" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method shifts the grammar
+:param stack:
+:param remaining:
+:return:</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -101,57 +116,101 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_color">
 <em class="property">classmethod </em><code class="descname">adj_color</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_color" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This adjusts the beer color
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_dry">
 <em class="property">classmethod </em><code class="descname">adj_dry</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_dry" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the dryness of the beer
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_epsilon">
 <em class="property">classmethod </em><code class="descname">adj_epsilon</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_epsilon" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the epsilon
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_flavor">
 <em class="property">classmethod </em><code class="descname">adj_flavor</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_flavor" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the flavor
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_hops">
 <em class="property">classmethod </em><code class="descname">adj_hops</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_hops" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the hops
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_list_adj">
 <em class="property">classmethod </em><code class="descname">adj_list_adj</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_list_adj" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the list adj
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_malt">
 <em class="property">classmethod </em><code class="descname">adj_malt</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_malt" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the malt
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_origin">
 <em class="property">classmethod </em><code class="descname">adj_origin</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_origin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the origin for the beer
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_sour">
 <em class="property">classmethod </em><code class="descname">adj_sour</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_sour" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the flavor to sour
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_sweet">
 <em class="property">classmethod </em><code class="descname">adj_sweet</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_sweet" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the sweetness of the beer
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.adj_tart">
 <em class="property">classmethod </em><code class="descname">adj_tart</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.adj_tart" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the flavor to tart
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.ales_ale_terms">
@@ -174,7 +233,11 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.ales_oats">
 <em class="property">classmethod </em><code class="descname">ales_oats</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.ales_oats" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method sets the ales’ oats
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.ales_porter">
@@ -221,17 +284,29 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.call_children">
 <em class="property">classmethod </em><code class="descname">call_children</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.call_children" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>this method calls the children
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.color_dark_colors">
 <em class="property">classmethod </em><code class="descname">color_dark_colors</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.color_dark_colors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets the beer to a dark color
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.color_light_colors">
 <em class="property">classmethod </em><code class="descname">color_light_colors</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.color_light_colors" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets the beer to light color
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="description_parser.Grammar.Grammar.dark_colors">
@@ -276,12 +351,18 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.items">
 <em class="property">classmethod </em><code class="descname">items</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.items" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This gets the grammar items
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.lager_lager_terms">
 <em class="property">classmethod </em><code class="descname">lager_lager_terms</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.lager_lager_terms" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets it to a lager
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="description_parser.Grammar.Grammar.light_colors">
@@ -301,37 +382,65 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.origin_america">
 <em class="property">classmethod </em><code class="descname">origin_america</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.origin_america" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets the origin to america
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.origin_belgium">
 <em class="property">classmethod </em><code class="descname">origin_belgium</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.origin_belgium" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets the origin to belgium
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.origin_europe">
 <em class="property">classmethod </em><code class="descname">origin_europe</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.origin_europe" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets the origin to europe
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.origin_german">
 <em class="property">classmethod </em><code class="descname">origin_german</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.origin_german" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets the origin to germany
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.origin_india">
 <em class="property">classmethod </em><code class="descname">origin_india</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.origin_india" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets the origin to india
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.origin_ireland">
 <em class="property">classmethod </em><code class="descname">origin_ireland</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.origin_ireland" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets the origin to ireland
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.origin_other_origin">
 <em class="property">classmethod </em><code class="descname">origin_other_origin</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.origin_other_origin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets an origin to other
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="description_parser.Grammar.Grammar.other_origin">
@@ -341,7 +450,9 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.rules">
 <em class="property">classmethod </em><code class="descname">rules</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.rules" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This sets the rules for the grammar
+:return:</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="description_parser.Grammar.Grammar.sour">
@@ -366,37 +477,65 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.type_adj">
 <em class="property">classmethod </em><code class="descname">type_adj</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.type_adj" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the type
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.type_adj_list">
 <em class="property">classmethod </em><code class="descname">type_adj_list</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.type_adj_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method adjusts the type list
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.type_adj_list_type">
 <em class="property">classmethod </em><code class="descname">type_adj_list_type</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.type_adj_list_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method returns the type adjusts list type
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.type_ales">
 <em class="property">classmethod </em><code class="descname">type_ales</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.type_ales" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method returns the ale children
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.type_lager">
 <em class="property">classmethod </em><code class="descname">type_lager</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.type_lager" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method returns the lager children
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.type_list_type">
 <em class="property">classmethod </em><code class="descname">type_list_type</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.type_list_type" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method returns the type_list type
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 <dl class="classmethod">
 <dt id="description_parser.Grammar.Grammar.type_list_type_list">
 <em class="property">classmethod </em><code class="descname">type_list_type_list</code><span class="sig-paren">(</span><em>node</em>, <em>store</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.Grammar.type_list_type_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method returns the type_list type_list
+:param node:
+:param store:
+:return:</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -404,6 +543,7 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="description_parser.Grammar.TreeNode">
 <em class="property">class </em><code class="descclassname">description_parser.Grammar.</code><code class="descname">TreeNode</code><span class="sig-paren">(</span><em>name</em>, <em>children=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.TreeNode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class instantiates a tree node for the grammar</p>
 <dl class="attribute">
 <dt id="description_parser.Grammar.TreeNode.children">
 <code class="descname">children</code><em class="property"> = []</em><a class="headerlink" href="#description_parser.Grammar.TreeNode.children" title="Permalink to this definition">¶</a></dt>
@@ -412,7 +552,9 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="method">
 <dt id="description_parser.Grammar.TreeNode.has_children">
 <code class="descname">has_children</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.TreeNode.has_children" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This returns true of the tree node has children
+:return:</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="description_parser.Grammar.TreeNode.name">
@@ -432,7 +574,7 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="function">
 <dt id="description_parser.Grammar.print_tree">
 <code class="descclassname">description_parser.Grammar.</code><code class="descname">print_tree</code><span class="sig-paren">(</span><em>node</em>, <em>margin='--'</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.Grammar.print_tree" title="Permalink to this definition">¶</a></dt>
-<dd><p>Recursie function to print the tree.
+<dd><p>Recursive function to print the tree.
 :param node: TreeNode to process
 :param margin: Left handed margin
 :return: None</p>
@@ -471,41 +613,55 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="description_parser.tests.TestParser">
 <em class="property">class </em><code class="descclassname">description_parser.tests.</code><code class="descname">TestParser</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.tests.TestParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.test.testcases.TestCase</span></code></p>
+<p>This class tests the parser</p>
 <dl class="method">
 <dt id="description_parser.tests.TestParser.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.tests.TestParser.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+<dd><p>This class sets up the testing of the parser
+:return:</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="description_parser.tests.TestParser.test_case_matches_stack_with_non_terms_and_strings">
 <code class="descname">test_case_matches_stack_with_non_terms_and_strings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.tests.TestParser.test_case_matches_stack_with_non_terms_and_strings" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This tests the case matches for the stack that deals with the non-terms and strings
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="description_parser.tests.TestParser.test_case_matches_stack_with_strings_only">
 <code class="descname">test_case_matches_stack_with_strings_only</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.tests.TestParser.test_case_matches_stack_with_strings_only" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method tests the case matches for the stack with a string only
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="description_parser.tests.TestParser.test_init">
 <code class="descname">test_init</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.tests.TestParser.test_init" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method initializes the test
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="description_parser.tests.TestParser.test_parse">
 <code class="descname">test_parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.tests.TestParser.test_parse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method tests the parser
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="description_parser.tests.TestParser.test_reduce">
 <code class="descname">test_reduce</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.tests.TestParser.test_reduce" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This tests the parser to allow it to be reduced
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="description_parser.tests.TestParser.test_shift">
 <code class="descname">test_shift</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#description_parser.tests.TestParser.test_shift" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method tests the shift of the parser
+:return:</p>
+</dd></dl>
 
 </dd></dl>
 

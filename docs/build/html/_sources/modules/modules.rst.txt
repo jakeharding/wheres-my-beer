@@ -9,4 +9,5 @@ draught_picks
    draught_picks
    manage
    rest_api
+   tf_model
    users

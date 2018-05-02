@@ -15,7 +15,7 @@
     <script type="text/javascript" src="../_static/doctools.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="rest_api package" href="rest_api.html" />
+    <link rel="prev" title="tf_model package" href="tf_model.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
   
@@ -41,6 +41,7 @@
 <dt id="users.admin.DraughtPicksUserAdmin">
 <em class="property">class </em><code class="descclassname">users.admin.</code><code class="descname">DraughtPicksUserAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#users.admin.DraughtPicksUserAdmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.admin.UserAdmin</span></code></p>
+<p>This class creates the user admin</p>
 <dl class="attribute">
 <dt id="users.admin.DraughtPicksUserAdmin.add_form">
 <code class="descname">add_form</code><a class="headerlink" href="#users.admin.DraughtPicksUserAdmin.add_form" title="Permalink to this definition">¶</a></dt>
@@ -69,18 +70,20 @@
 <dt id="users.admin.DraughtPicksUserChangeForm">
 <em class="property">class </em><code class="descclassname">users.admin.</code><code class="descname">DraughtPicksUserChangeForm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.UserChangeForm</span></code></p>
+<p>This class changes the user form</p>
 <dl class="class">
 <dt id="users.admin.DraughtPicksUserChangeForm.Meta">
 <em class="property">class </em><code class="descname">Meta</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.UserChangeForm</span></code></p>
+<p>This exposes the fields needed for user change form</p>
 <dl class="attribute">
 <dt id="users.admin.DraughtPicksUserChangeForm.Meta.base_fields">
-<code class="descname">base_fields</code><em class="property"> = {'date_joined': &lt;django.forms.fields.DateTimeField object at 0x1115a6da0&gt;, 'email': &lt;django.forms.fields.EmailField object at 0x1115a6a20&gt;, 'first_name': &lt;django.forms.fields.CharField object at 0x1115a66a0&gt;, 'groups': &lt;django.forms.models.ModelMultipleChoiceField object at 0x1115a6160&gt;, 'is_active': &lt;django.forms.fields.BooleanField object at 0x1115a6cc0&gt;, 'is_staff': &lt;django.forms.fields.BooleanField object at 0x1115a6be0&gt;, 'is_superuser': &lt;django.forms.fields.BooleanField object at 0x1115a6080&gt;, 'last_login': &lt;django.forms.fields.DateTimeField object at 0x11159af60&gt;, 'last_name': &lt;django.forms.fields.CharField object at 0x1115a6860&gt;, 'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x1115775f8&gt;, 'user_permissions': &lt;django.forms.models.ModelMultipleChoiceField object at 0x1115a6358&gt;, 'username': &lt;django.contrib.auth.forms.UsernameField object at 0x1115a6518&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta.base_fields" title="Permalink to this definition">¶</a></dt>
+<code class="descname">base_fields</code><em class="property"> = {'date_joined': &lt;django.forms.fields.DateTimeField object at 0x115b926d8&gt;, 'email': &lt;django.forms.fields.EmailField object at 0x115b92358&gt;, 'first_name': &lt;django.forms.fields.CharField object at 0x115b86f98&gt;, 'groups': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115b86a58&gt;, 'is_active': &lt;django.forms.fields.BooleanField object at 0x115b925f8&gt;, 'is_staff': &lt;django.forms.fields.BooleanField object at 0x115b92518&gt;, 'is_superuser': &lt;django.forms.fields.BooleanField object at 0x115b86978&gt;, 'last_login': &lt;django.forms.fields.DateTimeField object at 0x115b86898&gt;, 'last_name': &lt;django.forms.fields.CharField object at 0x115b92198&gt;, 'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x115b4cf28&gt;, 'user_permissions': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115b86c50&gt;, 'username': &lt;django.contrib.auth.forms.UsernameField object at 0x115b86e10&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta.base_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="users.admin.DraughtPicksUserChangeForm.Meta.declared_fields">
-<code class="descname">declared_fields</code><em class="property"> = {'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x1115775f8&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta.declared_fields" title="Permalink to this definition">¶</a></dt>
+<code class="descname">declared_fields</code><em class="property"> = {'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x115b4cf28&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta.declared_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -103,12 +106,12 @@
 
 <dl class="attribute">
 <dt id="users.admin.DraughtPicksUserChangeForm.base_fields">
-<code class="descname">base_fields</code><em class="property"> = {'date_joined': &lt;django.forms.fields.DateTimeField object at 0x1115aec18&gt;, 'date_of_birth': &lt;django.forms.fields.DateField object at 0x1115aee48&gt;, 'email': &lt;django.forms.fields.EmailField object at 0x1115aecf8&gt;, 'favorite_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x1115b8080&gt;, 'first_name': &lt;django.forms.fields.CharField object at 0x1115ae668&gt;, 'gender': &lt;django.forms.fields.TypedChoiceField object at 0x1115aef60&gt;, 'groups': &lt;django.forms.models.ModelMultipleChoiceField object at 0x1115ae128&gt;, 'is_active': &lt;django.forms.fields.BooleanField object at 0x1115aeb38&gt;, 'is_staff': &lt;django.forms.fields.BooleanField object at 0x1115aea20&gt;, 'is_superuser': &lt;django.forms.fields.BooleanField object at 0x1115ae048&gt;, 'last_login': &lt;django.forms.fields.DateTimeField object at 0x1115a6ef0&gt;, 'last_name': &lt;django.forms.fields.CharField object at 0x1115ae828&gt;, 'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x1115775f8&gt;, 'rated_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x1115b82e8&gt;, 'recent_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x1115b8198&gt;, 'recommended_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x1115b8438&gt;, 'user_permissions': &lt;django.forms.models.ModelMultipleChoiceField object at 0x1115ae320&gt;, 'username': &lt;django.forms.fields.CharField object at 0x1115ae4e0&gt;, 'weight': &lt;django.forms.fields.IntegerField object at 0x1115aeeb8&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<code class="descname">base_fields</code><em class="property"> = {'date_joined': &lt;django.forms.fields.DateTimeField object at 0x115a19550&gt;, 'date_of_birth': &lt;django.forms.fields.DateField object at 0x115a19780&gt;, 'email': &lt;django.forms.fields.EmailField object at 0x115a19630&gt;, 'favorite_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115a19940&gt;, 'first_name': &lt;django.forms.fields.CharField object at 0x115b92f60&gt;, 'gender': &lt;django.forms.fields.TypedChoiceField object at 0x115a19898&gt;, 'groups': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115b92a20&gt;, 'is_active': &lt;django.forms.fields.BooleanField object at 0x115a19470&gt;, 'is_staff': &lt;django.forms.fields.BooleanField object at 0x115a19358&gt;, 'is_superuser': &lt;django.forms.fields.BooleanField object at 0x115b92940&gt;, 'last_login': &lt;django.forms.fields.DateTimeField object at 0x115b92828&gt;, 'last_name': &lt;django.forms.fields.CharField object at 0x115a19160&gt;, 'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x115b4cf28&gt;, 'rated_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115a19be0&gt;, 'recent_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115a19a90&gt;, 'recommended_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115a19d30&gt;, 'user_permissions': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115b92c18&gt;, 'username': &lt;django.forms.fields.CharField object at 0x115b92dd8&gt;, 'weight': &lt;django.forms.fields.IntegerField object at 0x115a197f0&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.base_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="users.admin.DraughtPicksUserChangeForm.declared_fields">
-<code class="descname">declared_fields</code><em class="property"> = {'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x1115775f8&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<code class="descname">declared_fields</code><em class="property"> = {'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x115b4cf28&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.declared_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -122,10 +125,12 @@
 <dt id="users.admin.DraughtPicksUserCreateForm">
 <em class="property">class </em><code class="descclassname">users.admin.</code><code class="descname">DraughtPicksUserCreateForm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.UserCreationForm</span></code></p>
+<p>This class creates a form for the user</p>
 <dl class="class">
 <dt id="users.admin.DraughtPicksUserCreateForm.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.Meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.Meta</span></code></p>
+<p>This exposes the fields needed for user creation</p>
 <dl class="attribute">
 <dt id="users.admin.DraughtPicksUserCreateForm.Meta.fields">
 <code class="descname">fields</code><em class="property"> = ('username',)</em><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
@@ -141,12 +146,12 @@
 
 <dl class="attribute">
 <dt id="users.admin.DraughtPicksUserCreateForm.base_fields">
-<code class="descname">base_fields</code><em class="property"> = {'password1': &lt;django.forms.fields.CharField object at 0x111564f98&gt;, 'password2': &lt;django.forms.fields.CharField object at 0x111577128&gt;, 'username': &lt;django.contrib.auth.forms.UsernameField object at 0x11159ab38&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<code class="descname">base_fields</code><em class="property"> = {'password1': &lt;django.forms.fields.CharField object at 0x115b4c908&gt;, 'password2': &lt;django.forms.fields.CharField object at 0x115b4ca58&gt;, 'username': &lt;django.contrib.auth.forms.UsernameField object at 0x115b86470&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.base_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="users.admin.DraughtPicksUserCreateForm.declared_fields">
-<code class="descname">declared_fields</code><em class="property"> = {'password1': &lt;django.forms.fields.CharField object at 0x111564f98&gt;, 'password2': &lt;django.forms.fields.CharField object at 0x111577128&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<code class="descname">declared_fields</code><em class="property"> = {'password1': &lt;django.forms.fields.CharField object at 0x115b4c908&gt;, 'password2': &lt;django.forms.fields.CharField object at 0x115b4ca58&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.declared_fields" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -163,6 +168,7 @@
 <dt id="users.apps.UsersConfig">
 <em class="property">class </em><code class="descclassname">users.apps.</code><code class="descname">UsersConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="headerlink" href="#users.apps.UsersConfig" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<p>This is the user configuration</p>
 <dl class="attribute">
 <dt id="users.apps.UsersConfig.name">
 <code class="descname">name</code><em class="property"> = 'users'</em><a class="headerlink" href="#users.apps.UsersConfig.name" title="Permalink to this definition">¶</a></dt>
@@ -186,10 +192,16 @@ Reused from <a class="reference external" href="https://djangosnippets.org/snipp
 <dt id="users.backends.UserModelEmailBackend">
 <em class="property">class </em><code class="descclassname">users.backends.</code><code class="descname">UserModelEmailBackend</code><a class="headerlink" href="#users.backends.UserModelEmailBackend" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.backends.ModelBackend</span></code></p>
+<p>This class handles the user email</p>
 <dl class="method">
 <dt id="users.backends.UserModelEmailBackend.authenticate">
 <code class="descname">authenticate</code><span class="sig-paren">(</span><em>username=''</em>, <em>password=''</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.backends.UserModelEmailBackend.authenticate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This authenticates the email
+:param username:
+:param password:
+:param kwargs:
+:return:</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -206,8 +218,9 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <p>Models pertaining to users.</p>
 <dl class="class">
 <dt id="users.models.BeerPreferences">
-<em class="property">class </em><code class="descclassname">users.models.</code><code class="descname">BeerPreferences</code><span class="sig-paren">(</span><em>id</em>, <em>uuid</em>, <em>abv_low</em>, <em>abv_hi</em>, <em>ibu_low</em>, <em>ibu_hi</em>, <em>like_description</em>, <em>user</em>, <em>created_at</em>, <em>beer_learning</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.BeerPreferences" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">users.models.</code><code class="descname">BeerPreferences</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.BeerPreferences" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>This class is the blueprint for the beer preference</p>
 <dl class="exception">
 <dt id="users.models.BeerPreferences.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#users.models.BeerPreferences.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -266,6 +279,15 @@ object the first time, the query is executed.</p>
 <dd></dd></dl>
 
 <dl class="method">
+<dt id="users.models.BeerPreferences.get_percent_match">
+<code class="descname">get_percent_match</code><span class="sig-paren">(</span><em>beer</em>, <em>cols</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.BeerPreferences.get_percent_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method gets the match percentage for the beer
+:param beer:
+:param cols:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="users.models.BeerPreferences.get_previous_by_created_at">
 <code class="descname">get_previous_by_created_at</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: created_at&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.BeerPreferences.get_previous_by_created_at" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -306,11 +328,10 @@ object the first time, the query is executed.</p>
 <dl class="method">
 <dt id="users.models.BeerPreferences.save">
 <code class="descname">save</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.BeerPreferences.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save the current instance. Override this in a subclass if you want to
-control the saving process.</p>
-<p>The ‘force_insert’ and ‘force_update’ parameters can be used to insist
-that the “save” must be an SQL insert or update (or equivalent for
-non-SQL backends), respectively. Normally, they should not be set.</p>
+<dd><p>This saves the beer preference object
+:param args:
+:param kwargs:
+:return:</p>
 </dd></dl>
 
 <dl class="attribute">
@@ -344,8 +365,9 @@ object the first time, the query is executed.</p>
 
 <dl class="class">
 <dt id="users.models.DraughtPicksUser">
-<em class="property">class </em><code class="descclassname">users.models.</code><code class="descname">DraughtPicksUser</code><span class="sig-paren">(</span><em>id</em>, <em>password</em>, <em>last_login</em>, <em>is_superuser</em>, <em>username</em>, <em>first_name</em>, <em>last_name</em>, <em>is_staff</em>, <em>is_active</em>, <em>date_joined</em>, <em>email</em>, <em>uuid</em>, <em>date_of_birth</em>, <em>weight</em>, <em>gender</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.DraughtPicksUser" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">users.models.</code><code class="descname">DraughtPicksUser</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.DraughtPicksUser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.AbstractUser</span></code></p>
+<p>This class defines the draught picks user</p>
 <dl class="exception">
 <dt id="users.models.DraughtPicksUser.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#users.models.DraughtPicksUser.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -645,7 +667,13 @@ object the first time, the query is executed.</p>
 <dl class="function">
 <dt id="users.models.create_auth_token">
 <code class="descclassname">users.models.</code><code class="descname">create_auth_token</code><span class="sig-paren">(</span><em>sender</em>, <em>instance=None</em>, <em>created=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.create_auth_token" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This method creates an authentication token for use
+:param sender:
+:param instance:
+:param created:
+:param kwargs:
+:return:</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-users.tests">
@@ -662,6 +690,7 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="users.tests.TestUsers">
 <em class="property">class </em><code class="descclassname">users.tests.</code><code class="descname">TestUsers</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.test.APITestCase</span></code></p>
+<p>This class tests the user</p>
 <dl class="attribute">
 <dt id="users.tests.TestUsers.fixtures">
 <code class="descname">fixtures</code><em class="property"> = ['users/fixtures/users.json']</em><a class="headerlink" href="#users.tests.TestUsers.fixtures" title="Permalink to this definition">¶</a></dt>
@@ -670,33 +699,44 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="method">
 <dt id="users.tests.TestUsers.setUp">
 <code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.setUp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Hook method for setting up the test fixture before exercising it.</p>
+<dd><p>This tests user creation by setting up the test
+:return:</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="users.tests.TestUsers.test_create">
 <code class="descname">test_create</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.test_create" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This creates the test for the user creation
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="users.tests.TestUsers.test_list">
 <code class="descname">test_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.test_list" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This tests the user lists
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="users.tests.TestUsers.test_login">
 <code class="descname">test_login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.test_login" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This tests if the user can login
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="users.tests.TestUsers.test_retrieve">
 <code class="descname">test_retrieve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.test_retrieve" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This tests the retreival
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="users.tests.TestUsers.test_update">
 <code class="descname">test_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.test_update" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This tests the user update
+:return:</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -715,10 +755,12 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="users.views.BeerPreferencesSerializer">
 <em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">BeerPreferencesSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.BeerPreferencesSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>This serializes the beer preferences</p>
 <dl class="class">
 <dt id="users.views.BeerPreferencesSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#users.views.BeerPreferencesSerializer.Meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This exposes the fields needed for the beer preferences serializer</p>
 <dl class="attribute">
 <dt id="users.views.BeerPreferencesSerializer.Meta.fields">
 <code class="descname">fields</code><em class="property"> = ('uuid', 'abv_low', 'abv_hi', 'ibu_low', 'ibu_hi', 'like_description', 'user', 'created_at')</em><a class="headerlink" href="#users.views.BeerPreferencesSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
@@ -738,6 +780,7 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="users.views.UserBeerPreferencesSet">
 <em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">UserBeerPreferencesSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserBeerPreferencesSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.CreateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.UpdateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.ListModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.RetrieveModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.GenericViewSet</span></code></p>
+<p>This creates the user beer preferences set</p>
 <dl class="attribute">
 <dt id="users.views.UserBeerPreferencesSet.basename">
 <code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#users.views.UserBeerPreferencesSet.basename" title="Permalink to this definition">¶</a></dt>
@@ -782,10 +825,12 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="users.views.UserSerializer">
 <em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">UserSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserSerializer" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>This is the user serializer</p>
 <dl class="class">
 <dt id="users.views.UserSerializer.Meta">
 <em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#users.views.UserSerializer.Meta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This exposes the fields needed for the user serialization</p>
 <dl class="attribute">
 <dt id="users.views.UserSerializer.Meta.exclude">
 <code class="descname">exclude</code><em class="property"> = ('id', 'last_login', 'is_superuser', 'is_staff', 'is_active', 'groups', 'user_permissions')</em><a class="headerlink" href="#users.views.UserSerializer.Meta.exclude" title="Permalink to this definition">¶</a></dt>
@@ -802,12 +847,19 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dl class="method">
 <dt id="users.views.UserSerializer.update">
 <code class="descname">update</code><span class="sig-paren">(</span><em>instance</em>, <em>validated_data</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserSerializer.update" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This updates the user serialization
+:param instance:
+:param validated_data:
+:return:</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="users.views.UserSerializer.validate_password">
 <code class="descname">validate_password</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserSerializer.validate_password" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This validates the user’s password
+:param value:
+:return:</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -815,6 +867,7 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <dt id="users.views.UserViewSet">
 <em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">UserViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserViewSet" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.CreateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.ListModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.UpdateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.RetrieveModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.GenericViewSet</span></code></p>
+<p>This creates a user set</p>
 <dl class="attribute">
 <dt id="users.views.UserViewSet.basename">
 <code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#users.views.UserViewSet.basename" title="Permalink to this definition">¶</a></dt>
@@ -839,7 +892,7 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 
 <dl class="attribute">
 <dt id="users.views.UserViewSet.queryset">
-<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;DraughtPicksUser: unsername&gt;, &lt;DraughtPicksUser: test&gt;, &lt;DraughtPicksUser: admin&gt;]&gt;</em><a class="headerlink" href="#users.views.UserViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;DraughtPicksUser: unsername&gt;, &lt;DraughtPicksUser: test&gt;, &lt;DraughtPicksUser: admin&gt;, &lt;DraughtPicksUser: Demo&gt;, &lt;DraughtPicksUser: Demo2&gt;, &lt;DraughtPicksUser: demo2&gt;, &lt;DraughtPicksUser: demo&gt;, &lt;DraughtPicksUser: demo3&gt;, &lt;DraughtPicksUser: login&gt;, &lt;DraughtPicksUser: Auser&gt;, &lt;DraughtPicksUser: user&gt;, &lt;DraughtPicksUser: another&gt;, &lt;DraughtPicksUser: loogingg&gt;, &lt;DraughtPicksUser: ass&gt;, &lt;DraughtPicksUser: logging&gt;, &lt;DraughtPicksUser: logging2&gt;, &lt;DraughtPicksUser: loggin3&gt;, &lt;DraughtPicksUser: logging4&gt;, &lt;DraughtPicksUser: logging5&gt;, &lt;DraughtPicksUser: logg&gt;]&gt;</em><a class="headerlink" href="#users.views.UserViewSet.queryset" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
@@ -894,7 +947,7 @@ This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
 <ul>
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="modules.html">draught_picks</a><ul>
-      <li>Previous: <a href="rest_api.html" title="previous chapter">rest_api package</a></li>
+      <li>Previous: <a href="tf_model.html" title="previous chapter">tf_model package</a></li>
   </ul></li>
   </ul></li>
 </ul>
