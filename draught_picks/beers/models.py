@@ -190,7 +190,7 @@ class BeerLearningManager(m.Manager):
                 rows = c.fetchall()
                 return rows, col_names
             except Exception:
-                pass
+                return [[]], []
 
 
 class BeerLearning(m.Model):
