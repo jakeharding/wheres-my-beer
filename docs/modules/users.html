@@ -1,0 +1,994 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>users package &#8212; Draught Picks  documentation</title>
+    <link rel="stylesheet" href="../_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="../_static/documentation_options.js"></script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="tf_model package" href="tf_model.html" />
+   
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="users-package">
+<h1>users package<a class="headerlink" href="#users-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-users.admin">
+<span id="users-admin-module"></span><h2>users.admin module<a class="headerlink" href="#module-users.admin" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="users.admin.DraughtPicksUserAdmin">
+<em class="property">class </em><code class="descclassname">users.admin.</code><code class="descname">DraughtPicksUserAdmin</code><span class="sig-paren">(</span><em>model</em>, <em>admin_site</em><span class="sig-paren">)</span><a class="headerlink" href="#users.admin.DraughtPicksUserAdmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.admin.UserAdmin</span></code></p>
+<p>This class creates the user admin</p>
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserAdmin.add_form">
+<code class="descname">add_form</code><a class="headerlink" href="#users.admin.DraughtPicksUserAdmin.add_form" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#users.admin.DraughtPicksUserCreateForm" title="users.admin.DraughtPicksUserCreateForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">DraughtPicksUserCreateForm</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserAdmin.fieldsets">
+<code class="descname">fieldsets</code><em class="property"> = ((None, {'fields': ('username', 'password')}), ('Personal info', {'fields': ('first_name', 'last_name', 'email', 'date_of_birth')}), ('Permissions', {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups', 'user_permissions')}), ('Important dates', {'fields': ('last_login', 'date_joined')}))</em><a class="headerlink" href="#users.admin.DraughtPicksUserAdmin.fieldsets" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserAdmin.form">
+<code class="descname">form</code><a class="headerlink" href="#users.admin.DraughtPicksUserAdmin.form" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#users.admin.DraughtPicksUserChangeForm" title="users.admin.DraughtPicksUserChangeForm"><code class="xref py py-class docutils literal notranslate"><span class="pre">DraughtPicksUserChangeForm</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserAdmin.media">
+<code class="descname">media</code><a class="headerlink" href="#users.admin.DraughtPicksUserAdmin.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="users.admin.DraughtPicksUserChangeForm">
+<em class="property">class </em><code class="descclassname">users.admin.</code><code class="descname">DraughtPicksUserChangeForm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.UserChangeForm</span></code></p>
+<p>This class changes the user form</p>
+<dl class="class">
+<dt id="users.admin.DraughtPicksUserChangeForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.UserChangeForm</span></code></p>
+<p>This exposes the fields needed for user change form</p>
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserChangeForm.Meta.base_fields">
+<code class="descname">base_fields</code><em class="property"> = {'date_joined': &lt;django.forms.fields.DateTimeField object at 0x115b926d8&gt;, 'email': &lt;django.forms.fields.EmailField object at 0x115b92358&gt;, 'first_name': &lt;django.forms.fields.CharField object at 0x115b86f98&gt;, 'groups': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115b86a58&gt;, 'is_active': &lt;django.forms.fields.BooleanField object at 0x115b925f8&gt;, 'is_staff': &lt;django.forms.fields.BooleanField object at 0x115b92518&gt;, 'is_superuser': &lt;django.forms.fields.BooleanField object at 0x115b86978&gt;, 'last_login': &lt;django.forms.fields.DateTimeField object at 0x115b86898&gt;, 'last_name': &lt;django.forms.fields.CharField object at 0x115b92198&gt;, 'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x115b4cf28&gt;, 'user_permissions': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115b86c50&gt;, 'username': &lt;django.contrib.auth.forms.UsernameField object at 0x115b86e10&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserChangeForm.Meta.declared_fields">
+<code class="descname">declared_fields</code><em class="property"> = {'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x115b4cf28&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserChangeForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = '__all__'</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserChangeForm.Meta.media">
+<code class="descname">media</code><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserChangeForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#users.models.DraughtPicksUser" title="users.models.DraughtPicksUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">users.models.DraughtPicksUser</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserChangeForm.base_fields">
+<code class="descname">base_fields</code><em class="property"> = {'date_joined': &lt;django.forms.fields.DateTimeField object at 0x115a19550&gt;, 'date_of_birth': &lt;django.forms.fields.DateField object at 0x115a19780&gt;, 'email': &lt;django.forms.fields.EmailField object at 0x115a19630&gt;, 'favorite_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115a19940&gt;, 'first_name': &lt;django.forms.fields.CharField object at 0x115b92f60&gt;, 'gender': &lt;django.forms.fields.TypedChoiceField object at 0x115a19898&gt;, 'groups': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115b92a20&gt;, 'is_active': &lt;django.forms.fields.BooleanField object at 0x115a19470&gt;, 'is_staff': &lt;django.forms.fields.BooleanField object at 0x115a19358&gt;, 'is_superuser': &lt;django.forms.fields.BooleanField object at 0x115b92940&gt;, 'last_login': &lt;django.forms.fields.DateTimeField object at 0x115b92828&gt;, 'last_name': &lt;django.forms.fields.CharField object at 0x115a19160&gt;, 'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x115b4cf28&gt;, 'rated_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115a19be0&gt;, 'recent_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115a19a90&gt;, 'recommended_beers': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115a19d30&gt;, 'user_permissions': &lt;django.forms.models.ModelMultipleChoiceField object at 0x115b92c18&gt;, 'username': &lt;django.forms.fields.CharField object at 0x115b92dd8&gt;, 'weight': &lt;django.forms.fields.IntegerField object at 0x115a197f0&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserChangeForm.declared_fields">
+<code class="descname">declared_fields</code><em class="property"> = {'password': &lt;django.contrib.auth.forms.ReadOnlyPasswordHashField object at 0x115b4cf28&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserChangeForm.media">
+<code class="descname">media</code><a class="headerlink" href="#users.admin.DraughtPicksUserChangeForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="users.admin.DraughtPicksUserCreateForm">
+<em class="property">class </em><code class="descclassname">users.admin.</code><code class="descname">DraughtPicksUserCreateForm</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.UserCreationForm</span></code></p>
+<p>This class creates a form for the user</p>
+<dl class="class">
+<dt id="users.admin.DraughtPicksUserCreateForm.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.forms.Meta</span></code></p>
+<p>This exposes the fields needed for user creation</p>
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserCreateForm.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('username',)</em><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserCreateForm.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#users.models.DraughtPicksUser" title="users.models.DraughtPicksUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">users.models.DraughtPicksUser</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserCreateForm.base_fields">
+<code class="descname">base_fields</code><em class="property"> = {'password1': &lt;django.forms.fields.CharField object at 0x115b4c908&gt;, 'password2': &lt;django.forms.fields.CharField object at 0x115b4ca58&gt;, 'username': &lt;django.contrib.auth.forms.UsernameField object at 0x115b86470&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.base_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserCreateForm.declared_fields">
+<code class="descname">declared_fields</code><em class="property"> = {'password1': &lt;django.forms.fields.CharField object at 0x115b4c908&gt;, 'password2': &lt;django.forms.fields.CharField object at 0x115b4ca58&gt;}</em><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.declared_fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.admin.DraughtPicksUserCreateForm.media">
+<code class="descname">media</code><a class="headerlink" href="#users.admin.DraughtPicksUserCreateForm.media" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-users.apps">
+<span id="users-apps-module"></span><h2>users.apps module<a class="headerlink" href="#module-users.apps" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="users.apps.UsersConfig">
+<em class="property">class </em><code class="descclassname">users.apps.</code><code class="descname">UsersConfig</code><span class="sig-paren">(</span><em>app_name</em>, <em>app_module</em><span class="sig-paren">)</span><a class="headerlink" href="#users.apps.UsersConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.apps.config.AppConfig</span></code></p>
+<p>This is the user configuration</p>
+<dl class="attribute">
+<dt id="users.apps.UsersConfig.name">
+<code class="descname">name</code><em class="property"> = 'users'</em><a class="headerlink" href="#users.apps.UsersConfig.name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-users.backends">
+<span id="users-backends-module"></span><h2>users.backends module<a class="headerlink" href="#module-users.backends" title="Permalink to this headline">¶</a></h2>
+<p>backends.py - (C) Copyright - 2018
+This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
+<p>SPDX-License-Identifier: SEE LICENSE.txt</p>
+<dl class="docutils">
+<dt>Creator of this file:</dt>
+<dd>jake</dd>
+</dl>
+<p>Email authentication.
+Reused from <a class="reference external" href="https://djangosnippets.org/snippets/10547/">https://djangosnippets.org/snippets/10547/</a>.</p>
+<dl class="class">
+<dt id="users.backends.UserModelEmailBackend">
+<em class="property">class </em><code class="descclassname">users.backends.</code><code class="descname">UserModelEmailBackend</code><a class="headerlink" href="#users.backends.UserModelEmailBackend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.backends.ModelBackend</span></code></p>
+<p>This class handles the user email</p>
+<dl class="method">
+<dt id="users.backends.UserModelEmailBackend.authenticate">
+<code class="descname">authenticate</code><span class="sig-paren">(</span><em>username=''</em>, <em>password=''</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.backends.UserModelEmailBackend.authenticate" title="Permalink to this definition">¶</a></dt>
+<dd><p>This authenticates the email
+:param username:
+:param password:
+:param kwargs:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-users.models">
+<span id="users-models-module"></span><h2>users.models module<a class="headerlink" href="#module-users.models" title="Permalink to this headline">¶</a></h2>
+<p>models.py - (C) Copyright - 2018
+This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
+<p>SPDX-License-Identifier: SEE LICENSE.txt</p>
+<dl class="docutils">
+<dt>Author(s) of this file:</dt>
+<dd>J.Harding</dd>
+</dl>
+<p>Models pertaining to users.</p>
+<dl class="class">
+<dt id="users.models.BeerPreferences">
+<em class="property">class </em><code class="descclassname">users.models.</code><code class="descname">BeerPreferences</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.BeerPreferences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.db.models.base.Model</span></code></p>
+<p>This class is the blueprint for the beer preference</p>
+<dl class="exception">
+<dt id="users.models.BeerPreferences.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#users.models.BeerPreferences.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="users.models.BeerPreferences.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#users.models.BeerPreferences.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.abv_hi">
+<code class="descname">abv_hi</code><a class="headerlink" href="#users.models.BeerPreferences.abv_hi" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.abv_low">
+<code class="descname">abv_low</code><a class="headerlink" href="#users.models.BeerPreferences.abv_low" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.beer_learning">
+<code class="descname">beer_learning</code><a class="headerlink" href="#users.models.BeerPreferences.beer_learning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a one-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Restaurant.place</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.beer_learning_id">
+<code class="descname">beer_learning_id</code><a class="headerlink" href="#users.models.BeerPreferences.beer_learning_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.created_at">
+<code class="descname">created_at</code><a class="headerlink" href="#users.models.BeerPreferences.created_at" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.models.BeerPreferences.get_next_by_created_at">
+<code class="descname">get_next_by_created_at</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: created_at&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.BeerPreferences.get_next_by_created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.models.BeerPreferences.get_percent_match">
+<code class="descname">get_percent_match</code><span class="sig-paren">(</span><em>beer</em>, <em>cols</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.BeerPreferences.get_percent_match" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method gets the match percentage for the beer
+:param beer:
+:param cols:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.models.BeerPreferences.get_previous_by_created_at">
+<code class="descname">get_previous_by_created_at</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: created_at&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.BeerPreferences.get_previous_by_created_at" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.ibu_hi">
+<code class="descname">ibu_hi</code><a class="headerlink" href="#users.models.BeerPreferences.ibu_hi" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.ibu_low">
+<code class="descname">ibu_low</code><a class="headerlink" href="#users.models.BeerPreferences.ibu_low" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.id">
+<code class="descname">id</code><a class="headerlink" href="#users.models.BeerPreferences.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.like_description">
+<code class="descname">like_description</code><a class="headerlink" href="#users.models.BeerPreferences.like_description" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.objects">
+<code class="descname">objects</code><em class="property"> = &lt;django.db.models.manager.Manager object&gt;</em><a class="headerlink" href="#users.models.BeerPreferences.objects" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.models.BeerPreferences.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.BeerPreferences.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>This saves the beer preference object
+:param args:
+:param kwargs:
+:return:</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.user">
+<code class="descname">user</code><a class="headerlink" href="#users.models.BeerPreferences.user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the forward side of a many-to-one or
+one-to-one (via ForwardOneToOneDescriptor subclass) relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Child.parent</span></code> is a <code class="docutils literal notranslate"><span class="pre">ForwardManyToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.user_id">
+<code class="descname">user_id</code><a class="headerlink" href="#users.models.BeerPreferences.user_id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.BeerPreferences.uuid">
+<code class="descname">uuid</code><a class="headerlink" href="#users.models.BeerPreferences.uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="users.models.DraughtPicksUser">
+<em class="property">class </em><code class="descclassname">users.models.</code><code class="descname">DraughtPicksUser</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.DraughtPicksUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.models.AbstractUser</span></code></p>
+<p>This class defines the draught picks user</p>
+<dl class="exception">
+<dt id="users.models.DraughtPicksUser.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#users.models.DraughtPicksUser.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.ObjectDoesNotExist</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.FEMALE_CHOICE">
+<code class="descname">FEMALE_CHOICE</code><em class="property"> = 'F'</em><a class="headerlink" href="#users.models.DraughtPicksUser.FEMALE_CHOICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.GENDER_CHOICES">
+<code class="descname">GENDER_CHOICES</code><em class="property"> = (('M', 'Male'), ('F', 'Female'), ('O', 'Other'))</em><a class="headerlink" href="#users.models.DraughtPicksUser.GENDER_CHOICES" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.MALE_CHOICE">
+<code class="descname">MALE_CHOICE</code><em class="property"> = 'M'</em><a class="headerlink" href="#users.models.DraughtPicksUser.MALE_CHOICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="users.models.DraughtPicksUser.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#users.models.DraughtPicksUser.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.core.exceptions.MultipleObjectsReturned</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.OTHER_CHOICE">
+<code class="descname">OTHER_CHOICE</code><em class="property"> = 'O'</em><a class="headerlink" href="#users.models.DraughtPicksUser.OTHER_CHOICE" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.REQUIRED_FIELDS">
+<code class="descname">REQUIRED_FIELDS</code><em class="property"> = ['email', 'date_of_birth']</em><a class="headerlink" href="#users.models.DraughtPicksUser.REQUIRED_FIELDS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.auth_token">
+<code class="descname">auth_token</code><a class="headerlink" href="#users.models.DraughtPicksUser.auth_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.beer_preferences">
+<code class="descname">beer_preferences</code><a class="headerlink" href="#users.models.DraughtPicksUser.beer_preferences" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.beerrating_set">
+<code class="descname">beerrating_set</code><a class="headerlink" href="#users.models.DraughtPicksUser.beerrating_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.date_of_birth">
+<code class="descname">date_of_birth</code><a class="headerlink" href="#users.models.DraughtPicksUser.date_of_birth" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.favorite_beers">
+<code class="descname">favorite_beers</code><a class="headerlink" href="#users.models.DraughtPicksUser.favorite_beers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.gender">
+<code class="descname">gender</code><a class="headerlink" href="#users.models.DraughtPicksUser.gender" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.models.DraughtPicksUser.get_gender_display">
+<code class="descname">get_gender_display</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.CharField: gender&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.DraughtPicksUser.get_gender_display" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.models.DraughtPicksUser.get_next_by_date_joined">
+<code class="descname">get_next_by_date_joined</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: date_joined&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.DraughtPicksUser.get_next_by_date_joined" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.models.DraughtPicksUser.get_next_by_date_of_birth">
+<code class="descname">get_next_by_date_of_birth</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateField: date_of_birth&gt;</em>, <em>is_next=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.DraughtPicksUser.get_next_by_date_of_birth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.models.DraughtPicksUser.get_previous_by_date_joined">
+<code class="descname">get_previous_by_date_joined</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateTimeField: date_joined&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.DraughtPicksUser.get_previous_by_date_joined" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.models.DraughtPicksUser.get_previous_by_date_of_birth">
+<code class="descname">get_previous_by_date_of_birth</code><span class="sig-paren">(</span><em>*</em>, <em>field=&lt;django.db.models.fields.DateField: date_of_birth&gt;</em>, <em>is_next=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.DraughtPicksUser.get_previous_by_date_of_birth" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.groups">
+<code class="descname">groups</code><a class="headerlink" href="#users.models.DraughtPicksUser.groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.id">
+<code class="descname">id</code><a class="headerlink" href="#users.models.DraughtPicksUser.id" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.learning_profile">
+<code class="descname">learning_profile</code><a class="headerlink" href="#users.models.DraughtPicksUser.learning_profile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related object on the reverse side of a one-to-one
+relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Restaurant</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">place</span> <span class="o">=</span> <span class="n">OneToOneField</span><span class="p">(</span><span class="n">Place</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;restaurant&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Place.restaurant</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseOneToOneDescriptor</span></code> instance.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.logentry_set">
+<code class="descname">logentry_set</code><a class="headerlink" href="#users.models.DraughtPicksUser.logentry_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.rated_beers">
+<code class="descname">rated_beers</code><a class="headerlink" href="#users.models.DraughtPicksUser.rated_beers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.recent_beers">
+<code class="descname">recent_beers</code><a class="headerlink" href="#users.models.DraughtPicksUser.recent_beers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.recentbeer_set">
+<code class="descname">recentbeer_set</code><a class="headerlink" href="#users.models.DraughtPicksUser.recentbeer_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.recommended_beers">
+<code class="descname">recommended_beers</code><a class="headerlink" href="#users.models.DraughtPicksUser.recommended_beers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.recommendedbeer_set">
+<code class="descname">recommendedbeer_set</code><a class="headerlink" href="#users.models.DraughtPicksUser.recommendedbeer_set" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the reverse side of a
+many-to-one relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Child</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">parent</span> <span class="o">=</span> <span class="n">ForeignKey</span><span class="p">(</span><span class="n">Parent</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;children&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Parent.children</span></code> is a <code class="docutils literal notranslate"><span class="pre">ReverseManyToOneDescriptor</span></code> instance.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.user_permissions">
+<code class="descname">user_permissions</code><a class="headerlink" href="#users.models.DraughtPicksUser.user_permissions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Accessor to the related objects manager on the forward and reverse sides of
+a many-to-many relation.</p>
+<p>In the example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Pizza</span><span class="p">(</span><span class="n">Model</span><span class="p">):</span>
+    <span class="n">toppings</span> <span class="o">=</span> <span class="n">ManyToManyField</span><span class="p">(</span><span class="n">Topping</span><span class="p">,</span> <span class="n">related_name</span><span class="o">=</span><span class="s1">&#39;pizzas&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Pizza.toppings</span></code> and <code class="docutils literal notranslate"><span class="pre">Topping.pizzas</span></code> are <code class="docutils literal notranslate"><span class="pre">ManyToManyDescriptor</span></code>
+instances.</p>
+<p>Most of the implementation is delegated to a dynamically defined manager
+class built by <code class="docutils literal notranslate"><span class="pre">create_forward_many_to_many_manager()</span></code> defined below.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.uuid">
+<code class="descname">uuid</code><a class="headerlink" href="#users.models.DraughtPicksUser.uuid" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.models.DraughtPicksUser.weight">
+<code class="descname">weight</code><a class="headerlink" href="#users.models.DraughtPicksUser.weight" title="Permalink to this definition">¶</a></dt>
+<dd><p>A wrapper for a deferred-loading field. When the value is read from this
+object the first time, the query is executed.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="users.models.create_auth_token">
+<code class="descclassname">users.models.</code><code class="descname">create_auth_token</code><span class="sig-paren">(</span><em>sender</em>, <em>instance=None</em>, <em>created=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.models.create_auth_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method creates an authentication token for use
+:param sender:
+:param instance:
+:param created:
+:param kwargs:
+:return:</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-users.tests">
+<span id="users-tests-module"></span><h2>users.tests module<a class="headerlink" href="#module-users.tests" title="Permalink to this headline">¶</a></h2>
+<p>tests.py - (C) Copyright - 2018
+This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
+<p>SPDX-License-Identifier: SEE LICENSE.txt</p>
+<dl class="docutils">
+<dt>Author(s) of this file:</dt>
+<dd>jakeharding</dd>
+</dl>
+<p>Test user endpoints.</p>
+<dl class="class">
+<dt id="users.tests.TestUsers">
+<em class="property">class </em><code class="descclassname">users.tests.</code><code class="descname">TestUsers</code><span class="sig-paren">(</span><em>methodName='runTest'</em><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.test.APITestCase</span></code></p>
+<p>This class tests the user</p>
+<dl class="attribute">
+<dt id="users.tests.TestUsers.fixtures">
+<code class="descname">fixtures</code><em class="property"> = ['users/fixtures/users.json']</em><a class="headerlink" href="#users.tests.TestUsers.fixtures" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.tests.TestUsers.setUp">
+<code class="descname">setUp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.setUp" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests user creation by setting up the test
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.tests.TestUsers.test_create">
+<code class="descname">test_create</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.test_create" title="Permalink to this definition">¶</a></dt>
+<dd><p>This creates the test for the user creation
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.tests.TestUsers.test_list">
+<code class="descname">test_list</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.test_list" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests the user lists
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.tests.TestUsers.test_login">
+<code class="descname">test_login</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.test_login" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests if the user can login
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.tests.TestUsers.test_retrieve">
+<code class="descname">test_retrieve</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.test_retrieve" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests the retreival
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.tests.TestUsers.test_update">
+<code class="descname">test_update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.tests.TestUsers.test_update" title="Permalink to this definition">¶</a></dt>
+<dd><p>This tests the user update
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-users.views">
+<span id="users-views-module"></span><h2>users.views module<a class="headerlink" href="#module-users.views" title="Permalink to this headline">¶</a></h2>
+<p>views.py - (C) Copyright - 2018
+This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
+<p>SPDX-License-Identifier: SEE LICENSE.txt</p>
+<dl class="docutils">
+<dt>Author(s) of this file:</dt>
+<dd>jakeharding</dd>
+</dl>
+<p>Expose user models through a REST API.</p>
+<dl class="class">
+<dt id="users.views.BeerPreferencesSerializer">
+<em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">BeerPreferencesSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.BeerPreferencesSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>This serializes the beer preferences</p>
+<dl class="class">
+<dt id="users.views.BeerPreferencesSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#users.views.BeerPreferencesSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This exposes the fields needed for the beer preferences serializer</p>
+<dl class="attribute">
+<dt id="users.views.BeerPreferencesSerializer.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('uuid', 'abv_low', 'abv_hi', 'ibu_low', 'ibu_hi', 'like_description', 'user', 'created_at')</em><a class="headerlink" href="#users.views.BeerPreferencesSerializer.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.BeerPreferencesSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#users.views.BeerPreferencesSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#users.models.BeerPreferences" title="users.models.BeerPreferences"><code class="xref py py-class docutils literal notranslate"><span class="pre">users.models.BeerPreferences</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="users.views.UserBeerPreferencesSet">
+<em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">UserBeerPreferencesSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserBeerPreferencesSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.CreateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.UpdateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.ListModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.RetrieveModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.GenericViewSet</span></code></p>
+<p>This creates the user beer preferences set</p>
+<dl class="attribute">
+<dt id="users.views.UserBeerPreferencesSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#users.views.UserBeerPreferencesSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.views.UserBeerPreferencesSet.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserBeerPreferencesSet.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only allow users access to their user instance.
+:return: queryset the user has access to.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserBeerPreferencesSet.lookup_field">
+<code class="descname">lookup_field</code><em class="property"> = 'uuid'</em><a class="headerlink" href="#users.views.UserBeerPreferencesSet.lookup_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserBeerPreferencesSet.permission_classes">
+<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'rest_framework.permissions.AllowAny'&gt;,)</em><a class="headerlink" href="#users.views.UserBeerPreferencesSet.permission_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserBeerPreferencesSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;BeerPreferences: BeerPreferences object (5)&gt;, &lt;BeerPreferences: BeerPreferences object (4)&gt;]&gt;</em><a class="headerlink" href="#users.views.UserBeerPreferencesSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserBeerPreferencesSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#users.views.UserBeerPreferencesSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#users.views.BeerPreferencesSerializer" title="users.views.BeerPreferencesSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">BeerPreferencesSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserBeerPreferencesSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#users.views.UserBeerPreferencesSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="users.views.UserSerializer">
+<em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">UserSerializer</code><span class="sig-paren">(</span><em>instance=None</em>, <em>data=&lt;class 'rest_framework.fields.empty'&gt;</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserSerializer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.serializers.ModelSerializer</span></code></p>
+<p>This is the user serializer</p>
+<dl class="class">
+<dt id="users.views.UserSerializer.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="headerlink" href="#users.views.UserSerializer.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This exposes the fields needed for the user serialization</p>
+<dl class="attribute">
+<dt id="users.views.UserSerializer.Meta.exclude">
+<code class="descname">exclude</code><em class="property"> = ('id', 'last_login', 'is_superuser', 'is_staff', 'is_active', 'groups', 'user_permissions')</em><a class="headerlink" href="#users.views.UserSerializer.Meta.exclude" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserSerializer.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#users.views.UserSerializer.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#users.models.DraughtPicksUser" title="users.models.DraughtPicksUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">users.models.DraughtPicksUser</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="users.views.UserSerializer.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>instance</em>, <em>validated_data</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserSerializer.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>This updates the user serialization
+:param instance:
+:param validated_data:
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="users.views.UserSerializer.validate_password">
+<code class="descname">validate_password</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserSerializer.validate_password" title="Permalink to this definition">¶</a></dt>
+<dd><p>This validates the user’s password
+:param value:
+:return:</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="users.views.UserViewSet">
+<em class="property">class </em><code class="descclassname">users.views.</code><code class="descname">UserViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserViewSet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.CreateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.ListModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.UpdateModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.mixins.RetrieveModelMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">rest_framework.viewsets.GenericViewSet</span></code></p>
+<p>This creates a user set</p>
+<dl class="attribute">
+<dt id="users.views.UserViewSet.basename">
+<code class="descname">basename</code><em class="property"> = None</em><a class="headerlink" href="#users.views.UserViewSet.basename" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="users.views.UserViewSet.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#users.views.UserViewSet.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Only allow users access to their user instance.
+:return: queryset the user has access to.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserViewSet.lookup_field">
+<code class="descname">lookup_field</code><em class="property"> = 'uuid'</em><a class="headerlink" href="#users.views.UserViewSet.lookup_field" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserViewSet.permission_classes">
+<code class="descname">permission_classes</code><em class="property"> = (&lt;class 'rest_framework.permissions.AllowAny'&gt;,)</em><a class="headerlink" href="#users.views.UserViewSet.permission_classes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserViewSet.queryset">
+<code class="descname">queryset</code><em class="property"> = &lt;QuerySet [&lt;DraughtPicksUser: unsername&gt;, &lt;DraughtPicksUser: test&gt;, &lt;DraughtPicksUser: admin&gt;, &lt;DraughtPicksUser: Demo&gt;, &lt;DraughtPicksUser: Demo2&gt;, &lt;DraughtPicksUser: demo2&gt;, &lt;DraughtPicksUser: demo&gt;, &lt;DraughtPicksUser: demo3&gt;, &lt;DraughtPicksUser: login&gt;, &lt;DraughtPicksUser: Auser&gt;, &lt;DraughtPicksUser: user&gt;, &lt;DraughtPicksUser: another&gt;, &lt;DraughtPicksUser: loogingg&gt;, &lt;DraughtPicksUser: ass&gt;, &lt;DraughtPicksUser: logging&gt;, &lt;DraughtPicksUser: logging2&gt;, &lt;DraughtPicksUser: loggin3&gt;, &lt;DraughtPicksUser: logging4&gt;, &lt;DraughtPicksUser: logging5&gt;, &lt;DraughtPicksUser: logg&gt;]&gt;</em><a class="headerlink" href="#users.views.UserViewSet.queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserViewSet.serializer_class">
+<code class="descname">serializer_class</code><a class="headerlink" href="#users.views.UserViewSet.serializer_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#users.views.UserSerializer" title="users.views.UserSerializer"><code class="xref py py-class docutils literal notranslate"><span class="pre">UserSerializer</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="users.views.UserViewSet.suffix">
+<code class="descname">suffix</code><em class="property"> = None</em><a class="headerlink" href="#users.views.UserViewSet.suffix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-users">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-users" title="Permalink to this headline">¶</a></h2>
+<p>__init__.py - (C) Copyright - 2018
+This software is copyrighted to contributors listed in CONTRIBUTIONS.md.</p>
+<p>SPDX-License-Identifier: SEE LICENSE.txt</p>
+<dl class="docutils">
+<dt>Author(s) of this file:</dt>
+<dd>J.Harding</dd>
+</dl>
+<p>Set default app config.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">users package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-users.admin">users.admin module</a></li>
+<li><a class="reference internal" href="#module-users.apps">users.apps module</a></li>
+<li><a class="reference internal" href="#module-users.backends">users.backends module</a></li>
+<li><a class="reference internal" href="#module-users.models">users.models module</a></li>
+<li><a class="reference internal" href="#module-users.tests">users.tests module</a></li>
+<li><a class="reference internal" href="#module-users.views">users.views module</a></li>
+<li><a class="reference internal" href="#module-users">Module contents</a></li>
+</ul>
+</li>
+</ul>
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">draught_picks</a><ul>
+      <li>Previous: <a href="tf_model.html" title="previous chapter">tf_model package</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="../_sources/modules/users.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Carolyn Wichers, Jordan Fay, Quinn Adams, Jake Harding.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.7.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="../_sources/modules/users.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
