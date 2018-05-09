@@ -40,12 +40,9 @@ class UserSerializer(ModelSerializer):
         :param value:
         :return:
         """
-        logger.debug(self.initial_data.get('username'))
-        logger.debug("password: %s" % value)
-        p = make_password(value)
-        logger.debug("make_password: %s\n\n" % p)
-        return p
-
+        if self.context.get('request').stream.method == "POST":
+            value = make_password(value)
+        return value
 
     def update(self, instance, validated_data):
         """
