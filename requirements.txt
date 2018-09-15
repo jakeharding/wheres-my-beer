@@ -37,8 +37,8 @@ six==1.11.0
 snowballstemmer==1.2.1
 Sphinx==1.7.2
 sphinxcontrib-websupport==1.0.1
-tensorboard==1.7.0
-tensorflow==1.7.0
+#tensorboard==1.7.0
+#tensorflow==1.7.0
 termcolor==1.1.0
 urllib3==1.22
 Werkzeug==0.14.1
