@@ -10,7 +10,7 @@ Author(s) of this file:
 Models pertaining to users.
 """
 import uuid
-import tensorflow as tf
+#import tensorflow as tf
 import numpy as np
 import pandas as pd
 
@@ -23,7 +23,7 @@ from rest_framework.authtoken.models import Token
 
 from description_parser.Grammar import DescriptionParser
 from beers.models import BeerLearning, Beer, RecommendedBeer
-from tf_model import k_means, cluster_indices, ids
+#from tf_model import k_means, cluster_indices, ids
 
 
 class DraughtPicksUser(AbstractUser):
