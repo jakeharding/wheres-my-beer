@@ -91,3 +91,20 @@ class TestUsers(APITestCase):
         self.assertTrue(isinstance(results, list))
         self.assertTrue(len(results) is 1)
         self.assertEqual(self.user.username, results[0].get('username'))
+
+
+class TestBeerPrefs(APITestCase):
+
+    fixtures = ['users/fixtures/users.json']
+
+    def test_create(self):
+        self.client.force_authenticate(user=None) # Remove auth for create
+        r = self.client.post('/api/dev/preferences', {
+            'abv_low': 2,
+            'abv_high': 10,
+            'ibu_low': 12,
+            'ibu_high': 20,
+            'user': get_user_model().objects.first().uuid
+        }, format='json')
+        print(r.data)
+        self.assertTrue(status.is_success(r.status_code), r.status_code)
