@@ -19,6 +19,9 @@ from django.db import models as m
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
 from rest_framework.authtoken.models import Token
 
 from description_parser.Grammar import DescriptionParser
@@ -50,6 +53,21 @@ class DraughtPicksUser(AbstractUser):
     recent_beers = m.ManyToManyField('beers.Beer', related_name='recent_beers', through='beers.RecentBeer')
     rated_beers = m.ManyToManyField('beers.Beer', related_name='rated_beers', through='beers.BeerRating')
     recommended_beers = m.ManyToManyField('beers.Beer', related_name='recommended_beers', through='beers.RecommendedBeer')
+
+    def send_verification_email(self):
+        cxt = {
+            'domain_name': 'draught_picks.beer'
+        }
+        html_message = render_to_string('email/verification/verification.html', cxt)
+        text_msg = render_to_string('email/verification/verification.txt', cxt)
+        send_mail(
+            'DraughtPicks.beer - Email Verification',
+            text_msg,
+            settings.DEFAULT_FROM_EMAIL,
+            [self.email],
+            html_message=html_message
+        )
+        pass
 
 
 class BeerPreferences(m.Model):
@@ -146,7 +164,6 @@ class BeerPreferences(m.Model):
 
         return int((num_features - (num_ind - num_matches)) / num_features * 100)
 
-
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     """
@@ -159,3 +176,4 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     """
     if created:
         Token.objects.create(user=instance)
+        instance.send_verification_email()

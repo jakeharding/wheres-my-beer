@@ -10,7 +10,10 @@ Author(s) of this file:
 Test user endpoints.
 """
 
+from django.core import mail
 from django.contrib.auth import get_user_model
+from django.conf import settings
+
 from rest_framework.test import APITestCase
 from rest_framework import status
 
@@ -73,7 +76,7 @@ class TestUsers(APITestCase):
 
     def test_retrieve(self):
         """
-        This tests the retreival
+        This tests the retrieval
         :return:
         """
         r = self.client.get('/api/dev/users/%s' % self.user.uuid)
@@ -92,6 +95,12 @@ class TestUsers(APITestCase):
         self.assertTrue(len(results) is 1)
         self.assertEqual(self.user.username, results[0].get('username'))
 
+    def test_send_verification_email(self):
+        self.user.send_verification_email()
+        self.assertTrue(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Verification')
+        self.assertEqual(mail.outbox[0].from_email, settings.DEFAULT_FROM_EMAIL)
+
 
 class TestBeerPrefs(APITestCase):
 
@@ -106,5 +115,4 @@ class TestBeerPrefs(APITestCase):
             'ibu_high': 20,
             'user': get_user_model().objects.first().uuid
         }, format='json')
-        print(r.data)
         self.assertTrue(status.is_success(r.status_code), r.status_code)

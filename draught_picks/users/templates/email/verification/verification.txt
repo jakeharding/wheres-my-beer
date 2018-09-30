@@ -1,0 +1,8 @@
+Thanks  for registering with Draught Picks!
+
+Please verify your email by copying the following link into a browser:
+
+{{ domain_name }}
+
+Thanks,
+Draught Picks
