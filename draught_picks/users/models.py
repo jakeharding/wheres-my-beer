@@ -56,10 +56,10 @@ class DraughtPicksUser(AbstractUser):
 
     def send_verification_email(self):
         cxt = {
-            'domain_name': 'draught_picks.beer'
+            'domain_name': settings.CLIENT_DOMAIN
         }
-        html_message = render_to_string('email/verification/verification.html', cxt)
-        text_msg = render_to_string('email/verification/verification.txt', cxt)
+        html_message = render_to_string('email/verification/verification.html', context=cxt)
+        text_msg = render_to_string('email/verification/verification.txt', context=cxt)
         send_mail(
             'DraughtPicks.beer - Email Verification',
             text_msg,
@@ -67,8 +67,6 @@ class DraughtPicksUser(AbstractUser):
             [self.email],
             html_message=html_message
         )
-        pass
-
 
 class BeerPreferences(m.Model):
     """

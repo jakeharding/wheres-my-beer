@@ -3,16 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <title>Draught Picks | Verify Your Email</title>
+
+  <style>
+    body, html {
+      height: 100%;
+      width: 100%;
+    }
+
+    .block {
+      display: block;
+     }
+
+    .col {
+      width: 75%;
+    }
+
+    .col-offset {
+      margin-left: 12%;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-left {
+      text-align: left;
+    }
+  </style>
+
 </head>
 
-<h1>Thanks  for registering with Draught Picks!</h1>
-
-<p>
-  Please verify your email address by clicking the link below.
-</p>
-
-<a href="{{ domain_name }}">{{ domain_name }}</a>
 <body>
-
+{#  <div class="col col-offset block text-center">#}
+  <table>
+    <tbody>
+      <tr>
+        <th width="100"></th>
+        <th class="text-center">
+          <h1>Thanks  for registering with Draught Picks!</h1>
+        </th>
+        <th></th>
+      </tr>
+    </tbody>
+  </table>
+{#    <div class="text-left col col-offset block">#}
+{##}
+{#      <p>#}
+{#        Please verify your email address {{  email  }} by clicking the link below.#}
+{#      </p>#}
+{#      <a href="{{ domain_name }}">{{ domain_name }}</a>#}
+{#    </div>#}
+{##}
+{#  </div>#}
 </body>
 </html>

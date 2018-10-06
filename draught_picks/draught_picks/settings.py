@@ -181,6 +181,7 @@ LOGGING = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'no-reply@draughtpicks.beer'
+CLIENT_DOMAIN = 'http://localhost:8100'
 
 try:
     from .local_settings import *

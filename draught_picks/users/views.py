@@ -13,6 +13,9 @@ Expose user models through a REST API.
 import logging
 
 from django.contrib.auth.hashers import make_password
+from django.views.generic.base import TemplateView
+from django.conf import settings
+
 from rest_framework.serializers import ModelSerializer, SlugRelatedField
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
@@ -118,3 +121,17 @@ class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin,
         :return: queryset the user has access to.
         """
         return BeerPreferences.objects.filter(user__id=self.request.user.id)
+
+
+class EmailTemplateView(TemplateView):
+
+    def get_template_names(self):
+        name = self.kwargs.get('name', '')
+        return ['email/%s/%s.html' % (name, name)]
+
+    def get_context_data(self, **kwargs):
+        kwargs = super().get_context_data(**kwargs)
+        kwargs.update({
+            'domain_name': settings.CLIENT_DOMAIN
+        })
+        return kwargs
