@@ -132,6 +132,8 @@ class EmailTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         kwargs = super().get_context_data(**kwargs)
         kwargs.update({
-            'domain_name': settings.CLIENT_DOMAIN
+            'domain_name': settings.CLIENT_DOMAIN,
+
+            'to_email': 'test@test.com',
         })
         return kwargs

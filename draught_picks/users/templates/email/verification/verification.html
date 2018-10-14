@@ -1,59 +1,83 @@
+{%  load static premailer %}
+
 <!DOCTYPE html>
+
+{% premailer %}
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Draught Picks | Verify Your Email</title>
+  <head>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta charset="UTF-8">
+    <title>Draught Picks | Verify Your Email</title>
+    <style>
 
-  <style>
-    body, html {
-      height: 100%;
-      width: 100%;
-    }
+      .table-header {
+        background-color: #538cf7;
+        color: white;
+        font-weight: 400;
+        fint-size: 20px;
+      }
+      td {
+        padding: 15px;
+      }
 
-    .block {
-      display: block;
-     }
+      .text-center {
+        text-align: center;
+      }
 
-    .col {
-      width: 75%;
-    }
+      .text-justify {
+        text-align: justify;
+      }
+    </style>
+    <style data-premailer="ignore">
+      @font-face{
+        font-family:Roboto;
+        src:url({{ domain_name }}/assets/fonts/ionicons.woff2?v=3.0.0-alpha.3) format("woff2");
 
-    .col-offset {
-      margin-left: 12%;
-    }
+      }
 
-    .text-center {
-      text-align: center;
-    }
+      body {
+        font-family: -apple-system,"Helvetica Neue",Roboto,sans-serif;
+        margin: 0 !important;
+      }
 
-    .text-left {
-      text-align: left;
-    }
-  </style>
+      @media screen and (max-width:600px) {
+        p {
+          font-size: 18px!important;
+        }
+      }
+    </style>
+  </head>
 
-</head>
+  <body>
+    <table cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <th class="table-header text-center">
+            <p>Draught Picks</p>
+          </th>
+        </tr>
 
-<body>
-{#  <div class="col col-offset block text-center">#}
-  <table>
-    <tbody>
-      <tr>
-        <th width="100"></th>
-        <th class="text-center">
-          <h1>Thanks  for registering with Draught Picks!</h1>
-        </th>
-        <th></th>
-      </tr>
-    </tbody>
-  </table>
-{#    <div class="text-left col col-offset block">#}
-{##}
-{#      <p>#}
-{#        Please verify your email address {{  email  }} by clicking the link below.#}
-{#      </p>#}
-{#      <a href="{{ domain_name }}">{{ domain_name }}</a>#}
-{#    </div>#}
-{##}
-{#  </div>#}
-</body>
+        <tr>
+          <td class="text-justify">
+            <h2>Thanks for registering with Draught Picks!</h2>
+
+            <p>
+              You are receiving this message because {{  to_email }} was used to register an account at {{ domain_name }}.
+              If you did not wish to register for an account at <a href="{{ domain_name }}">{{  domain_name }}</a>, please disregard this message.
+            </
+            <p>
+              We ask you verify your email for security purposes should we need to reset your password.
+              We do not use emails for marketing, and we will ask you to opt in to any future communication.
+            </p>
+
+            <p>
+              Please verify you own the email address, {{ to_email  }}, by clicking the link below.
+            </p>
+            <a href="{{ domain_name }}">Verify you own {{ to_email }}</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>
+{%  endpremailer %}

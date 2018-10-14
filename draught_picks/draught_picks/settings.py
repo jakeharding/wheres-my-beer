@@ -27,8 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-REST_API_VERSION = 'dev'
-
 AUTH_USER_MODEL = 'users.DraughtPicksUser'
 
 # Application definition
@@ -44,6 +42,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
+    'django_premailer',
+    'draught_picks',
     'users',
     'rest_api',
     'beers',
@@ -182,6 +182,12 @@ LOGGING = {
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'no-reply@draughtpicks.beer'
 CLIENT_DOMAIN = 'http://localhost:8100'
+STATIC_SERVER = 'http://192.168.0.34:8000'
+REST_API_VERSION = 'dev'
+
+PREMAILER_OPTIONS = {
+    "base_url": STATIC_SERVER,
+}
 
 try:
     from .local_settings import *

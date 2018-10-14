@@ -10,3 +10,4 @@ htmlcov/
 db.sqlite3
 venv
 *.pdf
+node_modules/
