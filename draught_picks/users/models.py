@@ -33,6 +33,9 @@ from beers.models import BeerLearning, Beer, RecommendedBeer
 class EmailAddress(AbstractEmailAddress):
     uuid = m.UUIDField(unique=True, editable=False, default=uuid.uuid4)
 
+    def __str__(self):
+        return self.email
+
 
 class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
     """

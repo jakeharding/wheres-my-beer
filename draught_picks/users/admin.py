@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
-from .models import DraughtPicksUser
+from .models import DraughtPicksUser, EmailAddress
 
 
 class DraughtPicksUserCreateForm(UserCreationForm):
@@ -46,3 +46,4 @@ class DraughtPicksUserAdmin(UserAdmin):
 
 
 admin.site.register(DraughtPicksUser, DraughtPicksUserAdmin)
+admin.site.register(EmailAddress)
