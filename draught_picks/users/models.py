@@ -23,13 +23,18 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 
 from rest_framework.authtoken.models import Token
+from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin, AbstractEmailAddress
 
 from description_parser.Grammar import DescriptionParser
 from beers.models import BeerLearning, Beer, RecommendedBeer
 #from tf_model import k_means, cluster_indices, ids
 
 
-class DraughtPicksUser(AbstractUser):
+class EmailAddress(AbstractEmailAddress):
+    uuid = m.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+
+
+class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
     """
     This class defines the draught picks user
     """

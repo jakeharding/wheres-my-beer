@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'simple_email_confirmation',
     'rest_framework',
     'rest_framework.authtoken',
     'django_premailer',
@@ -185,9 +187,14 @@ CLIENT_DOMAIN = 'http://localhost:8100'
 STATIC_SERVER = 'http://192.168.0.34:8000'
 REST_API_VERSION = 'dev'
 
+# Tell premailer what server has the static files
 PREMAILER_OPTIONS = {
     "base_url": STATIC_SERVER,
 }
+
+# simple email settings
+SIMPLE_EMAIL_CONFIRMATION_PERIOD = timedelta(days=1)
+SIMPLE_EMAIL_ADDRESS_MODEL = 'users.EmailAddress'
 
 try:
     from .local_settings import *
