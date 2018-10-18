@@ -133,7 +133,7 @@ class EmailTemplateView(TemplateView):
         kwargs = super().get_context_data(**kwargs)
         kwargs.update({
             'domain_name': settings.CLIENT_DOMAIN,
-
+            'verify_link': 'link',
             'to_email': 'test@test.com',
         })
         return kwargs
