@@ -64,10 +64,12 @@ class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
 
     def send_verification_email(self):
         cxt = {
-            'domain_name': settings.CLIENT_DOMAIN
+            'domain_name': settings.CLIENT_DOMAIN,
+            'verify_link': 'https://%s/verify-email/%s' % (settings.CLIENT_DOMAIN, self.confirmation_key),
+            'to_email': self.email
         }
-        html_message = render_to_string('email/verification/verification.html', context=cxt)
-        text_msg = render_to_string('email/verification/verification.txt', context=cxt)
+        html_message = render_to_string('email/confirmation/confirmation.html', context=cxt)
+        text_msg = render_to_string('email/confirmation/confirmation.txt', context=cxt)
         send_mail(
             'DraughtPicks.beer - Email Verification',
             text_msg,
@@ -75,6 +77,7 @@ class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
             [self.email],
             html_message=html_message
         )
+
 
 class BeerPreferences(m.Model):
     """
@@ -169,6 +172,7 @@ class BeerPreferences(m.Model):
         num_matches = len(list(filter(lambda x: ((getattr(user_learn, x) == 1) and (getattr(beer_learn, x) == 1)), cols)))
 
         return int((num_features - (num_ind - num_matches)) / num_features * 100)
+
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
