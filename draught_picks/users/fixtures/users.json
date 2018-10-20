@@ -1,5 +1,17 @@
 [
 {
+    "model": "users.emailaddress",
+    "pk": 1,
+    "fields": {
+        "user": 4,
+        "email": "a@admin.com",
+        "key": "yXDhc4DYB0ta",
+        "set_at": "2018-10-18T01:34:12.037Z",
+        "confirmed_at": null,
+        "uuid": "09397c69-ad32-471c-981f-c79e108d645b"
+    }
+},
+{
     "model": "users.draughtpicksuser",
     "pk": 4,
     "fields": {

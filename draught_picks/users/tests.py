@@ -17,6 +17,8 @@ from django.conf import settings
 from rest_framework.test import APITestCase
 from rest_framework import status
 
+from users.models import DraughtPicksUser
+
 
 class TestUsers(APITestCase):
     """
@@ -38,29 +40,23 @@ class TestUsers(APITestCase):
         This tests if the user can login
         :return:
         """
-        self.client.force_authenticate(user=None) # Remove auth for login
+        self.client.force_authenticate(user=None)  # Remove auth for login
         r = self.client.post('/api/dev/login', {'username': 'admin', 'password': 'admin'}, format='json')
         self.assertTrue(status.is_success(r.status_code))
 
     def test_create(self):
-        """
-        This creates the test for the user creation
-        :return:
-        """
-        self.client.force_authenticate(user=None) # Remove auth for create
+        self.client.force_authenticate(user=None)  # Remove auth for create
+        print(DraughtPicksUser.objects.all())
+
         r = self.client.post('/api/dev/users', {
             'username': 'admin2',
             'password': 'test',
-            'email': 't@t.com',
+            'email': 't@test.com',
             'date_of_birth': '1997-05-04'
         }, format='json')
         self.assertTrue(status.is_success(r.status_code), r.status_code)
 
     def test_update(self):
-        """
-        This tests the user update
-        :return:
-        """
         r = self.client.put('/api/dev/users/%s' % self.user.uuid, {
             'username': 'admin2',
             'password': 'test',
