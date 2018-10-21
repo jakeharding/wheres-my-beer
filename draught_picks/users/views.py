@@ -30,9 +30,6 @@ logger = logging.getLogger('users.views')
 
 
 class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
-    """
-    This creates a user set
-    """
     serializer_class = UserSerializer
     queryset = DraughtPicksUser.objects.all()
     lookup_field = 'uuid'
@@ -47,9 +44,6 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
 
 
 class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
-    """
-    This creates the user beer preferences set
-    """
     serializer_class = BeerPreferencesSerializer
     queryset = BeerPreferences.objects.all()
     lookup_field = 'uuid'
