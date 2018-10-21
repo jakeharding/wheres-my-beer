@@ -14,7 +14,7 @@ from django.urls import re_path, include
 from rest_framework.authtoken import views
 from rest_framework.routers import DefaultRouter
 
-from users.views import UserViewSet, UserBeerPreferencesSet
+from users.views import UserViewSet, UserBeerPreferencesSet, confirm_email
 from beers.views import BeerSet, BeerRatingSet, RecentBeerSet, RecommendedBeerSet
 
 router = DefaultRouter(trailing_slash=False)
@@ -28,5 +28,6 @@ router.register('recommended-beers', RecommendedBeerSet)
 
 urlpatterns = [
     re_path(r'^login', views.obtain_auth_token),
+    re_path(r'^confirm-email', confirm_email),
     re_path(r'', include(router.urls)),
 ]

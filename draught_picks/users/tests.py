@@ -10,6 +10,8 @@ Author(s) of this file:
 Test user endpoints.
 """
 
+from datetime import datetime
+
 from django.core import mail
 from django.contrib.auth import get_user_model
 from django.conf import settings
@@ -34,6 +36,9 @@ class TestUsers(APITestCase):
         self.user = get_user_model().objects.first()
         # Assume user is authenticated for testing.
         self.client.force_authenticate(user=self.user)
+        email = self.user.email_address_set.first()
+        email.set_at = datetime.utcnow()
+        email.save()
 
     def test_login(self):
         """
@@ -96,6 +101,22 @@ class TestUsers(APITestCase):
         self.assertTrue(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Verification')
         self.assertEqual(mail.outbox[0].from_email, settings.DEFAULT_FROM_EMAIL)
+
+    def test_email_confirmation_success(self):
+        self.client.force_authenticate(user=None)  # No auth needed
+        self.assertFalse(self.user.is_confirmed)
+        r = self.client.put('/api/dev/confirm-email', {
+            'confirm_key': self.user.confirmation_key
+        })
+        self.assertTrue(status.is_success(r.status_code), r.status_code)
+        self.assertTrue(self.user.is_confirmed)
+
+    def test_email_confirm_error(self):
+        self.client.force_authenticate(user=None)  # No auth needed
+        self.assertFalse(self.user.is_confirmed)
+        r = self.client.put('/api/dev/confirm-email', {})
+        self.assertTrue(status.is_client_error(r.status_code), r.status_code)
+
 
 
 class TestBeerPrefs(APITestCase):
