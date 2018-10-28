@@ -62,7 +62,7 @@ class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
     rated_beers = m.ManyToManyField('beers.Beer', related_name='rated_beers', through='beers.BeerRating')
     recommended_beers = m.ManyToManyField('beers.Beer', related_name='recommended_beers', through='beers.RecommendedBeer')
 
-    def send_verification_email(self):
+    def send_confirmation_email(self):
         cxt = {
             'domain_name': settings.CLIENT_DOMAIN,
             'verify_link': 'https://%s/verify-email/%s' % (settings.CLIENT_DOMAIN, self.confirmation_key),
@@ -186,4 +186,4 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     """
     if created:
         Token.objects.create(user=instance)
-        instance.send_verification_email()
+        instance.send_confirmation_email()

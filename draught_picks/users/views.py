@@ -20,7 +20,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import list_route
 
 from users.serializers import UserSerializer, BeerPreferencesSerializer
 
@@ -42,6 +42,23 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         """
         return DraughtPicksUser.objects.filter(id=self.request.user.id)
 
+    @list_route(methods=['put'], permission_classes=[AllowAny], url_path='confirm-email')
+    def confirm_email(self, request):
+        key = request.data.get('confirm_key')
+        if not key:
+            raise ValidationError()
+        EmailAddress.objects.confirm(key)
+        return Response()
+
+    @list_route(methods=['post'], permission_classes=[AllowAny], url_path='resend-confirm-email')
+    def resend_confirm_email(self, request):
+        user = DraughtPicksUser.objects.filter(email=request.data.get('email')).first()
+        if not user:
+            raise ValidationError(
+                "We don't have a record of that email address. Please try again or register with that email")
+        user.send_confirmation_email()
+        return Response({"email": "Please check you inbox for the email."})
+
 
 class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
     serializer_class = BeerPreferencesSerializer
@@ -55,16 +72,6 @@ class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin,
         :return: queryset the user has access to.
         """
         return BeerPreferences.objects.filter(user__id=self.request.user.id)
-
-
-@api_view(['PUT'])
-@permission_classes([AllowAny])
-def confirm_email(request):
-    key = request.data.get('confirm_key')
-    if not key:
-        raise ValidationError()
-    EmailAddress.objects.confirm(key)
-    return Response()
 
 
 class EmailTemplateView(TemplateView):

@@ -97,7 +97,7 @@ class TestUsers(APITestCase):
         self.assertEqual(self.user.username, results[0].get('username'))
 
     def test_send_verification_email(self):
-        self.user.send_verification_email()
+        self.user.send_confirmation_email()
         self.assertTrue(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Verification')
         self.assertEqual(mail.outbox[0].from_email, settings.DEFAULT_FROM_EMAIL)
@@ -105,7 +105,7 @@ class TestUsers(APITestCase):
     def test_email_confirmation_success(self):
         self.client.force_authenticate(user=None)  # No auth needed
         self.assertFalse(self.user.is_confirmed)
-        r = self.client.put('/api/dev/confirm-email', {
+        r = self.client.put('/api/dev/users/confirm-email', {
             'confirm_key': self.user.confirmation_key
         })
         self.assertTrue(status.is_success(r.status_code), r.status_code)
@@ -114,9 +114,24 @@ class TestUsers(APITestCase):
     def test_email_confirm_error(self):
         self.client.force_authenticate(user=None)  # No auth needed
         self.assertFalse(self.user.is_confirmed)
-        r = self.client.put('/api/dev/confirm-email', {})
+        r = self.client.put('/api/dev/users/confirm-email', {})
         self.assertTrue(status.is_client_error(r.status_code), r.status_code)
 
+    def test_resend_confirm_email_error(self):
+        self.client.force_authenticate(user=None)  # No auth needed
+        r = self.client.post('/api/dev/users/resend-confirm-email', {
+            "email": 't@t.com'
+        })
+        self.assertTrue(status.is_client_error(r.status_code), r.status_code)
+
+    def test_resend_confirm_email_success(self):
+        r = self.client.post('/api/dev/users/resend-confirm-email', {
+            "email": self.user.email
+        })
+        self.assertTrue(status.is_success(r.status_code), r.status_code)
+        self.assertTrue(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Verification')
+        self.assertEqual(mail.outbox[0].from_email, settings.DEFAULT_FROM_EMAIL)
 
 
 class TestBeerPrefs(APITestCase):

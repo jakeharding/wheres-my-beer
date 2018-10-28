@@ -194,7 +194,7 @@ PREMAILER_OPTIONS = {
 
 # simple email settings
 SIMPLE_EMAIL_CONFIRMATION_PERIOD = timedelta(days=1)
-SIMPLE_EMAIL_ADDRESS_MODEL = 'users.EmailAddress'
+SIMPLE_EMAIL_CONFIRMATION_EMAIL_ADDRESS_MODEL = 'users.EmailAddress'
 
 try:
     from .local_settings import *
