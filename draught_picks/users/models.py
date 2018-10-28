@@ -65,13 +65,13 @@ class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
     def send_confirmation_email(self):
         cxt = {
             'domain_name': settings.CLIENT_DOMAIN,
-            'verify_link': 'https://%s/verify-email/%s' % (settings.CLIENT_DOMAIN, self.confirmation_key),
+            'confirm_link': 'https://%s/confirm-email/%s' % (settings.CLIENT_DOMAIN, self.confirmation_key),
             'to_email': self.email
         }
         html_message = render_to_string('email/confirmation/confirmation.html', context=cxt)
         text_msg = render_to_string('email/confirmation/confirmation.txt', context=cxt)
         send_mail(
-            'DraughtPicks.beer - Email Verification',
+            'DraughtPicks.beer - Email Confirmation',
             text_msg,
             settings.DEFAULT_FROM_EMAIL,
             [self.email],

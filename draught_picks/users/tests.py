@@ -99,7 +99,7 @@ class TestUsers(APITestCase):
     def test_send_verification_email(self):
         self.user.send_confirmation_email()
         self.assertTrue(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Verification')
+        self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Confirmation')
         self.assertEqual(mail.outbox[0].from_email, settings.DEFAULT_FROM_EMAIL)
 
     def test_email_confirmation_success(self):
@@ -130,7 +130,7 @@ class TestUsers(APITestCase):
         })
         self.assertTrue(status.is_success(r.status_code), r.status_code)
         self.assertTrue(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Verification')
+        self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Confirmation')
         self.assertEqual(mail.outbox[0].from_email, settings.DEFAULT_FROM_EMAIL)
 
 

@@ -7,7 +7,7 @@
   <head>
     <meta content="width=device-width, initial-scale=1" name="viewport" />
     <meta charset="UTF-8">
-    <title>Draught Picks | Verify Your Email</title>
+    <title>Draught Picks | Confirm Your Email</title>
     <style>
 
       .table-header {
@@ -65,16 +65,24 @@
               If you did not wish to register for an account at <a href="{{ domain_name }}">{{  domain_name }}</a>, please disregard this message.
             </p>
             <p>
-              We ask you verify your email for security purposes should we need to reset your password.
+              We ask you confirm your email for security purposes should we need to reset your password.
               We do not use emails for marketing, and we will ask you to opt in to any future communication.
             </p>
 
             <p>
-              Please verify you own the email address, {{ to_email  }}, by clicking the link below.
+              Please confirm you own the email address, {{ to_email  }}, by clicking the link below.
             </p>
-            <a href="{{ verify_link }}">Verify you own {{ to_email }}</a>
+            <a href="{{ confirm_link }}">Confirm you own {{ to_email }}</a>
           </td>
         </tr>
+
+        <tr>
+          <td>
+            <p>Thanks,</p>
+            <p>Draught Picks</p>
+          </td>
+        </tr>
+
       </tbody>
     </table>
   </body>
