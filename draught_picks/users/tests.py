@@ -96,7 +96,7 @@ class TestUsers(APITestCase):
         self.assertTrue(len(results) is 1)
         self.assertEqual(self.user.username, results[0].get('username'))
 
-    def test_send_verification_email(self):
+    def test_send_confirmation_emaill(self):
         self.user.send_confirmation_email()
         self.assertTrue(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Confirmation')

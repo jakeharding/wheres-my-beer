@@ -21,6 +21,7 @@ from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny
 from rest_framework.decorators import list_route
+from simple_email_confirmation.exceptions import EmailConfirmationExpired
 
 from users.serializers import UserSerializer, BeerPreferencesSerializer
 
@@ -47,15 +48,21 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         key = request.data.get('confirm_key')
         if not key:
             raise ValidationError()
-        EmailAddress.objects.confirm(key)
-        return Response()
+        try:
+            EmailAddress.objects.confirm(key)
+        except (EmailConfirmationExpired, EmailAddress.DoesNotExist):
+            raise ValidationError(
+                {'confirm_key': 'The confirmation key submitted is expired or does not exist. '
+                                'Please resend the confirmation email.'})
+        return Response({})
 
     @list_route(methods=['post'], permission_classes=[AllowAny], url_path='resend-confirm-email')
     def resend_confirm_email(self, request):
         user = DraughtPicksUser.objects.filter(email=request.data.get('email')).first()
         if not user:
-            raise ValidationError(
-                "We don't have a record of that email address. Please try again or register with that email")
+            raise ValidationError({
+                "email": "A record of that email address does not exist. Please register a user with the email address."
+            })
         user.send_confirmation_email()
         return Response({"email": "Please check you inbox for the email."})
 

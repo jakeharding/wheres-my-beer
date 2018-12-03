@@ -65,7 +65,7 @@ class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
     def send_confirmation_email(self):
         cxt = {
             'domain_name': settings.CLIENT_DOMAIN,
-            'confirm_link': 'https://%s/confirm-email/%s' % (settings.CLIENT_DOMAIN, self.confirmation_key),
+            'confirm_link': '%s/confirm-email/%s' % (settings.CLIENT_DOMAIN, self.confirmation_key),
             'to_email': self.email
         }
         html_message = render_to_string('email/confirmation/confirmation.html', context=cxt)
