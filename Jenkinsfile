@@ -3,8 +3,9 @@ pipeline {
   stages {
     stage('env setup') {
       steps {
-        sh '''export DJANGO_SETTINGS_MODULE="draught_picks.travis_settings"
-pip freeze'''
+        sh '''#!/bin/bash
+
+export PATH=${PATH}:/usr/local/bin:/usr/bin'''
       }
     }
     stage('install deps') {
