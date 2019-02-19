@@ -6,7 +6,7 @@ pipeline {
         sh '''
         #!/bin/bash
         export PATH=${PATH}:/usr/local/bin:/usr/bin
-        
+        source ~/.bash_profile
         which pip
         '''
       }
