@@ -3,8 +3,7 @@ pipeline {
   stages {
     stage('env setup') {
       steps {
-        sh '''psql -c "CREATE DATABASE travisdb;" -U postgres
-export DJANGO_SETTINGS_MODULE="draught_picks.travis_settings"
+        sh '''export DJANGO_SETTINGS_MODULE="draught_picks.travis_settings"
 mkvirtualenv draught --python=python3.6'''
       }
     }
