@@ -4,7 +4,7 @@ pipeline {
     stage('env setup') {
       steps {
         sh '''export DJANGO_SETTINGS_MODULE="draught_picks.travis_settings"
-mkvirtualenv draught --python=python3.6'''
+pip freeze'''
       }
     }
     stage('install deps') {
