@@ -3,9 +3,10 @@ pipeline {
   stages {
     stage('env setup') {
       steps {
-        sh '''#!/bin/bash
-
-export PATH=${PATH}:/usr/local/bin:/usr/bin'''
+        sh '''
+        #!/bin/bash
+        export PATH=${PATH}:/usr/local/bin:/usr/bin
+        pip freeze'''
       }
     }
     stage('install deps') {
