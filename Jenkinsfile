@@ -6,7 +6,7 @@ pipeline {
         sh '''
         #!/bin/bash
         export PATH=${PATH}:/usr/local/bin:/usr/bin
-        echo $HOME
+        pwd
         mkvirtualenv draught-pick-jenkin --python=python3.6
         '''
       }
