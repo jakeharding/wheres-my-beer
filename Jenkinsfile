@@ -6,7 +6,7 @@ pipeline {
         sh '''
         #!/bin/bash
         
-        source ../.jenkins_profile
+        source ~/.jenkins_profile
         mkvirtualenv draught-pick-jenkin --python=python3.6
         '''
       }
