@@ -8,6 +8,7 @@ pipeline {
         
         source ~/.jenkins_profile
         mkvirtualenv draught-pick-jenkin --python=python3.6
+        pip install -r requirements.txt
         '''
       }
     }
