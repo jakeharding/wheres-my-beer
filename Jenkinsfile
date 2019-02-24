@@ -6,9 +6,11 @@ pipeline {
         sh '''
         #!/bin/bash
         
-        source ~/.jenkins_profile
-        mkvirtualenv draught-pick-jenkin --python=python3.6
-        pip install -r requirements.txt
+        #source ~/.jenkins_profile
+        virtualenv draught-pick-jenkin --python=python3.6
+        which pip
+        which python
+        #pip install -r requirements.txt
         '''
       }
     }
