@@ -64,7 +64,7 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
                 "email": "A record of that email address does not exist. Please register a user with the email address."
             })
         user.send_confirmation_email()
-        return Response({"email": "Please check you inbox for the email."})
+        return Response({"email": "Please check your inbox for the email."})
 
 
 class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
