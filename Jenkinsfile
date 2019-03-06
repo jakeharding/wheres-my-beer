@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    PATH="/usr/local/bin:$PATH
+    PATH="/usr/local/bin:$PATH"
     PROJECT_NAME="draught-picks-backend"
   }
   stages {
