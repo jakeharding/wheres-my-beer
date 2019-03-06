@@ -10,7 +10,6 @@ pipeline {
         sh '''
         #!/bin/bash        
         virtualenv .envs/draught-picks-backend
-        echo "Branch name: ${env.BRANCH_NAME}"
         '''
       }
     }
