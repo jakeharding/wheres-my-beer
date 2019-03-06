@@ -10,6 +10,7 @@ pipeline {
         sh '''
         #!/bin/bash        
         virtualenv .envs/draught-picks-backend
+        env
         '''
       }
     }
