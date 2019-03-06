@@ -7,6 +7,13 @@ pipeline {
   stages {
     stage('env') {
       steps {
+        script {
+          if (env.BRANCH_NAME.startsWith('PR')) {
+            currentBuild.displayName = "${env.CHANGE_BRANCH}"
+          } else {
+            currentBuild.displayName = "${env.BRANCH_NAME}"
+          }
+        }
         sh '''
         #!/bin/bash        
         virtualenv .envs/draught-picks-backend -p /usr/local/bin/python3
