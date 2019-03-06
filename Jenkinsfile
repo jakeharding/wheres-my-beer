@@ -9,9 +9,7 @@ pipeline {
       steps {
         script {
           if (env.BRANCH_NAME.startsWith('PR')) {
-            currentBuild.displayName = "${env.CHANGE_BRANCH}"
-          } else {
-            currentBuild.displayName = "${env.BRANCH_NAME}"
+            currentBuild.projectName = "${env.CHANGE_BRANCH}"
           }
         }
         sh '''
