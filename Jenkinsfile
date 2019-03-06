@@ -27,8 +27,8 @@ pipeline {
       steps {
         sh '''
         #!/bin/bash
-        #source .envs/draught-picks-backend/bin/activate
-        cd draught_picks && which python
+        source .envs/draught-picks-backend/bin/activate
+        cd draught_picks && python manage.py test
         '''
       }
     }
