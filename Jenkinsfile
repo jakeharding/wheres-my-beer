@@ -1,22 +1,35 @@
 pipeline {
   agent any
+  environment {
+    PATH="/usr/local/bin:$PATH
+    PROJECT_NAME="draught-picks-backend"
+  }
   stages {
-    stage('env setup') {
+    stage('env') {
       steps {
         sh '''
-        #!/bin/bash
-        
-        #source ~/.jenkins_profile
-        mkvirtualenv draught-pick-jenkin --python=python3.6
-        which pip
-        which python
-        #pip install -r requirements.txt
+        #!/bin/bash        
+        virtualenv .envs/draught-picks-backend
         '''
       }
     }
-    stage('install deps') {
+    stage('deps') {
       steps {
-        sh 'echo "ready"'
+        sh '''
+        !#/bin/bash
+        source .envs/draught-picks-backend/bin/activate
+        pip install -r requirements.txt
+        '''
+      }
+    }
+    
+    stage('test') {
+      steps {
+        sh '''
+        !#/bin/bash
+        source .envs/draught-picks-backend/bin/activate
+        cd draught_picks && python manage.py test
+        '''
       }
     }
   }
