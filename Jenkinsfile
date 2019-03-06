@@ -3,6 +3,7 @@ pipeline {
   environment {
     PATH="/usr/local/bin:$PATH"
     PROJECT_NAME="draught-picks-backend"
+    JOB_BASE_NAME = "${env.CHANGE_BRANCH}"
   }
   stages {
     stage('env') {
