@@ -16,7 +16,7 @@ pipeline {
     stage('deps') {
       steps {
         sh '''
-        !#/bin/bash
+        #!/bin/bash
         source .envs/draught-picks-backend/bin/activate
         pip install -r requirements.txt
         '''
@@ -26,7 +26,7 @@ pipeline {
     stage('test') {
       steps {
         sh '''
-        !#/bin/bash
+        #!/bin/bash
         source .envs/draught-picks-backend/bin/activate
         cd draught_picks && python manage.py test
         '''
