@@ -9,7 +9,7 @@ pipeline {
       steps {
         sh '''
         #!/bin/bash        
-        virtualenv .envs/draught-picks-backend
+        virtualenv .envs/draught-picks-backend -p /usr/local/bin/python3
         '''
       }
     }
