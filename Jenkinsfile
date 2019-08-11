@@ -13,8 +13,9 @@ pipeline {
           }
         }
         sh '''
-        #!/bin/bash        
-        virtualenv .envs/draught-picks-backend -p /usr/local/bin/python3
+        #!/bin/bash
+        echo $HOME
+        virtualenv $HOME.envs/draught-picks-backend -p /usr/local/bin/python3
         '''
       }
     }
@@ -22,7 +23,8 @@ pipeline {
       steps {
         sh '''
         #!/bin/bash
-        source .envs/draught-picks-backend/bin/activate
+
+        source $HOME.envs/draught-picks-backend/bin/activate
         pip install -r requirements.txt
         '''
       }
