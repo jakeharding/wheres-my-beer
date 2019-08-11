@@ -14,7 +14,7 @@ pipeline {
         }
         sh '''
         #!/bin/bash
-        echo $HOME
+        pwd
         virtualenv $HOME.envs/draught-picks-backend -p /usr/local/bin/python3
         '''
       }
