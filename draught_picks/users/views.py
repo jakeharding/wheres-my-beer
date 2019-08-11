@@ -20,7 +20,7 @@ from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny
-from rest_framework.decorators import list_route
+from rest_framework.decorators import action
 from simple_email_confirmation.exceptions import EmailConfirmationExpired
 
 from users.serializers import UserSerializer, BeerPreferencesSerializer
@@ -43,7 +43,7 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         """
         return DraughtPicksUser.objects.filter(id=self.request.user.id)
 
-    @list_route(methods=['put'], permission_classes=[AllowAny], url_path='confirm-email')
+    @action(detail=False, methods=['put'], permission_classes=[AllowAny], url_path='confirm-email')
     def confirm_email(self, request):
         key = request.data.get('confirm_key')
         if not key:
@@ -56,7 +56,7 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
                                 'Please resend the confirmation email.'})
         return Response({})
 
-    @list_route(methods=['post'], permission_classes=[AllowAny], url_path='resend-confirm-email')
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny], url_path='resend-confirm-email')
     def resend_confirm_email(self, request):
         user = DraughtPicksUser.objects.filter(email=request.data.get('email')).first()
         if not user:

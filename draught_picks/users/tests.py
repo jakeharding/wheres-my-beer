@@ -52,7 +52,6 @@ class TestUsers(APITestCase):
 
     def test_create(self):
         self.client.force_authenticate(user=None)  # Remove auth for create
-        print(DraughtPicksUser.objects.all())
 
         r = self.client.post('/api/dev/users', {
             'username': 'admin2',
