@@ -1,0 +1,12 @@
+Thanks for registering with Draught Picks!
+
+You are receiving this message because {{  to_email }} was used to register an account at {{  domain_name }}.
+
+If you did not wish to register for an account at {{  domain_name }}, please disregard this message.
+
+PPlease confirm you own the email address, {{ to_email  }}, by pasting the following link into a browser:
+
+{{ confirm_link }}
+
+Thanks,
+Draught Picks

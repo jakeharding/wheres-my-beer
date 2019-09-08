@@ -83,7 +83,7 @@ class BeerRating(m.Model):
 
 class RecentBeer(m.Model):
     """
-    Class hnadles the recent beers
+    Class handles the recent beers
     """
     uuid = m.UUIDField(unique=True, default=uuid.uuid4, editable=False)
     user = m.ForeignKey(settings.AUTH_USER_MODEL, on_delete=m.PROTECT)

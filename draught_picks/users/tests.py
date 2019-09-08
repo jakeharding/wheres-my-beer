@@ -10,9 +10,17 @@ Author(s) of this file:
 Test user endpoints.
 """
 
+from datetime import datetime
+
+from django.core import mail
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from unittest import skip
+
 from rest_framework.test import APITestCase
 from rest_framework import status
+
+from users.models import DraughtPicksUser
 
 
 class TestUsers(APITestCase):
@@ -29,35 +37,31 @@ class TestUsers(APITestCase):
         self.user = get_user_model().objects.first()
         # Assume user is authenticated for testing.
         self.client.force_authenticate(user=self.user)
+        email = self.user.email_address_set.first()
+        email.set_at = datetime.utcnow()
+        email.save()
 
     def test_login(self):
         """
         This tests if the user can login
         :return:
         """
-        self.client.force_authenticate(user=None) # Remove auth for login
+        self.client.force_authenticate(user=None)  # Remove auth for login
         r = self.client.post('/api/dev/login', {'username': 'admin', 'password': 'admin'}, format='json')
         self.assertTrue(status.is_success(r.status_code))
 
     def test_create(self):
-        """
-        This creates the test for the user creation
-        :return:
-        """
-        self.client.force_authenticate(user=None) # Remove auth for create
+        self.client.force_authenticate(user=None)  # Remove auth for create
+
         r = self.client.post('/api/dev/users', {
             'username': 'admin2',
             'password': 'test',
-            'email': 't@t.com',
+            'email': 't@test.com',
             'date_of_birth': '1997-05-04'
         }, format='json')
         self.assertTrue(status.is_success(r.status_code), r.status_code)
 
     def test_update(self):
-        """
-        This tests the user update
-        :return:
-        """
         r = self.client.put('/api/dev/users/%s' % self.user.uuid, {
             'username': 'admin2',
             'password': 'test',
@@ -73,7 +77,7 @@ class TestUsers(APITestCase):
 
     def test_retrieve(self):
         """
-        This tests the retreival
+        This tests the retrieval
         :return:
         """
         r = self.client.get('/api/dev/users/%s' % self.user.uuid)
@@ -91,3 +95,57 @@ class TestUsers(APITestCase):
         self.assertTrue(isinstance(results, list))
         self.assertTrue(len(results) is 1)
         self.assertEqual(self.user.username, results[0].get('username'))
+
+    def test_send_confirmation_emaill(self):
+        self.user.send_confirmation_email()
+        self.assertTrue(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Confirmation')
+        self.assertEqual(mail.outbox[0].from_email, settings.DEFAULT_FROM_EMAIL)
+
+    def test_email_confirmation_success(self):
+        self.client.force_authenticate(user=None)  # No auth needed
+        self.assertFalse(self.user.is_confirmed)
+        r = self.client.put('/api/dev/users/confirm-email', {
+            'confirm_key': self.user.confirmation_key
+        })
+        self.assertTrue(status.is_success(r.status_code), r.status_code)
+        self.assertTrue(self.user.is_confirmed)
+
+    def test_email_confirm_error(self):
+        self.client.force_authenticate(user=None)  # No auth needed
+        self.assertFalse(self.user.is_confirmed)
+        r = self.client.put('/api/dev/users/confirm-email', {})
+        self.assertTrue(status.is_client_error(r.status_code), r.status_code)
+
+    def test_resend_confirm_email_error(self):
+        self.client.force_authenticate(user=None)  # No auth needed
+        r = self.client.post('/api/dev/users/resend-confirm-email', {
+            "email": 't@t.com'
+        })
+        self.assertTrue(status.is_client_error(r.status_code), r.status_code)
+
+    def test_resend_confirm_email_success(self):
+        r = self.client.post('/api/dev/users/resend-confirm-email', {
+            "email": self.user.email
+        })
+        self.assertTrue(status.is_success(r.status_code), r.status_code)
+        self.assertTrue(len(mail.outbox), 1)
+        self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Confirmation')
+        self.assertEqual(mail.outbox[0].from_email, settings.DEFAULT_FROM_EMAIL)
+
+
+class TestBeerPrefs(APITestCase):
+
+    fixtures = ['users/fixtures/users.json']
+
+    @skip("Broken")
+    def test_create(self):
+        self.client.force_authenticate(user=None) # Remove auth for create
+        r = self.client.post('/api/dev/preferences', {
+            'abv_low': 2,
+            'abv_high': 10,
+            'ibu_low': 12,
+            'ibu_high': 20,
+            'user': get_user_model().objects.first().uuid
+        }, format='json')
+        self.assertTrue(status.is_success(r.status_code), r.status_code)

@@ -8,8 +8,13 @@ pipeline {
   stages {
     stage('env') {
       steps {
+        script {
+          if (env.BRANCH_NAME.startsWith('PR')) {
+            env.JOB_BASE_NAME = "${env.CHANGE_BRANCH}"
+          }
+        }
         sh '''
-        #!/bin/bash        
+        #!/bin/bash
         virtualenv .envs/draught-picks-backend -p /usr/local/bin/python3
         '''
       }

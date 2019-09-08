@@ -19,14 +19,25 @@ from django.db import models as m
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
+
 from rest_framework.authtoken.models import Token
+from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin, AbstractEmailAddress
 
 from description_parser.Grammar import DescriptionParser
 from beers.models import BeerLearning, Beer, RecommendedBeer
 #from tf_model import k_means, cluster_indices, ids
 
 
-class DraughtPicksUser(AbstractUser):
+class EmailAddress(AbstractEmailAddress):
+    uuid = m.UUIDField(unique=True, editable=False, default=uuid.uuid4)
+
+    def __str__(self):
+        return self.email
+
+
+class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
     """
     This class defines the draught picks user
     """
@@ -50,6 +61,22 @@ class DraughtPicksUser(AbstractUser):
     recent_beers = m.ManyToManyField('beers.Beer', related_name='recent_beers', through='beers.RecentBeer')
     rated_beers = m.ManyToManyField('beers.Beer', related_name='rated_beers', through='beers.BeerRating')
     recommended_beers = m.ManyToManyField('beers.Beer', related_name='recommended_beers', through='beers.RecommendedBeer')
+
+    def send_confirmation_email(self):
+        cxt = {
+            'domain_name': settings.CLIENT_DOMAIN,
+            'confirm_link': '%s/confirm-email/%s' % (settings.CLIENT_DOMAIN, self.confirmation_key),
+            'to_email': self.email
+        }
+        html_message = render_to_string('email/confirmation/confirmation.html', context=cxt)
+        text_msg = render_to_string('email/confirmation/confirmation.txt', context=cxt)
+        send_mail(
+            'DraughtPicks.beer - Email Confirmation',
+            text_msg,
+            settings.DEFAULT_FROM_EMAIL,
+            [self.email],
+            html_message=html_message
+        )
 
 
 class BeerPreferences(m.Model):
@@ -159,3 +186,4 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
     """
     if created:
         Token.objects.create(user=instance)
+        instance.send_confirmation_email()

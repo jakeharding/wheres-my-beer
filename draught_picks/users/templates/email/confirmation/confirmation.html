@@ -1,0 +1,90 @@
+{%  load static premailer %}
+
+<!DOCTYPE html>
+
+{% premailer %}
+<html lang="en">
+  <head>
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta charset="UTF-8">
+    <title>Draught Picks | Confirm Your Email</title>
+    <style>
+
+      .table-header {
+        background-color: #538cf7;
+        color: white;
+        font-weight: 400;
+        font-size: 18px;
+      }
+      td {
+        padding: 15px;
+      }
+
+      .text-center {
+        text-align: center;
+      }
+
+      .text-justify {
+        text-align: justify;
+      }
+    </style>
+    <style data-premailer="ignore">
+      @font-face{
+        font-family:Roboto;
+        src:url({{ domain_name }}/assets/fonts/ionicons.woff2?v=3.0.0-alpha.3) format("woff2");
+      }
+
+      body {
+        font-family: -apple-system,"Helvetica Neue",Roboto,sans-serif;
+        margin: 0 !important;
+      }
+
+      @media screen and (max-width:600px) {
+        p {
+          font-size: 18px!important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <table cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <th class="table-header text-center">
+            <p>Draught Picks</p>
+          </th>
+        </tr>
+
+        <tr>
+          <td class="text-justify">
+            <h2>Thanks for registering with Draught Picks!</h2>
+
+            <p>
+              You are receiving this message because {{  to_email }} was used to register an account at <a href="{{ domain_name }}">{{  domain_name }}</a>.
+              If you did not wish to register for an account at <a href="{{ domain_name }}">{{  domain_name }}</a>, please disregard this message.
+            </p>
+            <p>
+              We ask you confirm your email for security purposes should we need to reset your password.
+              We do not use emails for marketing, and we will ask you to opt in to any future communication.
+            </p>
+
+            <p>
+              Please confirm you own the email address, {{ to_email  }}, by clicking the link below.
+            </p>
+            <a href="{{ confirm_link }}">Confirm you own {{ to_email }}</a>
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <p>Thanks,</p>
+            <p>Draught Picks</p>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </body>
+</html>
+{%  endpremailer %}

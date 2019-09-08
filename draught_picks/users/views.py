@@ -12,70 +12,25 @@ Expose user models through a REST API.
 
 import logging
 
-from django.contrib.auth.hashers import make_password
-from rest_framework.serializers import ModelSerializer, SlugRelatedField
+from django.views.generic.base import TemplateView
+from django.conf import settings
+from rest_framework.exceptions import ValidationError
+from rest_framework.response import Response
+
 from rest_framework.viewsets import GenericViewSet
 from rest_framework.mixins import CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin
 from rest_framework.permissions import AllowAny
+from rest_framework.decorators import action
+from simple_email_confirmation.exceptions import EmailConfirmationExpired
 
-from beers.views import BeerSerializer
-from beers.models import Beer
+from users.serializers import UserSerializer, BeerPreferencesSerializer
 
-from .models import DraughtPicksUser, BeerPreferences
+from .models import DraughtPicksUser, BeerPreferences, EmailAddress
 
 logger = logging.getLogger('users.views')
 
 
-class UserSerializer(ModelSerializer):
-    """
-    This is the user serializer
-    """
-    favorite_beers = BeerSerializer(many=True, required=False)
-    recent_beers = BeerSerializer(many=True, required=False)
-    rated_beers = BeerSerializer(many=True, required=False)
-
-    def validate_password(self, value):
-        """
-        This validates the user's password
-        :param value:
-        :return:
-        """
-        if self.context.get('request').stream.method == "POST":
-            value = make_password(value)
-        return value
-
-    def update(self, instance, validated_data):
-        """
-        This updates the user serialization
-        :param instance:
-        :param validated_data:
-        :return:
-        """
-        faves = validated_data.pop('favorite_beers')
-
-        # TODO save the recents and rated also
-        validated_data.pop('recent_beers')
-        validated_data.pop('rated_beers')
-        fave_uid = list(map(lambda beer: beer.get('uuid'), faves))
-        fave_objs = Beer.objects.filter(uuid__in=fave_uid)
-        instance.favorite_beers.set(fave_objs)
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        instance.save()
-        return instance
-
-    class Meta:
-        """
-        This exposes the fields needed for the user serialization
-        """
-        model = DraughtPicksUser
-        exclude = ('id', 'last_login', 'is_superuser', 'is_staff', 'is_active', 'groups', 'user_permissions')
-
-
 class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveModelMixin, GenericViewSet):
-    """
-    This creates a user set
-    """
     serializer_class = UserSerializer
     queryset = DraughtPicksUser.objects.all()
     lookup_field = 'uuid'
@@ -88,25 +43,31 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         """
         return DraughtPicksUser.objects.filter(id=self.request.user.id)
 
+    @action(detail=False, methods=['put'], permission_classes=[AllowAny], url_path='confirm-email')
+    def confirm_email(self, request):
+        key = request.data.get('confirm_key')
+        if not key:
+            raise ValidationError()
+        try:
+            EmailAddress.objects.confirm(key)
+        except (EmailConfirmationExpired, EmailAddress.DoesNotExist):
+            raise ValidationError(
+                {'confirm_key': 'The confirmation key submitted is expired or does not exist. '
+                                'Please resend the confirmation email.'})
+        return Response({})
 
-class BeerPreferencesSerializer(ModelSerializer):
-    """
-    This serializes the beer preferences
-    """
-    user = SlugRelatedField(slug_field='uuid', queryset=DraughtPicksUser.objects.all())
-
-    class Meta:
-        """
-        This exposes the fields needed for the beer preferences serializer
-        """
-        model = BeerPreferences
-        fields = ('uuid', 'abv_low', 'abv_hi', 'ibu_low', 'ibu_hi', 'like_description', 'user', 'created_at',)
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny], url_path='resend-confirm-email')
+    def resend_confirm_email(self, request):
+        user = DraughtPicksUser.objects.filter(email=request.data.get('email')).first()
+        if not user:
+            raise ValidationError({
+                "email": "A record of that email address does not exist. Please register a user with the email address."
+            })
+        user.send_confirmation_email()
+        return Response({"email": "Please check your inbox for the email."})
 
 
 class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
-    """
-    This creates the user beer preferences set
-    """
     serializer_class = BeerPreferencesSerializer
     queryset = BeerPreferences.objects.all()
     lookup_field = 'uuid'
@@ -118,3 +79,22 @@ class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin,
         :return: queryset the user has access to.
         """
         return BeerPreferences.objects.filter(user__id=self.request.user.id)
+
+
+class EmailTemplateView(TemplateView):
+    """
+    View to render email templates in the browser to help development.
+    Email templates must use inline styles only! Use premailer!
+    """
+    def get_template_names(self):
+        name = self.kwargs.get('name', '')
+        return ['email/%s/%s.html' % (name, name)]
+
+    def get_context_data(self, **kwargs):
+        kwargs = super().get_context_data(**kwargs)
+        kwargs.update({
+            'domain_name': settings.CLIENT_DOMAIN,
+            'verify_link': 'link',
+            'to_email': 'test@test.com',
+        })
+        return kwargs

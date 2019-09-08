@@ -1,6 +1,4 @@
-# CSCI4970 - Capstone project Spring 2018
-
-## Draught picks - A beer profiling and recommendation application
+#  Draught picks - A beer profiling and recommendation application
 
 Dev Branch Status:
 
