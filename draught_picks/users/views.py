@@ -14,6 +14,9 @@ import logging
 
 from django.views.generic.base import TemplateView
 from django.conf import settings
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
@@ -43,6 +46,14 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         """
         return DraughtPicksUser.objects.filter(id=self.request.user.id)
 
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny], url_path='reset-email')
+    def reset_email(self, request):
+        email = request.user.email_address_set.filter(email=request.data.get('email')).first()
+        if not email:
+            raise ValidationError('Unable to send email.')
+        email.send_password_reset_email()
+        return Response({})
+
     @action(detail=False, methods=['put'], permission_classes=[AllowAny], url_path='confirm-email')
     def confirm_email(self, request):
         key = request.data.get('confirm_key')
@@ -67,6 +78,7 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         return Response({"email": "Please check your inbox for the email."})
 
 
+# TODO Rename preferences to beer profile
 class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
     serializer_class = BeerPreferencesSerializer
     queryset = BeerPreferences.objects.all()
@@ -98,3 +110,16 @@ class EmailTemplateView(TemplateView):
             'to_email': 'test@test.com',
         })
         return kwargs
+
+
+class LoginView(ObtainAuthToken):
+
+    def post(self, request, *args, **kwargs):
+        response = super(LoginView, self).post(request, *args, **kwargs)
+        user = Token.objects.get(key=response.data.get('token')).user
+        # If any email exists that has been confirmed, allow login
+        if user.email_address_set.filter(confirmed_at__isnull=False).exists():
+            return response
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={
+            'non_field_error': ['Unable to login. Have you confirmed your email address?']
+        })

@@ -36,6 +36,10 @@ class EmailAddress(AbstractEmailAddress):
     def __str__(self):
         return self.email
 
+    def send_password_reset_email(self):
+        # TODO create key with embedded email and expiration?
+        pass
+
 
 class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
     """

@@ -20,7 +20,7 @@ from unittest import skip
 from rest_framework.test import APITestCase
 from rest_framework import status
 
-from users.models import DraughtPicksUser
+from users.models import EmailAddress
 
 
 class TestUsers(APITestCase):
@@ -47,8 +47,31 @@ class TestUsers(APITestCase):
         :return:
         """
         self.client.force_authenticate(user=None)  # Remove auth for login
+        # Must have at least one confirmed email
+        email = self.user.email_address_set.first()
+        email.confirmed_at = datetime.now()
+        email.save()
         r = self.client.post('/api/dev/login', {'username': 'admin', 'password': 'admin'}, format='json')
         self.assertTrue(status.is_success(r.status_code))
+
+    def test_login_error(self):
+        """
+        This tests if the user can login when bad creds provided
+        :return:
+        """
+        self.client.force_authenticate(user=None)  # Remove auth for login
+        r = self.client.post('/api/dev/login', {'username': 'admin', 'password': 'wrong'}, format='json')
+        self.assertTrue(status.is_client_error(r.status_code))
+
+    def test_login_email_not_confirmed(self):
+        """
+        This tests if the user can login when bad creds provided
+        :return:
+        """
+        self.client.force_authenticate(user=None)  # Remove auth for login
+        self.user.email_address_set.update(confirmed_at=None)
+        r = self.client.post('/api/dev/login', {'username': 'admin', 'password': 'wrong'}, format='json')
+        self.assertTrue(status.is_client_error(r.status_code))
 
     def test_create(self):
         self.client.force_authenticate(user=None)  # Remove auth for create
@@ -132,6 +155,17 @@ class TestUsers(APITestCase):
         self.assertTrue(len(mail.outbox), 1)
         self.assertEqual(mail.outbox[0].subject, 'DraughtPicks.beer - Email Confirmation')
         self.assertEqual(mail.outbox[0].from_email, settings.DEFAULT_FROM_EMAIL)
+
+    def test_send_password_reset_email_error(self):
+        r = self.client.post('/api/dev/users/reset-email', {'email': 'test@test.com'})
+        self.assertTrue(status.is_client_error(r.status_code))
+        self.assertTrue(len(mail.outbox) is 0)
+
+    def test_send_password_reset_email_success(self):
+        EmailAddress.objects.create(email='test@test.com', user=self.user)
+        r = self.client.post('/api/dev/users/reset-email', {'email': 'test@test.com'})
+        self.assertTrue(status.is_success(r.status_code))
+        self.assertTrue(len(mail.outbox) is 1)
 
 
 class TestBeerPrefs(APITestCase):
