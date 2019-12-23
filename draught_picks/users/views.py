@@ -48,7 +48,7 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
 
     @action(detail=False, methods=['post'], permission_classes=[AllowAny], url_path='reset-email')
     def reset_email(self, request):
-        email = request.user.email_address_set.filter(email=request.data.get('email')).first()
+        email = EmailAddress.objects.filter(email=request.data.get('email')).first()
         if not email:
             raise ValidationError('Unable to send email.')
         email.send_password_reset_email()
@@ -105,9 +105,10 @@ class EmailTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         kwargs = super().get_context_data(**kwargs)
         kwargs.update({
-            'domain_name': settings.CLIENT_DOMAIN,
-            'verify_link': 'link',
+            'domain_name': settings.CLIENT_DOMAIN,  # To build URLs back to frontend
+            'confirm_link': 'link',  # For email confirmation
             'to_email': 'test@test.com',
+            'reset_link': 'reset'  # For password reset email
         })
         return kwargs
 

@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.tokens import default_token_generator
 from django.db import models as m
 from django.conf import settings
 from django.db.models.signals import post_save
@@ -37,8 +38,20 @@ class EmailAddress(AbstractEmailAddress):
         return self.email
 
     def send_password_reset_email(self):
-        # TODO create key with embedded email and expiration?
-        pass
+        cxt = {
+            'reset_link': '%s/password-reset/%s' % (settings.CLIENT_DOMAIN, default_token_generator.make_token(self.user)),
+            'expire': settings.PASSWORD_RESET_TIMEOUT_DAYS * 24
+        }
+        html_msg = render_to_string('email/password-reset/password-reset.html', context=cxt)
+        text_msg = render_to_string('email/password-reset/password-reset.txt', context=cxt)
+
+        send_mail(
+            'DraughtPicks.beer - Password Reset',
+            text_msg,
+            settings.DEFAULT_FROM_EMAIL,
+            [self.email],
+            html_message=html_msg
+        )
 
 
 class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
