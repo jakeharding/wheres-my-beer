@@ -33,7 +33,10 @@ pipeline {
         sh '''
         #!/bin/bash
         source .envs/draught-picks-backend/bin/activate
-        cd draught_picks && python manage.py test
+        pip install python-coveralls coverage
+        cd draught_picks/ && python manage.py migrate
+        coverage run --source=beers,draught_picks,rest_api,users,description_parser --omit=manage.py,draught_picks/wsgi.py,tf_model/ manage.py test
+        coveralls
         '''
       }
     }
