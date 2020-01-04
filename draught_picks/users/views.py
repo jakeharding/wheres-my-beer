@@ -12,6 +12,8 @@ Expose user models through a REST API.
 
 import logging
 
+from django.contrib.auth.tokens import default_token_generator
+from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 from django.conf import settings
 from rest_framework import status
@@ -26,7 +28,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action
 from simple_email_confirmation.exceptions import EmailConfirmationExpired
 
-from users.serializers import UserSerializer, BeerPreferencesSerializer
+from users.serializers import UserSerializer, BeerPreferencesSerializer, PasswordResetSerializer
 
 from .models import DraughtPicksUser, BeerPreferences, EmailAddress
 
@@ -46,8 +48,20 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         """
         return DraughtPicksUser.objects.filter(id=self.request.user.id)
 
-    @action(detail=False, methods=['post'], permission_classes=[AllowAny], url_path='reset-email')
-    def reset_email(self, request):
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny], url_path='change-password',
+            serializer_class=PasswordResetSerializer)
+    def change_password(self, request):
+        serial = PasswordResetSerializer(data=request.data)
+        if serial.is_valid(raise_exception=True):
+            user = get_object_or_404(DraughtPicksUser, **{'uuid': serial.data.get('b64')})
+            if default_token_generator.check_token(user, serial.data.get('token')):
+                user.set_password(serial.data.get('password'))
+                user.save()
+                return Response(data=serial.data)
+        return Response(status=status.HTTP_400_BAD_REQUEST, data=serial.errors)
+
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny], url_path='password-reset-email')
+    def password_reset_email(self, request):
         email = EmailAddress.objects.filter(email=request.data.get('email')).first()
         if not email:
             raise ValidationError('Unable to send email.')

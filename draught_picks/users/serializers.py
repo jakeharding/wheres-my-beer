@@ -10,12 +10,35 @@ Author(s) of this file:
 Serializers for users views.
 """
 from django.contrib.auth.hashers import make_password
+from django.utils.http import urlsafe_base64_decode
+from rest_framework.exceptions import ValidationError
 from rest_framework.relations import SlugRelatedField
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, Serializer
+from rest_framework import fields as f
 
 from beers.models import Beer
 from beers.views import BeerSerializer
 from users.models import DraughtPicksUser, BeerPreferences
+
+
+class PasswordResetSerializer(Serializer):
+    token = f.CharField(max_length=25, required=True)
+    b64 = f.CharField(max_length=50, required=True)
+    password = f.CharField(max_length=255, required=True)
+    confirm_password = f.CharField(max_length=255, required=True)
+
+    def validate_password(self, password):
+        confirm_password = self.initial_data.get('confirm_password')
+        if not confirm_password or confirm_password != password:
+            raise ValidationError('An error occurred. Please check the input and try again.')
+        return password
+
+    def validate_b64(self, value):
+        try:
+            uuid = urlsafe_base64_decode(value).decode()
+            return uuid
+        except (TypeError, ValueError, OverflowError):
+            raise ValidationError('An error occurred. Please check the input and try again.')
 
 
 class BeerPreferencesSerializer(ModelSerializer):

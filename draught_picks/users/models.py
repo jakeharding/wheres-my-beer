@@ -22,6 +22,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
 
 from rest_framework.authtoken.models import Token
 from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin, AbstractEmailAddress
@@ -39,7 +40,11 @@ class EmailAddress(AbstractEmailAddress):
 
     def send_password_reset_email(self):
         cxt = {
-            'reset_link': '%s/password-reset/%s' % (settings.CLIENT_DOMAIN, default_token_generator.make_token(self.user)),
+            'reset_link': '%s/password-reset/%s/%s' % (settings.CLIENT_DOMAIN,
+                                                       urlsafe_base64_encode(bytearray(
+                                                           str(self.user.uuid),
+                                                           encoding='utf8')).encode().decode(),
+                                                       default_token_generator.make_token(self.user)),
             'expire': settings.PASSWORD_RESET_TIMEOUT_DAYS * 24
         }
         html_msg = render_to_string('email/password-reset/password-reset.html', context=cxt)
