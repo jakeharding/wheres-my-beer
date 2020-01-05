@@ -7,6 +7,7 @@ pipeline {
   stages {
     stage('env') {
       steps {
+        load "${JENKINS_HOME}/project_props/draught-picks-backend.properties"
         script {
           if (env.BRANCH_NAME.startsWith('PR')) {
             env.JOB_BASE_NAME = "${env.CHANGE_BRANCH}"
@@ -36,6 +37,15 @@ pipeline {
         pip install python-coveralls coverage
         cd draught_picks/ && python manage.py migrate
         coverage run --source=beers,draught_picks,rest_api,users,description_parser --omit=manage.py,draught_picks/wsgi.py,tf_model/ manage.py test
+        '''
+      }
+    }
+
+    stage('coveralls') {
+      steps {
+        sh '''
+        #!/bin/bash
+        source .envs/draught-picks-backend/bin/activate
         coveralls
         '''
       }
