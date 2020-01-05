@@ -3,7 +3,6 @@ pipeline {
   environment {
     PATH="/usr/local/bin:$PATH"
     PROJECT_NAME="draught-picks-backend"
-    # MAke sure Python uses UTF-8
     LANG="en_US.UTF-8"
     PYTHONIOENCODING="UTF-8"
   }
