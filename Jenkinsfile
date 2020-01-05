@@ -46,6 +46,7 @@ pipeline {
         sh '''
         #!/bin/bash
         source .envs/draught-picks-backend/bin/activate
+        echo "repo_token: $COVERALLS_TOKEN" > .coveralls.yml
         coveralls
         '''
       }
