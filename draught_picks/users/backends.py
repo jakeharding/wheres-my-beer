@@ -20,9 +20,10 @@ class UserModelEmailBackend(ModelBackend):
     """
     This class handles the user email
     """
-    def authenticate(self, username="", password="", **kwargs):
+    def authenticate(self, *args, username="", password="", **kwargs):
         """
         This authenticates the email
+        :param request:
         :param username:
         :param password:
         :param kwargs:
