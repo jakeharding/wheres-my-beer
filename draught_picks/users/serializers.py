@@ -18,7 +18,7 @@ from rest_framework import fields as f
 
 from beers.models import Beer
 from beers.views import BeerSerializer
-from users.models import DraughtPicksUser, BeerPreferences
+from users.models import DraughtPicksUser, BeerProfile
 
 
 class PasswordResetSerializer(Serializer):
@@ -41,7 +41,7 @@ class PasswordResetSerializer(Serializer):
             raise ValidationError('An error occurred. Please check the input and try again.')
 
 
-class BeerPreferencesSerializer(ModelSerializer):
+class BeerProfileSerializer(ModelSerializer):
     """
     This serializes the beer preferences
     """
@@ -51,7 +51,7 @@ class BeerPreferencesSerializer(ModelSerializer):
         """
         This exposes the fields needed for the beer preferences serializer
         """
-        model = BeerPreferences
+        model = BeerProfile
         fields = ('uuid', 'abv_low', 'abv_hi', 'ibu_low', 'ibu_hi', 'like_description', 'user', 'created_at',)
 
 

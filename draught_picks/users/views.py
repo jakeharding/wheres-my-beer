@@ -28,9 +28,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action
 from simple_email_confirmation.exceptions import EmailConfirmationExpired
 
-from users.serializers import UserSerializer, BeerPreferencesSerializer, PasswordResetSerializer
+from users.serializers import UserSerializer, BeerProfileSerializer, PasswordResetSerializer
 
-from .models import DraughtPicksUser, BeerPreferences, EmailAddress
+from .models import DraughtPicksUser, BeerProfile, EmailAddress
 
 logger = logging.getLogger('users.views')
 
@@ -92,10 +92,9 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         return Response({"email": "Please check your inbox for the email."})
 
 
-# TODO Rename preferences to beer profile
-class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
-    serializer_class = BeerPreferencesSerializer
-    queryset = BeerPreferences.objects.all()
+class BeerProfileViewSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    serializer_class = BeerProfileSerializer
+    queryset = BeerProfile.objects.all()
     lookup_field = 'uuid'
     permission_classes = (AllowAny, )
 
@@ -104,7 +103,7 @@ class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin,
         Only allow users access to their user instance.
         :return: queryset the user has access to.
         """
-        return BeerPreferences.objects.filter(user__id=self.request.user.id)
+        return BeerProfile.objects.filter(user__id=self.request.user.id)
 
 
 class EmailTemplateView(TemplateView):

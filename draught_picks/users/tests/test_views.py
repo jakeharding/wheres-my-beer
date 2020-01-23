@@ -191,14 +191,13 @@ class TestUsers(APITestCase):
         self.assertEqual(r.status_code, status.HTTP_400_BAD_REQUEST, r.data)
 
 
-class TestBeerPrefs(APITestCase):
+class TestBeerProfile(APITestCase):
 
     fixtures = ['users/fixtures/users.json']
 
-    @skip("Broken")
     def test_create(self):
-        self.client.force_authenticate(user=None)  # Remove auth for create
-        r = self.client.post('/api/dev/preferences', {
+        # self.client.force_authenticate(user=None)  # Remove auth for create
+        r = self.client.post('/api/dev/beer-profiles', {
             'abv_low': 2,
             'abv_high': 10,
             'ibu_low': 12,

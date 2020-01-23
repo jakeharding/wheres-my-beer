@@ -10,7 +10,7 @@ Author(s) of this file:
 Models pertaining to users.
 """
 import uuid
-#import tensorflow as tf
+import tensorflow as tf
 import numpy as np
 import pandas as pd
 
@@ -29,7 +29,7 @@ from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin, A
 
 from description_parser.Grammar import DescriptionParser
 from beers.models import BeerLearning, Beer, RecommendedBeer
-#from tf_model import k_means, cluster_indices, ids
+from tf_model import k_means, cluster_indices, ids
 
 
 class EmailAddress(AbstractEmailAddress):
@@ -101,7 +101,7 @@ class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
         )
 
 
-class BeerPreferences(m.Model):
+class BeerProfile(m.Model):
     """
     This class is the blueprint for the beer preference
     """
@@ -111,9 +111,13 @@ class BeerPreferences(m.Model):
     ibu_low = m.IntegerField(null=True, blank=True)
     ibu_hi = m.IntegerField(null=True, blank=True)
     like_description = m.TextField(null=True, blank=True)
-    user = m.ForeignKey(DraughtPicksUser, related_name='beer_preferences', on_delete=m.PROTECT)
+    user = m.ForeignKey(DraughtPicksUser, related_name='beer_profiles', on_delete=m.PROTECT)
     created_at = m.DateTimeField(auto_now_add=True)
     beer_learning = m.OneToOneField('beers.BeerLearning', blank=True, null=True, on_delete=m.PROTECT)
+
+    class Meta:
+        # Keep original name of the table to prevent unnecessary migrations. Model was renamed to BeerProfile
+        db_table = 'users_beerpreferences'
 
     def save(self, *args, **kwargs):
         """
@@ -174,7 +178,7 @@ class BeerPreferences(m.Model):
         self.user.recommended_beers.clear()
         for b in beers:
             RecommendedBeer.objects.create(user=self.user, beer=b, percent_match=self.get_percent_match(b, cols))
-        super(BeerPreferences, self).save(*args, **kwargs)
+        super(BeerProfile, self).save(*args, **kwargs)
 
     def get_percent_match(self, beer, cols):
         """
