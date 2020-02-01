@@ -5,6 +5,7 @@ pipeline {
     PROJECT_NAME="draught-picks-backend"
     LANG="en_US.UTF-8"
     PYTHONIOENCODING="UTF-8"
+    JOB_BASE_NAME = "${env.CHANGE_BRANCH}"
   }
   stages {
     stage('env') {
