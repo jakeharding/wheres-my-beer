@@ -10,24 +10,26 @@ Author(s) of this file:
 Models pertaining to users.
 """
 import uuid
-#import tensorflow as tf
+import tensorflow as tf
 import numpy as np
 import pandas as pd
 
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.tokens import default_token_generator
 from django.db import models as m
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
+from django.utils.http import urlsafe_base64_encode
 
 from rest_framework.authtoken.models import Token
 from simple_email_confirmation.models import SimpleEmailConfirmationUserMixin, AbstractEmailAddress
 
 from description_parser.Grammar import DescriptionParser
 from beers.models import BeerLearning, Beer, RecommendedBeer
-#from tf_model import k_means, cluster_indices, ids
+from tf_model import k_means, cluster_indices, ids
 
 
 class EmailAddress(AbstractEmailAddress):
@@ -35,6 +37,26 @@ class EmailAddress(AbstractEmailAddress):
 
     def __str__(self):
         return self.email
+
+    def send_password_reset_email(self):
+        cxt = {
+            'reset_link': '%s/password-reset/%s/%s' % (settings.CLIENT_DOMAIN,
+                                                       urlsafe_base64_encode(bytearray(
+                                                           str(self.user.uuid),
+                                                           encoding='utf8')).encode().decode(),
+                                                       default_token_generator.make_token(self.user)),
+            'expire': settings.PASSWORD_RESET_TIMEOUT_DAYS * 24
+        }
+        html_msg = render_to_string('email/password-reset/password-reset.html', context=cxt)
+        text_msg = render_to_string('email/password-reset/password-reset.txt', context=cxt)
+
+        send_mail(
+            'DraughtPicks.beer - Password Reset',
+            text_msg,
+            settings.DEFAULT_FROM_EMAIL,
+            [self.email],
+            html_message=html_msg
+        )
 
 
 class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
@@ -79,7 +101,7 @@ class DraughtPicksUser(SimpleEmailConfirmationUserMixin, AbstractUser):
         )
 
 
-class BeerPreferences(m.Model):
+class BeerProfile(m.Model):
     """
     This class is the blueprint for the beer preference
     """
@@ -89,9 +111,13 @@ class BeerPreferences(m.Model):
     ibu_low = m.IntegerField(null=True, blank=True)
     ibu_hi = m.IntegerField(null=True, blank=True)
     like_description = m.TextField(null=True, blank=True)
-    user = m.ForeignKey(DraughtPicksUser, related_name='beer_preferences', on_delete=m.PROTECT)
+    user = m.ForeignKey(DraughtPicksUser, related_name='beer_profiles', on_delete=m.PROTECT)
     created_at = m.DateTimeField(auto_now_add=True)
     beer_learning = m.OneToOneField('beers.BeerLearning', blank=True, null=True, on_delete=m.PROTECT)
+
+    class Meta:
+        # Keep original name of the table to prevent unnecessary migrations. Model was renamed to BeerProfile
+        db_table = 'users_beerpreferences'
 
     def save(self, *args, **kwargs):
         """
@@ -152,7 +178,7 @@ class BeerPreferences(m.Model):
         self.user.recommended_beers.clear()
         for b in beers:
             RecommendedBeer.objects.create(user=self.user, beer=b, percent_match=self.get_percent_match(b, cols))
-        super(BeerPreferences, self).save(*args, **kwargs)
+        super(BeerProfile, self).save(*args, **kwargs)
 
     def get_percent_match(self, beer, cols):
         """

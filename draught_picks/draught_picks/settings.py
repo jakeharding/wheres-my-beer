@@ -183,7 +183,7 @@ LOGGING = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'no-reply@draughtpicks.beer'
-CLIENT_DOMAIN = 'http://localhost:8100'
+CLIENT_DOMAIN = 'http://localhost:4200'
 STATIC_SERVER = 'http://192.168.0.34:8000'
 REST_API_VERSION = 'dev'
 
@@ -195,6 +195,7 @@ PREMAILER_OPTIONS = {
 # simple email settings
 SIMPLE_EMAIL_CONFIRMATION_PERIOD = timedelta(days=1)
 SIMPLE_EMAIL_CONFIRMATION_EMAIL_ADDRESS_MODEL = 'users.EmailAddress'
+PASSWORD_RESET_TIMEOUT_DAYS = 1
 
 try:
     from .local_settings import *

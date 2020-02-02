@@ -240,7 +240,7 @@ class RecentBeerSet(CreateModelMixin, ListModelMixin, GenericViewSet):
         :param kwargs:
         :return:
         """
-        qs = self.request.user.recent_beers.distinct()
+        qs = self.request.user.recent_beers.order_by('-recentbeer__created_at')
         page = self.paginate_queryset(qs)
 
         if page is not None:

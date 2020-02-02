@@ -12,8 +12,13 @@ Expose user models through a REST API.
 
 import logging
 
+from django.contrib.auth.tokens import default_token_generator
+from django.shortcuts import get_object_or_404
 from django.views.generic.base import TemplateView
 from django.conf import settings
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.exceptions import ValidationError
 from rest_framework.response import Response
 
@@ -23,9 +28,9 @@ from rest_framework.permissions import AllowAny
 from rest_framework.decorators import action
 from simple_email_confirmation.exceptions import EmailConfirmationExpired
 
-from users.serializers import UserSerializer, BeerPreferencesSerializer
+from users.serializers import UserSerializer, BeerProfileSerializer, PasswordResetSerializer
 
-from .models import DraughtPicksUser, BeerPreferences, EmailAddress
+from .models import DraughtPicksUser, BeerProfile, EmailAddress
 
 logger = logging.getLogger('users.views')
 
@@ -42,6 +47,26 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         :return: queryset the user has access to.
         """
         return DraughtPicksUser.objects.filter(id=self.request.user.id)
+
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny], url_path='change-password',
+            serializer_class=PasswordResetSerializer)
+    def change_password(self, request):
+        serial = PasswordResetSerializer(data=request.data)
+        if serial.is_valid(raise_exception=True):
+            user = get_object_or_404(DraughtPicksUser, **{'uuid': serial.data.get('b64')})
+            if default_token_generator.check_token(user, serial.data.get('token')):
+                user.set_password(serial.data.get('password'))
+                user.save()
+                return Response(data=serial.data)
+        return Response(status=status.HTTP_400_BAD_REQUEST, data=serial.errors)
+
+    @action(detail=False, methods=['post'], permission_classes=[AllowAny], url_path='password-reset-email')
+    def password_reset_email(self, request):
+        email = EmailAddress.objects.filter(email=request.data.get('email')).first()
+        if not email:
+            raise ValidationError('Unable to send email.')
+        email.send_password_reset_email()
+        return Response({})
 
     @action(detail=False, methods=['put'], permission_classes=[AllowAny], url_path='confirm-email')
     def confirm_email(self, request):
@@ -67,9 +92,9 @@ class UserViewSet(CreateModelMixin, ListModelMixin, UpdateModelMixin, RetrieveMo
         return Response({"email": "Please check your inbox for the email."})
 
 
-class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
-    serializer_class = BeerPreferencesSerializer
-    queryset = BeerPreferences.objects.all()
+class BeerProfileViewSet(CreateModelMixin, UpdateModelMixin, ListModelMixin, RetrieveModelMixin, GenericViewSet):
+    serializer_class = BeerProfileSerializer
+    queryset = BeerProfile.objects.all()
     lookup_field = 'uuid'
     permission_classes = (AllowAny, )
 
@@ -78,7 +103,7 @@ class UserBeerPreferencesSet(CreateModelMixin, UpdateModelMixin, ListModelMixin,
         Only allow users access to their user instance.
         :return: queryset the user has access to.
         """
-        return BeerPreferences.objects.filter(user__id=self.request.user.id)
+        return BeerProfile.objects.filter(user__id=self.request.user.id)
 
 
 class EmailTemplateView(TemplateView):
@@ -93,8 +118,22 @@ class EmailTemplateView(TemplateView):
     def get_context_data(self, **kwargs):
         kwargs = super().get_context_data(**kwargs)
         kwargs.update({
-            'domain_name': settings.CLIENT_DOMAIN,
-            'verify_link': 'link',
+            'domain_name': settings.CLIENT_DOMAIN,  # To build URLs back to frontend
+            'confirm_link': 'link',  # For email confirmation
             'to_email': 'test@test.com',
+            'reset_link': 'reset'  # For password reset email
         })
         return kwargs
+
+
+class LoginView(ObtainAuthToken):
+
+    def post(self, request, *args, **kwargs):
+        response = super(LoginView, self).post(request, *args, **kwargs)
+        user = Token.objects.get(key=response.data.get('token')).user
+        # If any email exists that has been confirmed, allow login
+        if user.email_address_set.filter(confirmed_at__isnull=False).exists():
+            return response
+        return Response(status=status.HTTP_400_BAD_REQUEST, data={
+            'non_field_error': ['Unable to login. Have you confirmed your email address?']
+        })

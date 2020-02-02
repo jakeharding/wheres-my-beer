@@ -26,5 +26,5 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += [
-        re_path('email/templates/(?P<name>\w+)/', EmailTemplateView.as_view())
+        re_path('email/templates/(?P<name>.*)/', EmailTemplateView.as_view())
     ]
