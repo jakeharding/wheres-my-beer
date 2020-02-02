@@ -61,8 +61,8 @@
             <h2>Thanks for registering with Draught Picks!</h2>
 
             <p>
-              You are receiving this message because {{  to_email }} was used to register an account at <a href="{{ domain_name }}">{{  domain_name }}</a>.
-              If you did not wish to register for an account at <a href="{{ domain_name }}">{{  domain_name }}</a>, please disregard this message.
+              You are receiving this message because {{  to_email }} was used to register an account at <a href="{{ domain_name }}">DraughtPicks.Beer</a>.
+              If you did not wish to register for an account at <a href="{{ domain_name }}">DraughtPicks.Beer</a>, please disregard this message.
             </p>
             <p>
               We ask you confirm your email for security purposes should we need to reset your password.
@@ -73,6 +73,10 @@
               Please confirm you own the email address, {{ to_email  }}, by clicking the link below.
             </p>
             <a href="{{ confirm_link }}">Confirm you own {{ to_email }}</a>
+            <p>
+              If the above link doesn't work, please copy and paste the link below into a browser.
+            </p>
+            <p>{{ confirm_link }}</p>
           </td>
         </tr>
 
