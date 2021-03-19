@@ -11,7 +11,7 @@ django-cors-headers==2.1.0
 django-filter==2.2.0
 django-premailer==0.2.0
 django-simple-email-confirmation==0.60
-djangorestframework==3.10.2
+djangorestframework==3.11.2
 et-xmlfile==1.0.1
 gast==0.2.0
 grpcio==1.11.0
